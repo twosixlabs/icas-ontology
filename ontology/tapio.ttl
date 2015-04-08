@@ -1,0 +1,187 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix dc: <http://purl.org/dc/elements/1.1/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix owl2: <http://www.w3.org/2006/12/owl2#> .
+@prefix swrlx: <http://www.w3.org/2003/11/swrlx#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+@prefix nic: <http://www.invincea.com/ontologies/icas/1.0/nic#> .
+@prefix log: <http://www.invincea.com/ontologies/icas/1.0/log#> .
+@prefix filesystem: <http://www.invincea.com/ontologies/icas/1.0/filesystem#> .
+@prefix privilege: <http://www.invincea.com/ontologies/icas/1.0/privilege#> .
+@prefix memory: <http://www.invincea.com/ontologies/icas/1.0/memory#> .
+@prefix memoryartifacts: <http://www.invincea.com/ontologies/icas/1.0/memoryartifacts#> .
+@prefix osplatform: <http://www.invincea.com/ontologies/icas/1.0/osplatform#> .
+@prefix hardware: <http://www.invincea.com/ontologies/icas/1.0/hardware#> .
+@prefix dhcp: <http://www.invincea.com/ontologies/icas/1.0/dhcp#> .
+@prefix email: <http://www.invincea.com/ontologies/icas/1.0/email#> .
+@prefix acl: <http://www.invincea.com/ontologies/icas/1.0/acl#> .
+@prefix dns: <http://www.invincea.com/ontologies/icas/1.0/dns#> .
+@prefix oui: <http://www.invincea.com/ontologies/icas/1.0/oui#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix user: <http://www.invincea.com/ontologies/icas/1.0/user#> .
+@prefix ipnet: <http://www.invincea.com/ontologies/icas/1.0/ipnet#> .
+@prefix registry: <http://www.invincea.com/ontologies/icas/1.0/registry#> .
+@prefix mime: <http://www.invincea.com/ontologies/icas/1.0/mime#> .
+@prefix uri: <http://www.invincea.com/ontologies/icas/1.0/uri#> .
+@prefix software: <http://www.invincea.com/ontologies/icas/1.0/software#> .
+@prefix process: <http://www.invincea.com/ontologies/icas/1.0/process#> .
+@prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
+@prefix metadata: <http://www.invincea.com/ontologies/icas/1.0/metadata#> .
+
+@prefix : <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
+@base <http://www.invincea.com/ontologies/icas/1.0/tapio> .
+
+<http://www.invincea.com/ontologies/icas/1.0/tapio> 
+			rdf:type owl:Ontology ;
+            rdfs:label "TAPIO support ontology"@en ;
+            rdfs:comment "Describes annotationns and resources that map these ontologies into the TAPIO software."@en ;
+			dc:description "Describes annotationns and resources that map these ontologies into the TAPIO software."@en ;
+    		owl:versionInfo "1.0" ;
+    		dc:creator: "Invincea Labs"@en ;
+    		dc:date "2014" ;	
+            owl:imports <http://www.invincea.com/ontologies/icas/1.0/acl> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/authentication> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/controls> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/datastream> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/dhcp> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/dns> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/email> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/event> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/filesystem> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/filesystemartifacts> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/hardware> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/host> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/indicators> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/ipnet> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/log> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/memory> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/memoryartifacts> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/mime> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/nic> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/osplatform> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/oui> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/privilege> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/process> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/registry> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/software> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/uri> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/user> ,
+                        <http://www.invincea.com/ontologies/icas/1.0/metadata> .
+
+:signature
+			rdf:type owl:FunctionalProperty, owl:DatatypeProperty ;
+			rdfs:label "Signature for variable resolution"@en ;
+			rdfs:domain owl:Class ;
+			rdfs:range xsd:string .
+
+:Agent 
+			rdf:type owl:Class ;
+			rdfs:label "TAPIO Agent"@en ;
+			rdfs:comment "A TAPIO Agent instance"@en ;
+			rdfs:comment " "@en . 
+
+:AgentSnapshot 	
+			rdf:type owl:Class ;
+			rdfs:label "Agent Snapshot"@en ;
+			rdfs:comment "A point-in-time snapshot image, in graph data format, from a single TAPIO Agent"@en ;
+			rdfs:subClassOf owl:Thing .
+
+:recordedBy 	
+			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
+			rdfs:label "recorded by"@en ;
+			rdfs:comment "The TAPIO Agent this snapshot was recorded by."@en ;
+			rdfs:range :Agent ;
+			rdfs:domain :AgentSnapshot ;
+			owl:inverseOf :recordedSnapshot .
+
+:recordedSnapshot
+			rdf:type owl:InverseFunctionalProperty ,  owl:ObjectProperty ;
+			rdfs:label "created snapshot"@en ;
+			rdfs:domain :Agent ;
+			rdfs:range :AgentSnapshot ;
+			owl:inverseOf :recordedBy .
+
+:runningOnHost 	
+			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
+			rdfs:label "is running on host"@en ;
+			rdfs:comment "The Host this TAPIO agent is installed on"@en ;
+			rdfs:range host:Host ;
+			rdfs:domain :Agent .
+
+:agentID 	
+			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
+			rdfs:label "has Agent ID"@en ;
+			rdfs:comment "The Unique ID for this TAPIO Agent."@en ;
+			rdfs:domain :Agent ;
+			rdfs:range xsd:normalizedString .
+
+:signaturePriority
+			rdf:type owl:DatatypeProperty ;
+			rdfs:label "has signature priority"@en ;
+			rdfs:comment "The signature priority is a literal associated with properties in each ontology. It helps assess similarity when trying to match graph fragments with nodes in the full graph"@en ;
+			rdfs:range xsd:positiveInteger .
+
+:recordedAt 	
+			rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+			rdfs:label "recorded during"@en ;
+			rdfs:comment "when this node was first observed and added"@en ;
+			rdfs:domain :AgentSnapshot ;
+			rdfs:range time:Interval .
+
+:usage 		
+			rdf:type owl:AnnotationProperty ;
+			rdfs:label "usage: "@en ;
+			rdfs:comment "Notes on usage within TAPIO"@en .
+
+:dfirNote 	
+			rdf:type owl:AnnotationProperty ;
+			rdfs:label "Note to Analyst"@en ;
+			rdfs:comment "This annotation is used to document information about objects and relations that is of relevance to a DFIR analyst, and outside the scope of the usual comment annotation. (which should be used to describe what something is)"@en .
+
+:iconSmall 	
+			rdf:type owl:AnnotationProperty ;
+			rdfs:label "location of the small-format icon to use for display this class"@en .
+
+:iconLarge 	
+			rdf:type owl:AnnotationProperty ;
+			rdfs:label "large icon"@en ;
+			rdfs:comment "location of the large-format icon to use for displaying this Class"@en .
+
+:linkColor 	
+			rdf:type owl:AnnotationProperty ;
+			rdfs:label "link color"@en ;
+			rdfs:comment "default color to draw this object property with"@en .
+
+:linkStyle 	
+			rdf:type owl:AnnotationProperty ;
+			rdfs:label "Link Style"@en ;
+			rdfs:comment "default style to draw this object property with"@en ;
+			rdfs:range xsd:normalizedString .
+
+#Named Graph Properties
+
+:fromHostGraph  
+			rdf:type owl:AnnotationProperty ;
+			rdfs:label "subgraph for Host Graph"@en ;
+			rdfs:comment "Gives the Identity of the Host Graph this property reification subgraph belongs to"@en .
+
+:generatedBy 	
+			rdf:type owl:AnnotationProperty ;
+			rdfs:label "was generated by module"@en ;
+			rdfs:comment "the TAPIO module that created this triple"@en .
+
+:generatedOn 	
+			rdf:type owl:AnnotationProperty ;
+			rdfs:label "generated on"@en ;
+			rdfs:comment "The timestamp this triple was recorded on"@en .
+
+:expiresAfter
+			rdf:type owl:AnnotationProperty ;
+			rdfs:label "expires after"@en ;
+			rdfs:comment "the time duration this information should be considered valid for"@en .

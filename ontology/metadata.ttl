@@ -1,0 +1,37 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+
+@prefix : <http://www.invincea.com/ontologies/icas/1.0/metadata#> .
+@base <http://www.invincea.com/ontologies/icas/1.0/metadata> .
+
+<http://www.invincea.com/ontologies/icas/1.0/metadata>
+			rdf:type owl:Ontology ;
+			rdfs:label "Metadata Ontology"@en ;
+			rdfs:comment ""@en ;
+			dc:description ""@en ;
+    		owl:versionInfo "1.0" ;
+    		dc:creator: "Invincea Labs"@en ;
+    		dc:date "2015" .
+
+:Store
+            rdf:type owl:Class;
+			rdfs:label ""@en ;
+			rdfs:comment ""@en .
+
+:hasTag
+            rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+			rdfs:label ""@en ;
+			rdfs:comment ""@en ;
+			rdfs:domain :Store ;
+			rdfs:range xsd:string .
+
+:ObservedEvent
+            rdf:type owl:Class ;
+            rdfs:subClassOf event:Event ;
+            rdfs:label "Hour the metadata was observed."@en ;
+            rdfs:comment "Hour the metadata was observed."@en .

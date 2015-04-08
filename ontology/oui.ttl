@@ -1,0 +1,59 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix dc: <http://purl.org/dc/elements/1.1/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix owl2: <http://www.w3.org/2006/12/owl2#> .
+@prefix swrlx: <http://www.w3.org/2003/11/swrlx#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+@prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
+@prefix nic: <http://www.invincea.com/ontologies/icas/1.0/nic#> .
+@prefix : <http://www.invincea.com/ontologies/icas/1.0/oui#> .
+@base <http://www.invincea.com/ontologies/icas/1.0/oui> .
+
+
+<http://www.invincea.com/ontologies/icas/1.0/oui>
+			rdf:type owl:Ontology ;
+			rdfs:label "Organizationally Unique Identifier Ontology"@en ;
+			rdfs:comment "Describes OUI numbers that match hardware interfaces to their manufacturer."@en ;
+			dc:description "Describes OUI numbers that match hardware interfaces to their manufacturer."@en ;
+			owl:versionInfo "1.0" ;
+			dc:creator: "Invincea Labs"@en ;
+			dc:date "2014" .
+			
+:OUI 
+			rdf:type owl:Class ;
+			rdfs:subClassOf owl:Thing ;
+			rdfs:comment "OUI's are used to identify the manufacturer of network equipment via the physical address they present to the network, and assist that addressing collisions do not occur between manufacturers"@en ;
+			rdfs:label "Organizationally Unique Identifier"@en .
+
+:OUId 
+			rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+			rdfs:domain :OUI ;
+			rdfs:label "OUI Value"@en ;
+			rdfs:range xsd:hexBinary .
+
+:Vendor 
+			rdf:type owl:Class ;
+			rdfs:subClassOf owl:Thing ;
+			rdfs:label "Vendor"@en .
+
+:issuedToVendor   
+			rdf:type owl:FunctionalProperty, owl:ObjectProperty ;
+			rdfs:label "is registered with"@en ;
+			rdfs:comment "the organization this OID is registered with to serialize their products with."@en ;
+			rdfs:domain :OUI ;
+			rdfs:range :Vendor ;
+			owl:inverseOf :ownsOUI .
+
+:ownsOUI   
+			rdf:type owl:InverseFunctionalProperty, owl:ObjectProperty ;
+			rdfs:label "owns the following OUI"@en ;
+			rdfs:domain :Vendor ;
+			rdfs:range :OUI ;
+			owl:inverseOf :issuedToVendor .
+

@@ -1,0 +1,409 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix dc: <http://purl.org/dc/elements/1.1/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix owl2: <http://www.w3.org/2006/12/owl2#> .
+@prefix swrlx: <http://www.w3.org/2003/11/swrlx#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+@prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
+@prefix dns: <http://www.invincea.com/ontologies/icas/1.0/dns#> .
+@prefix : <http://www.invincea.com/ontologies/icas/1.0/cybox#> .
+@base <http://www.invincea.com/ontologies/icas/1.0/cybox> .
+
+<http://www.invincea.com/ontologies/icas/1.0/cybox>
+			rdf:type owl:Ontology ;
+			rdfs:label "CYBOX ontology"@en ;
+			owl:versionInfo "1.0"@en ;
+			rdfs:comment "Ontology for CYBer Observable eXpressions"@en .
+
+			
+:Object
+			rdf:type owl:Class ;
+			rdfs:label "CYBOX Object"@en ;
+			rdfs:subClassOf owl:Thing .
+
+:Observable
+			rdf:type owl:Class ;
+			rdfs:label "CYBXO Observable"@en ;            
+			rdfs:subClassOf owl:Thing .
+
+:API
+			rdf:type owl:Class ;
+			rdfs:label "API"@en ;
+			rdfs:subClassOf :Object .
+
+:Account
+			rdf:type owl:Class ;
+			rdfs:label "Account"@en ;
+			rdfs:subClassOf :Object .
+
+:Action 
+			rdf:type owl:Class ;
+			rdfs:label "Action"@en ;
+			rdfs:subClassOf owl:Thing .
+
+:Artifact
+			rdf:type owl:Class ;
+			rdfs:label "Artifact"@en ;          
+			rdfs:subClassOf :Object .
+
+:Code
+			rdf:type owl:Class ;
+			rdfs:label "Code"@en ;      
+			rdfs:subClassOf :Object .
+
+:Custom
+			rdf:type owl:Class ;
+			rdfs:label "Custom"@en ;        
+			rdfs:subClassOf :Object .
+
+:DNScache
+			rdf:type owl:Class ;
+			rdfs:label "DNS Cache"@en ;          
+			rdfs:subClassOf :Object .
+
+:DNSrecord
+			rdf:type owl:Class ;
+			rdfs:label "DNS Record"@en ;           
+			rdfs:subClassOf :Object .
+
+:Device 
+			rdf:type owl:Class ;
+			rdfs:label "Device"@en ;        
+			rdfs:subClassOf :Object .
+
+:Disk 
+			rdf:type owl:Class ;
+			rdfs:label "Disk"@en ;      
+			rdfs:subClassOf :Object .
+
+:DiskPartition 
+			rdf:type owl:Class ;
+			rdfs:label "Disk Partion"@en ;               
+			rdfs:subClassOf :Object .
+
+:EmailMessage
+			rdf:type owl:Class ;
+			rdfs:label "Email Account"@en ;              
+			rdfs:subClassOf :Object .
+
+:Event 
+			rdf:type owl:Class ;
+			rdfs:label "Event"@en ;       
+			rdfs:subClassOf event:Event .
+
+:File 
+			rdf:type owl:Class ;
+			rdfs:label "File"@en ;
+			rdfs:subClassOf :Object .
+
+:GUIdialogBox
+			rdf:type owl:Class ;
+			rdfs:label "GUI Dialog Box"@en ;
+			rdfs:subClassOf :Object .
+
+:GUIobject
+			rdf:type owl:Class ;
+			rdfs:label "GUI Object"@en ;           
+			rdfs:subClassOf :Object .
+
+:GUIwindow
+			rdf:type owl:Class ;
+			rdfs:label "GUI Window"@en ;           
+			rdfs:subClassOf :Object .
+
+:HTTPsession
+			rdf:type owl:Class ;
+			rdfs:label "HTTP Session"@en ;
+			rdfs:subClassOf :Event .
+
+:Library
+			rdf:type owl:Class ;
+			rdfs:label "Link"@en ;
+			rdfs:subClassOf :Object .
+
+:LinuxPackage
+			rdf:type owl:Class ;
+			rdfs:label "Linux Package"@en ;              
+			rdfs:subClassOf :Object .
+
+:Memory 
+			rdf:type owl:Class ;
+			rdfs:label "Memory"@en ;        
+			rdfs:subClassOf :Object .
+
+:Mutex 
+			rdf:type owl:Class ;
+			rdfs:label "Mutex"@en ;       
+			rdfs:subClassOf :Object .
+
+:NetworkConnection
+			rdf:type owl:Class ;
+			rdfs:label "Network Connection"@en ;                   
+			rdfs:subClassOf :Object .
+
+:NetworkFlow
+			rdf:type owl:Class ;
+			rdfs:label "Network Flow"@en ;             
+			rdfs:subClassOf :Object .
+
+:WindowsKernelHook
+			rdf:type owl:Class ;
+			rdfs:label "Windows Kernel Hook"@en ;                   
+			rdfs:subClassOf :Object .
+
+:WindowsMailSlot
+			rdf:type owl:Class ;                 
+			rdfs:label "Windows Mail Slot"@en ;                    
+			rdfs:subClassOf :Object .
+
+:WindowsMemoryPageRegion
+			rdf:type owl:Class ;    
+			rdfs:label "Windows Memory Page Region"@en ;                   
+			rdfs:subClassOf :Object .
+
+:WindowsNetworkShare
+			rdf:type owl:Class ;                     
+			rdfs:label "Windows Network Share"@en ;                   
+			rdfs:subClassOf :Object .
+
+:WindowsPipe
+			rdf:type owl:Class ;
+			rdfs:label "Windows Pipe"@en ;
+			rdfs:subClassOf :Object .
+
+:WindowsPrefetch
+			rdf:type owl:Class ;
+			rdfs:label "Windows Prefetch"@en ;
+			rdfs:subClassOf :Object .
+
+:WindowsRegistryKey
+			rdf:type owl:Class ;
+			rdfs:label "Windows Registry Key"@en ; 
+			rdfs:subClassOf :Object .
+
+:WindowsSystemRestore 
+			rdf:type owl:Class ;
+			rdfs:label "Windows System Restore"@en ;
+			rdfs:subClassOf :Object .
+
+:WindowsWaitableTimer
+			rdf:type owl:Class ;
+			rdfs:label "Windows Waitable Timer"@en ;
+			rdfs:subClassOf :Object .
+
+:X509Certificate
+			rdf:type owl:Class ;
+			rdfs:label "X.509 Certificate"@en ;
+			rdfs:subClassOf :Object .
+
+:Link
+			rdf:type owl:Class ;
+			rdfs:label "Link"@en ;   		
+			rdfs:subClassOf :File .
+
+:NetworkPacket
+			rdf:type owl:Class ;
+			rdfs:label "Network Packet"@en ;
+			rdfs:subClassOf :Object .
+
+:NetworkRoute
+			rdf:type owl:Class ;
+			rdfs:label "Network Route"@en ;   
+			rdfs:subClassOf :Object .
+
+:NetworkRouteEntry
+			rdf:type owl:Class ;
+			rdfs:label "Network Route Entry"@en ;   
+			rdfs:subClassOf :Object .
+
+:NetworkSocket
+			rdf:type owl:Class ;
+			rdfs:label "Network Socket"@en ;   
+			rdfs:subClassOf :Object .
+
+:NetworkSubnet
+			rdf:type owl:Class ;
+			rdfs:label "Network Subnet"@en ;
+			rdfs:subClassOf :Object .
+
+:PDFfile
+			rdf:type owl:Class ;
+			rdfs:label "PDF File"@en ;   
+			rdfs:subClassOf :Object .
+
+:Port
+			rdf:type owl:Class ;
+			rdfs:label "Port"@en ;
+			rdfs:subClassOf :Object .
+
+:Process
+			rdf:type owl:Class ;
+			rdfs:label "Process`"@en ;
+			rdfs:subClassOf :Object .
+
+:Product
+			rdf:type owl:Class ;
+			rdfs:label "Product"@en ;
+			rdfs:subClassOf :Object .
+
+:Semaphore
+			rdf:type owl:Class ;
+			rdfs:label "Semaphore"@en ;
+			rdfs:subClassOf :Object .
+
+:SocketAddress
+			rdf:type owl:Class ;
+			rdfs:label "Socket Address"@en ;
+			rdfs:subClassOf :Object .
+
+:System
+			rdf:type owl:Class ;
+			rdfs:label "System"@en ;
+			rdfs:subClassOf :Object .
+
+:UNIXaccount
+			rdf:type owl:Class ;
+			rdfs:label "UNIX Account"@en ;
+			rdfs:subClassOf :Account .
+
+:UNIXfile
+			rdf:type owl:Class ;
+			rdfs:label "UNIX filesystem file"@en ;
+			rdfs:subClassOf :File .
+
+:UNIXnetworkRoute 
+			rdf:type owl:Class ;                            
+			rdfs:label "UNIX Network Route"@en ;
+			rdfs:subClassOf :NetworkRoute .
+
+:UNIXpipe
+			rdf:type owl:Class ;
+			rdfs:label "UNIX Pipe"@en ;
+			rdfs:subClassOf :Object .
+
+:UNIXprocess
+			rdf:type owl:Class ;
+			rdfs:label "UNIX Process"@en ;
+			rdfs:subClassOf :Process .
+
+:UNIXsession 
+			rdf:type owl:Class ;
+			rdfs:label "UNIX Session"@en ;
+			rdfs:subClassOf :Object .
+
+:UNIXvolume 
+			rdf:type owl:Class ;
+			rdfs:label "UNIX Volume"@en ;
+			rdfs:subClassOf :Volume .
+
+:URI 
+			rdf:type owl:Class ;
+			rdfs:label "URI"@en ;
+			rdfs:subClassOf :Object .
+
+:Volume 
+			rdf:type owl:Class ;
+			rdfs:label "VOlume"@en ;
+			rdfs:subClassOf :Object .
+
+:Whois 
+			rdf:type owl:Class ;
+			rdfs:label "Whois"@en ;
+			rdfs:subClassOf :Object .
+
+:WindowsAccount 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Account"@en ;
+			rdfs:subClassOf :Account .
+
+:WindowsCriticalSection 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Critical Section"@en ;
+			rdfs:subClassOf :Object .
+
+:WindowsDriver 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Driver"@en ;
+			rdfs:subClassOf :Object .
+
+:WindowsEvent 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Event"@en ;
+			rdfs:subClassOf :WindowsEventLog .
+
+:WindowsEventLog 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Event foaf:logo"@en ;
+			rdfs:subClassOf :Object .
+
+:WindowsExecutable 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Executable"@en ;
+			rdfs:subClassOf :WindowsFile .
+
+:WindowsFile 
+			rdf:type owl:Class ;
+			rdfs:label "Windows File"@en ;
+			rdfs:subClassOf :File .
+
+:WindowsHandle 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Handle"@en ;
+			rdfs:subClassOf :Object .
+
+:WindowsKernel 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Kernel"@en ;
+			rdfs:subClassOf :Object .
+
+:WindowsMutex 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Mutex"@en ;
+			rdfs:subClassOf :Mutex .
+
+:WindowsNetworkRoute 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Network Route"@en ;
+			rdfs:subClassOf :NetworkRoute .
+
+:WindowsProcess 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Process"@en ;
+			rdfs:subClassOf :Process .
+
+:WindowsSemaphore 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Semaphore"@en ;
+			rdfs:subClassOf :Semaphore .
+
+:WindowsService 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Service"@en ;
+			rdfs:subClassOf :WindowsProcess .
+
+:WindowsSystem 
+			rdf:type owl:Class ;
+			rdfs:label "Windows System"@en ;
+			rdfs:subClassOf :System .
+
+:WindowsThread 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Thread"@en ;
+			rdfs:subClassOf :WindowsProcess .
+
+:WindowsUserAccount 
+			rdf:type owl:Class ;  
+			rdfs:label "Windows User Account"@en ;                   
+			rdfs:subClassOf :WindowsAccount .
+
+:WindowsVolume 
+			rdf:type owl:Class ;
+			rdfs:label "Windows Volume"@en ;
+			rdfs:subClassOf :Volume .
+

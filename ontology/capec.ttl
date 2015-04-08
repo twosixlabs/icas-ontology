@@ -1,0 +1,110 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix dc: <http://purl.org/dc/elements/1.1/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix owl2: <http://www.w3.org/2006/12/owl2#> .
+@prefix swrlx: <http://www.w3.org/2003/11/swrlx#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+@prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
+@prefix : <http://www.invincea.com/ontologies/icas/1.0/capec#> .
+@base <http://www.invincea.com/ontologies/icas/1.0/capec> .
+
+<http://www.invincea.com/ontologies/icas/1.0/capec>
+			rdf:type owl:Ontology ;                                      
+			rdfs:label "Common Attack Pattern and Enumeration Ontology"@en ;                                                                          
+			rdfs:comment "Ontology for mapping CAPEC data into TAPIO"@en ;
+			dc:description "Ontology for mapping CAPEC data into TAPIO"@en ;
+			owl:versionInfo "1.0" ;
+			dc:creator: "Invincea Labs"@en ;
+			dc:date "2014" .
+
+			
+:AttackMechanism
+			rdf:type owl:Class ;                 
+			rdfs:label "Mechanism of Attack"@en ;                 
+			rdfs:subClassOf owl:Thing .
+
+:AttackPattern
+			rdf:type owl:Class ;               
+			rdfs:label "Attack Pattern"@en .
+
+:AuthenticationExploit
+			rdf:type owl:Class ;       
+			rdfs:label "Authentication Exploit"@en ;     
+			rdfs:subClassOf :AttackMechanism .
+
+:DataLeakage
+			rdf:type owl:Class ;     
+			rdfs:label "Data Leakage"@en ;     
+			rdfs:subClassOf :AttackMechanism .
+
+:DataStructure
+			rdf:type owl:Class ;   
+        	rdfs:label "Data Structure"@en ;     
+			rdfs:subClassOf :AttackMechanism .
+
+:FunctionalityAbuse
+			rdf:type owl:Class ;   
+			rdfs:label "Functionality Abuse"@en ;     
+			rdfs:subClassOf :AttackMechanism .
+
+:Injection
+			rdf:type owl:Class ;           
+			rdfs:label "Injection"@en ;     
+			rdfs:subClassOf :AttackMechanism .
+
+:NetworkRecon
+			rdf:type owl:Class ;    
+			rdfs:label "Network Recon"@en ;     
+			rdfs:subClassOf :AttackMechanism .
+
+:Physical
+			rdf:type owl:Class ;          
+			rdfs:label "Physical"@en ;     
+			rdfs:subClassOf :AttackMechanism .
+
+:PrivilegeExploit
+			rdf:type owl:Class ;
+			rdfs:label "Privilege Exploit"@en ;     
+			rdfs:subClassOf :AttackMechanism .
+
+:ProbabilisticTechnique
+			rdf:type owl:Class ;  
+			rdfs:label "Probabilistic Technique"@en ;     
+			rdfs:subClassOf :AttackMechanism .
+
+:ResourceDepletion
+			rdf:type owl:Class ;             
+			rdfs:label "Resource Depletion"@en ;     
+			rdfs:subClassOf :AttackMechanism .
+
+:ResourceManipulation
+			rdf:type owl:Class ;                      
+			rdfs:label "Resource Manipulation"@en ; 
+			rdfs:subClassOf :AttackMechanism .
+
+:SocielEngineering
+			rdf:type owl:Class ;                   
+			rdfs:label "Social Engineering"@en ; 
+			rdfs:subClassOf :AttackMechanism .
+
+:Spoofing
+			rdf:type owl:Class ;          
+			rdfs:label "SPoofing"@en ; 
+			rdfs:subClassOf :AttackMechanism .
+
+:SupplyChain
+			rdf:type owl:Class ;             
+			rdfs:label "Supply Chain"@en ; 
+			rdfs:subClassOf :AttackMechanism .
+
+:TimeAndState
+			rdf:type owl:Class ;   
+			rdfs:label "Time and State"@en ; 
+			rdfs:subClassOf :AttackMechanism .
+

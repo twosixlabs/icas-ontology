@@ -1,0 +1,31 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix dc: <http://purl.org/dc/elements/1.1/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix owl2: <http://www.w3.org/2006/12/owl2#> .
+@prefix swrlx: <http://www.w3.org/2003/11/swrlx#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+@prefix user: <http://www.invincea.com/ontologies/icas/1.0/user#> .
+@prefix : <http://www.invincea.com/ontologies/icas/1.0/user-applied#> .
+@prefix user-applied: <http://www.invincea.com/ontologies/icas/1.0/user-applied#> .
+@base <http://www.invincea.com/ontologies/icas/1.0/user-applied> .
+
+<http://www.invincea.com/ontologies/icas/1.0/user-applied> 
+			rdf:type owl:Ontology ;
+			rdfs:label "User Ontology - User Applied Elements"@en ;
+			owl:versionInfo "1.0"@en ;
+			rdfs:comment "This ontology contains additional predicates to the User ontology, intended to only be applied manually by a security analyst in the course of their work."@en ;
+			owl:imports <http://www.invincea.com/ontologies/icas/1.0/user> .
+
+
+:CompromisedUserAccount 
+			rdf:type owl:Class ;
+			rdfs:label "Compromised User Account"@en ;
+			rdfs:subClassOf user:UserAccount ;
+			rdfs:comment "This user account is under the control of a hostile party."@en .
+

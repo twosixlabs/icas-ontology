@@ -1,0 +1,417 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix dc: <http://purl.org/dc/elements/1.1/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix owl2: <http://www.w3.org/2006/12/owl2#> .
+@prefix swrlx: <http://www.w3.org/2003/11/swrlx#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix mere: <http://www.bbn.com/ontologies/domain/foundation/mereology#> .
+@prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
+@prefix nic: <http://www.invincea.com/ontologies/icas/1.0/nic#> .
+@prefix oui: <http://www.invincea.com/ontologies/icas/1.0/oui#> .
+@prefix log: <http://www.invincea.com/ontologies/icas/1.0/log#> .
+@prefix user: <http://www.invincea.com/ontologies/icas/1.0/user#> .
+@prefix filesystem: <http://www.invincea.com/ontologies/icas/1.0/filesystem#> .
+@prefix ipnet: <http://www.invincea.com/ontologies/icas/1.0/ipnet#> .
+@prefix authentication: <http://www.invincea.com/ontologies/icas/1.0/authentication#> .
+@prefix hardware: <http://www.invincea.com/ontologies/icas/1.0/hardware#> .
+@prefix mime: <http://www.invincea.com/ontologies/icas/1.0/mime#> .
+@prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
+@prefix : <http://www.invincea.com/ontologies/icas/1.0/process#> .
+@base <http://www.invincea.com/ontologies/icas/1.0/process> .
+
+<http://www.invincea.com/ontologies/icas/1.0/process> 
+			rdf:type owl:Ontology ;
+			rdfs:label "Process Execution Ontology"@en ;
+			rdfs:comment "Describes the general organizational structure of executing processes in an operating system. It principally presents processes from an end-user/userspace viewpoint, using the same information available in normal management tools."@en ;
+    		dc:description "Describes the general organizational structure of executing processes in an operating system. It principally presents processes from an end-user/userspace viewpoint, using the same information available in normal management tools."@en ;
+			owl:versionInfo "1.0" ;
+			dc:creator: "Invincea Labs"@en ;
+			dc:date "2014" ;
+			owl:imports <http://www.invincea.com/ontologies/icas/1.0/filesystem> ,
+						<http://www.invincea.com/ontologies/icas/1.0/host> ,
+						<http://www.invincea.com/ontologies/icas/1.0/ipnet> ,
+						<http://www.invincea.com/ontologies/icas/1.0/log> ,
+						<http://www.invincea.com/ontologies/icas/1.0/user> .
+
+:socketState 
+			rdf:type rdfs:Datatype , owl:FunctionalProperty ;
+			rdfs:label "Socket State"@en ;
+			rdfs:comment "The current state flag of a Socket, indicating the general behavior of the socket (listening, sending, attempting to connect, etc)"@en .
+
+:actualGID 
+			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
+			rdfs:label "was launched by group ID"@en ;
+			rdfs:domain :Process ;
+			rdfs:range user:Group .
+
+:actualUID 
+			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
+			rdfs:label "was launched by user ID"@en ;
+			rdfs:domain :Process ;
+			rdfs:range user:UserAccount .
+
+:boundByProcess 
+			rdf:type owl:ObjectProperty ;      
+			rdfs:label "was opened by process"@en ;
+			rdfs:comment "a socket must always be attached to a particular process, that will handle communications occurring over the socket and associated connection"@en ;
+			rdfs:domain :Socket ;
+			rdfs:range :Process ;
+			owl:inverseOf :boundToIPC ,  :boundToSocket .
+
+:boundToAddress 
+			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
+			rdfs:label "is attached to IP Address"@en ;
+			rdfs:comment "a Socket must be attached to an IP Address to send and recieve information"@en ;
+			rdfs:range ipnet:Address ;
+			rdfs:domain :Socket .
+
+:boundToIPC 
+			rdf:type owl:ObjectProperty ;
+			rdfs:label "has inter-process link"@en ;
+			rdfs:comment "this process is communicating with another process via an Interprocess Communication (IPC) method"@en ;
+			rdfs:range :IPC ;
+			rdfs:domain :Process ;
+			owl:inverseOf :boundByProcess .
+
+:boundToSocket 
+			rdf:type owl:InverseFunctionalProperty ,    owl:ObjectProperty ;
+			rdfs:label "has open socket"@en ;
+			rdfs:comment "identifies that this process has opened a socket (either send or receive) usually with an associated port number"@en ;
+			rdfs:domain :Process ;
+			rdfs:range :Socket ;
+			owl:inverseOf :boundByProcess .
+
+:currentWorkingDirectory 
+			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
+			rdfs:label "is using cuirrent working directory"@en ;
+			rdfs:comment "all processes have a 'base' working directory, from which all non-absolute file paths are constructed relative to."@en ;
+			rdfs:range filesystem:Directory ;
+			rdfs:domain :Process .
+
+:effectiveGID 
+			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
+			rdfs:label "is executing under effective group ID"@en ;
+			rdfs:comment "if launched with sufficient privileges, a process may then relinquish those privileges by switching identity to a lesser  privileged account, usually for security purposes."@en ;
+			rdfs:domain :Process ;
+			rdfs:range user:Group .
+
+:effectiveUID
+			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
+			rdfs:label "is executing under effective user ID"@en ;
+			rdfs:comment "if launched with sufficient privileges, a process may then relinquish those privileges by switching identity to a lesser  privileged account, usually for security purposes."@en ;
+			rdfs:domain :Process ;
+			rdfs:range user:UserAccount .
+
+:fromExecutable 
+			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
+			rdfs:label "was launched from executable file"@en ;
+			rdfs:comment "this process or shared object was created from executable code loaded from the listed file."@en ;
+			rdfs:range filesystem:FileName ;
+			rdfs:domain :Library ,  :Process .
+
+:hasSubProcess 
+			rdf:type owl:InverseFunctionalProperty ,   owl:ObjectProperty ;
+			rdfs:label "has Sub-Process"@en ;
+			rdfs:comment "this process or process table has a child process"@en ;
+			rdfs:subPropertyOf mere:directlyHasPart ;
+			rdfs:range :Process ;
+			rdfs:domain :Process ,  :ProcessList ;
+			owl:inverseOf :isSubProcessOf .
+
+:hasThread 
+			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
+			rdfs:label "has thread"@en ;
+			rdfs:comment "this process has threads - simultaneously-executing portions of itself."@en ;
+			rdfs:subPropertyOf mere:directlyHasPart ;
+			rdfs:domain :Process , :Thread ;
+			rdfs:range :Thread .
+
+:hooksInto 
+			rdf:type owl:ObjectProperty ;
+			rdfs:label "hooks into"@en ;
+			rdfs:range :Library ;
+			rdfs:domain :Library ,  :Process .
+
+:imports 
+			rdf:type owl:ObjectProperty ;
+			rdfs:label "imports"@en ;
+			rdfs:comment "this process imports a shared resource (usually a code library). This link does not indicate that this process was the first to load the shared resource into memory, only that it is accessing it."@en ;
+			rdfs:range :Library ;
+			rdfs:domain :Process .
+
+:isSubProcessOf 
+			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
+			rdfs:label "is Sub-Process of"@en ;
+			rdfs:comment "the process that launched this process. A parent process usually has control over standard I/O of child processes and their environment variables."@en ;
+			rdfs:subPropertyOf mere:directlyPartOf ;
+			rdfs:range :Process ;
+			rdfs:domain :Process ;
+			rdfs:range :ProcessList .
+
+:logsTo 
+			rdf:type owl:ObjectProperty ;
+			rdfs:label "records log to"@en ;
+			rdfs:comment "indicates where a process outputs log information to - either a specific log schema object, or a simple file."@en ;
+			rdfs:range log:Log ;
+			rdfs:domain :Process .
+
+:onHost 
+			tapio:signaturePriority 2 ;
+			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
+			rdfs:label "is the process table from"@en ;
+			rdfs:comment "Indicates the Host (the combination of hardware and OS), this process table was recorded from."@en ;
+			rdfs:range host:Host ;
+			owl:inverseOf host:hasProcessList ;
+			rdfs:domain :ProcessList .
+
+:openHandle 
+			rdf:type owl:ObjectProperty ;
+			rdfs:label "is accessing file"@en ;
+			rdfs:comment "this process  is accesing a particular file, via a file handle"@en ;
+			rdfs:range filesystem:FileName ;
+			rdfs:domain :Process .
+
+:boundToPort 
+			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
+			rdfs:label "attached to port number"@en ;
+			rdfs:comment "the port number this socket is connected though."@en ;
+			rdfs:domain :Socket ;
+			rdfs:range xsd:unsignedShort .
+
+:commandLine 
+			rdf:type owl:DatatypeProperty ,   owl:FunctionalProperty ;
+			rdfs:label "command line arguments"@en ;
+			rdfs:comment "the full command line (with arguments) used to invoke this process."@en ;
+			rdfs:domain :Process ;
+			rdfs:range xsd:string .
+
+:displayName 
+			rdf:type owl:DatatypeProperty ,   owl:FunctionalProperty ;
+			rdfs:label "is identifying itself as "@en ;
+			rdfs:comment "processes may include a user-friendly display name drawn from the executable that started them, that explains their functionality and origin."@en ;
+			rdfs:domain :Process ;
+			rdfs:range xsd:string .
+
+:hasPID 
+			tapio:signaturePriority 1 ;
+			rdf:type owl:DatatypeProperty ,   owl:FunctionalProperty ;
+			rdfs:label "has Process ID"@en ;
+			rdfs:comment "the unique process ID number that identifies a particular instance of an executable within the process table."@en ;
+			rdfs:domain :Process ;
+			rdfs:range xsd:positiveInteger .
+
+:hasSocketState 
+			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
+			rdfs:label "socket is in state"@en ;
+			rdfs:domain :Socket ;
+			rdfs:range :socketState .
+
+:processListRecorded 
+			rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+			rdfs:label "recorded or observed"@en ;
+			rdfs:comment "linking to the event by which this process list was recorded"@en ;
+			rdfs:subPropertyOf event:produced_in ;
+			rdfs:domain :ProcessList;
+			rdfs:range :ProcessListRecordedEvent .
+
+
+:threadStarted 
+			rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+			rdfs:label "was  started by"@en ;
+			rdfs:comment "linking to the event by which this process was  started"@en ;
+			rdfs:subPropertyOf event:produced_in ;
+			rdfs:domain :Thread ;
+			rdfs:range :ThreadStartededEvent .
+
+:processStarted 
+			tapio:signaturePriority 3 ;
+			rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+			rdfs:label "was started by"@en ;
+			rdfs:comment "linking to the event by which this process was started"@en ;
+			rdfs:subPropertyOf event:produced_in ;
+			rdfs:domain :Process ;
+			rdfs:range :ProcessStartedEvent .
+			
+:threadEnded 
+			rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+			rdfs:label "was ended by"@en ;
+			rdfs:comment "linking to the event by which this process was  ended"@en ;
+			rdfs:subPropertyOf event:factor_of ;
+			rdfs:domain :Thread ;
+			rdfs:range :ThreadEndedEvent .			
+:processEnded 
+			rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+			rdfs:label "was  ended by"@en ;
+			rdfs:comment "linking to the event by which this process was ended"@en ; ;
+			rdfs:subPropertyOf event:factor_of ;
+			rdfs:domain :Process ;
+			rdfs:range :ProcessEndedEvent .
+
+:DatagramSocket 
+			rdf:type owl:Class ;
+			rdfs:label "Datagram Socket"@en ;
+			rdfs:subClassOf :NetworkSocket ;
+			rdfs:comment "A connectionless socket (typically used for things like the UDP Protocol)"@en .
+
+:DomainSocket 
+			rdf:type owl:Class ;
+			rdfs:label "Domain Socket"@en ;
+			rdfs:subClassOf :Socket ;
+			rdfs:comment "A Unix Socket allows communication between two processes on the same host, similar to how a network socket allows communication between processes on different hosts. Unix Sockets typically involve the creation of a special file on the local filesystem."@en .
+
+:DynamicLinkLibrary 
+			rdf:type owl:Class ;
+			rdfs:label "Dynamic Link Library"@en ;                    
+			rdfs:subClassOf :Library ;                    
+			rdfs:comment "the Dynamic Link Library (DLL) is commonly used in Windows Operating Systems"@en .
+
+:IPC 
+			rdf:type owl:Class ;
+			rdfs:label "Inter-Process Communication"@en ;
+			rdfs:subClassOf owl:Thing .
+
+:Library 
+			rdf:type owl:Class ;
+			rdfs:subClassOf owl:Thing ;
+			rdfs:label "Shared Executable Code Library"@en ;
+			rdfs:comment "Library files contain code available for use by other processes running on the system. Typically they are .dll or .so files"@en .
+
+:NamedPipe 
+			rdf:type owl:Class ;
+			rdfs:label "Named Inter-Process Communication Pipe"@en ;
+			rdfs:subClassOf :Pipe ;
+			rdfs:comment "A named pipe is independent of the process that created it, and may be re-used by other processes that know the name it is identified with"@en .
+
+:NetLinkSocket 
+			rdf:type owl:Class ;
+			rdfs:label "NetLink Socket"@en ;
+			rdfs:subClassOf :Socket ;
+			rdfs:comment "Net Link Sockets are a special form of socket that enable communication between the OS Kernel itself, a a process in userspace. Often used to grant particular access to the internals of network protocol stacks. (e.g. for Firewall software)"@en .
+
+:NetworkSocket 
+			rdf:type owl:Class ;
+			rdfs:label "Network Socket"@en ;
+			rdfs:subClassOf :Socket .
+
+:OrphanThread 
+			rdf:type owl:Class ;
+			rdfs:label "Orphaned Thread"@en ;
+			rdfs:subClassOf :Thread .
+
+:Pipe 
+			rdf:type owl:Class ;
+			rdfs:label "Inter-Process Pipe Connection"@en ;
+			rdfs:subClassOf :IPC .
+
+:Process 
+			rdf:type owl:Class ;
+			rdfs:label "Process"@en ;
+			rdfs:subClassOf owl:Thing ;
+			rdfs:comment "an individual process running on a host, usually with a unique process ID number associated to it, and an associated on-system executable it was instantiated from."@en .
+
+:ProcessList 
+			rdf:type owl:Class ;
+			rdfs:label "Process List"@en ;
+			rdfs:subClassOf owl:Thing ;
+			rdfs:comment "the master process table on an execution domain (usually an instance of an operating system, but can also be a compartment within an OS)"@en .
+
+:ProcessStartedEvent
+			tapio:signaturePriority 1 ;
+			rdf:type owl:Class ;
+			rdfs:subClassOf event:Event ;
+			rdfs:label "A process starting event"@en ;
+			rdfs:comment "Starting a process."@en .
+			
+:ProcessEndedEvent
+			rdf:type owl:Class ;
+			rdfs:subClassOf event:Event ;
+			rdfs:label "A process ending event"@en ;
+			rdfs:comment "Ending a process."@en .	
+			
+:ThreadStartedEvent
+			rdf:type owl:Class ;
+			rdfs:subClassOf event:Event ;
+			rdfs:label "A thread starting event"@en ;
+			rdfs:comment "Starting a thread."@en .
+			
+:ThreadEndedEvent
+			rdf:type owl:Class ;
+			rdfs:subClassOf event:Event ;
+			rdfs:label "A thread ending event"@en ;
+			rdfs:comment "Ending a thread."@en .	
+
+:ProcessListRecordingEvent
+			rdf:type owl:Class ;
+			rdfs:subClassOf event:Event ;
+			rdfs:label "A process list recording event"@en ;
+			rdfs:comment "Recording a process list on a host."@en .
+
+:Semaphore 
+			rdf:type owl:Class ;
+			rdfs:label "Semaphore"@en ;
+			rdfs:subClassOf :IPC ;
+			rdfs:comment "A Semaphore acts as a token passed between processes, to act as a signal for which process currently has the right to acces or modify a resources, preventing collisions of two processes trying to modify the same resource simultaneously"@en .
+
+:SharedObjectLibrary 
+			rdf:type owl:Class ;
+			rdfs:label "Shared Object Library"@en ;
+			rdfs:subClassOf :Library ;
+			rdfs:comment "Shared Object (.so) libraries are typically used by Unix-Like operating systems."@en .
+
+:Socket 
+			rdf:type owl:Class ;
+			rdfs:label "Socket"@en ;
+			rdfs:comment "An Inter-Process Communications Socket"@en ;
+			rdfs:subClassOf owl:Thing .
+
+:StreamSocket 
+			rdf:type owl:Class ;
+			rdfs:label "Stream Socket"@en ;
+			rdfs:subClassOf :NetworkSocket ;
+			rdfs:comment "A Connection-Based socket (typically used for things like TCP)"@en .
+
+:Thread 
+			rdf:type owl:Class ;
+			rdfs:label "Thread"@en ;
+			rdfs:subClassOf owl:Thing ;
+			rdfs:comment "A simultaneously-executing thread within a process"@en .
+
+:hasPriority
+			rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+			rdfs:label "has priority"@en ;
+			rdfs:comment "Priority is used to determine allocation of CPU resources between individual processes in a multitasking system - the higher the priority, the more CPU time a process may request"@en ;
+			rdfs:domain :Process , :Thread ;
+			rdfs:range xsd:decimal , xsd:normalizedString .
+
+:hasPrivateMemoryAllocation
+			rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+			rdfs:label "has total memory allocation"@en ;
+			rdfs:comment "This is the total memory space requested by a a process - it may be allocated to the process from physical or virtual memory"@en ;
+			rdfs:domain :Process ;
+			rdfs:range xsd:unsignedLong .
+
+:hasWorkingMemoryAllocation
+			rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+			rdfs:label "has total bytes allocated in RAM"@en ;
+			rdfs:comment "The Working set is the total amount of physical memory currently in use by a process, including any shared libraries and resources it is accessing."@en ;
+			rdfs:domain :Process ;
+			rdfs:range xsd:unsignedLong .
+
+:hasDescription
+			rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+			rdfs:label "has description"@en ;
+			rdfs:comment "A free-form text description of the purpose  of this process,  usually implemented in Windows Portable Executables"@en ;
+			rdfs:domain :Process ;
+			rdfs:range xsd:string .
+
+:hasCompanyName
+			rdf:type owl:DatatypeProperty, owl:FunctionalProperty ;
+			rdfs:label "has Company Name"@en ;
+			rdfs:comment "A free-form text description of the organization that published the executable this process is an instance of, usually implemented in Windows Portable Executables"@en ;
+			rdfs:domain :Process ;
+			rdfs:range xsd:string .
