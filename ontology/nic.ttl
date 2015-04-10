@@ -105,14 +105,6 @@
     rdfs:label "has MAC address"@en ;
     rdfs:range :MAC .
 
-:hasNIC
-    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
-    rdfs:comment "this host has the following network interface available"@en ;
-    rdfs:domain host:Host ;
-    rdfs:label "has Network Interface"@en ;
-    rdfs:range :NIC ;
-    owl:inverseOf :onHost .
-
 :hasOUI
     a owl:FunctionalProperty, owl:ObjectProperty ;
     rdfs:comment "the first portion of a MAC address is a unique sequence assigned to a particular manufacturer, to prevent MAC address collisions between network cards created by different companies."@en ;
@@ -162,7 +154,7 @@
     rdfs:domain :NIC ;
     rdfs:label "on Host"@en ;
     rdfs:range host:Host ;
-    owl:inverseOf :hasNIC .
+    owl:inverseOf host:hasNIC .
 
 :outBytes
     a owl:DatatypeProperty, owl:FunctionalProperty ;
