@@ -27,7 +27,7 @@
 			rdfs:comment "an ontology describing Security controls and their outputs."@en ;
 			dc:description "an ontology describing Security controls and their outputs"@en ;
 			owl:versionInfo "1.0" ;
-			dc:creator: "Invincea Labs"@en ;
+			dc:creator "Invincea Labs"@en ;
 			dc:date "2014" .
 			
 :SecurityControl 

@@ -13,7 +13,7 @@
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/process-inferred#> .
 @base <http://www.invincea.com/ontologies/icas/1.0/process-inferred> .
 
-<http://www.invincea.com/ontologies/icas/1.0/process-inferred> \
+<http://www.invincea.com/ontologies/icas/1.0/process-inferred> 
 			rdf:type owl:Ontology ;                                                
 			rdfs:label "Process Ontology - Inferred Axioms"@en ;                                                 
 			owl:versionInfo "1.0"@en ;                                                 

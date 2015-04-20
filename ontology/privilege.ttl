@@ -28,7 +28,7 @@
 			rdfs:comment "Links entities together based on their ability to modify other elements. Describes the path of modifications and access between other ontologies."@en ;
 			dc:description "Links entities together based on their ability to modify other elements. Describes the path of modifications and access between other ontologies."@en ;
 			owl:versionInfo "0.1" ;
-			dc:creator: "Invincea Labs"@en ;
+			dc:creator "Invincea Labs"@en ;
 			dc:date "2014" .
 
 			

@@ -23,7 +23,7 @@
 			rdfs:comment "This ontology contains elements related to physical and virtual devices, for computing, storage, communications and general peripheral functions."@en ;                                         
 			dc:description "This ontology contains elements related to physical and virtual devices, for computing, storage, communications and general peripheral functions."@en ;
 			owl:versionInfo "1.0" ;
-			dc:creator: "Invincea Labs"@en ;
+			dc:creator "Invincea Labs"@en ;
 			dc:date "2014" .
 
 :Processor 

@@ -20,7 +20,7 @@
 			rdfs:comment "Ontology for mapping CAPEC data into TAPIO"@en ;
 			dc:description "Ontology for mapping CAPEC data into TAPIO"@en ;
 			owl:versionInfo "1.0" ;
-			dc:creator: "Invincea Labs"@en ;
+			dc:creator "Invincea Labs"@en ;
 			dc:date "2014" .
 
 			

@@ -23,7 +23,7 @@
 		    rdfs:comment "an ontology of common access control settings."@en ;
 		    dc:description "an ontology of common access control settings."@en ;
 		    owl:versionInfo "1.0" ;
-		    dc:creator: "Invincea Labs"@en ;
+		    dc:creator "Invincea Labs"@en ;
 		    dc:date "2014" ;
 		    owl:imports <http://www.invincea.com/ontologies/icas/1.0/user> .
 			

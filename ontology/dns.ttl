@@ -26,7 +26,7 @@
 			rdfs:comment "Ontology mapping DNS Record to network addresses and registrants"@en ;
 			dc:description "Ontology mapping DNS Record to network addresses and registrants"@en ;
 			owl:versionInfo "1.0" ;
-			dc:creator: "Invincea Labs"@en ;
+			dc:creator "Invincea Labs"@en ;
 			dc:date "2014" ;
 			owl:imports <http://www.invincea.com/ontologies/icas/1.0/ipnet> .
 
