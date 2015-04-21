@@ -21,7 +21,7 @@
 			rdfs:comment "Describes elements extracted from a filesystem and the contents therein"@en ;
 			dc:description "Describes elements extracted from a filesystem and the contents therein"@en ;
 			owl:versionInfo "1.0" ;
-			dc:creator: "Invincea Labs"@en ;
+			dc:creator "Invincea Labs"@en ;
 			dc:date "2014" .
 
 :ActivityRecord 

@@ -20,7 +20,7 @@
 			rdfs:comment "Describes elements related to the MIME content taxonomy and encoding standard."@en ;
 			dc:description "Describes elements related to the MIME content taxonomy and encoding standard"@en ;
     		owl:versionInfo "1.0" ;
-    		dc:creator: "Invincea Labs"@en ;
+    		dc:creator "Invincea Labs"@en ;
     		dc:date "2014" .
 			
 :MIMEtype 

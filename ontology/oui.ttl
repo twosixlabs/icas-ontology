@@ -22,7 +22,7 @@
 			rdfs:comment "Describes OUI numbers that match hardware interfaces to their manufacturer."@en ;
 			dc:description "Describes OUI numbers that match hardware interfaces to their manufacturer."@en ;
 			owl:versionInfo "1.0" ;
-			dc:creator: "Invincea Labs"@en ;
+			dc:creator "Invincea Labs"@en ;
 			dc:date "2014" .
 			
 :OUI 

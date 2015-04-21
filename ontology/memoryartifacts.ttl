@@ -27,7 +27,7 @@
 			rdfs:comment "An extended Ontology that contains extremely fine-grained objects that deal with forensic artifacts from computer memory. This ontology is directly dependent upon the Memory ontology, but split off into a seperate namespace to allow use of the basic memory ontology when this level of detail is not required."@en ;
 			dc:description "An extended Ontology that contains extremely fine-grained objects that deal with forensic artifacts from computer memory. This ontology is directly dependent upon the Memory ontology, but split off into a seperate namespace to allow use of the basic memory ontology when this level of detail is not required."@en ;
 			owl:versionInfo "1.0" ;
-			dc:creator: "Invincea Labs"@en ;
+			dc:creator "Invincea Labs"@en ;
 			dc:date "2014" ;
 			owl:imports <http://www.invincea.com/ontologies/icas/1.0/filesystem> ,
 						<http://www.invincea.com/ontologies/icas/1.0/memory> ,

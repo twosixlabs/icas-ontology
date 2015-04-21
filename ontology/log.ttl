@@ -31,7 +31,7 @@
 			rdfs:comment "describes point-in-time events from software"@en ;
 			dc:description "describes point-in-time events from software"@en ;
     		owl:versionInfo "1.0" ;
-    		dc:creator: "Invincea Labs"@en ;
+    		dc:creator "Invincea Labs"@en ;
     		dc:date "2014" .
 			
 :Log 

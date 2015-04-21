@@ -30,7 +30,7 @@
 			rdfs:comment "Describes high level organization and addressing of objects within Random Access Memory"@en ;
 			dc:description "Describes high level organization and addressing of objects within Random Access Memory"@en ;
     		owl:versionInfo "1.0" ;
-    		dc:creator: "Invincea Labs"@en ;
+    		dc:creator "Invincea Labs"@en ;
     		dc:date "2014" ;
 			owl:imports <http://www.invincea.com/ontologies/icas/1.0/filesystem> ,
 						<http://www.invincea.com/ontologies/icas/1.0/process> .

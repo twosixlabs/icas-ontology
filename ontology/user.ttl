@@ -24,7 +24,7 @@
 			rdfs:comment "Describes Identity roles within software system."@en ;
 			dc:description "Describes Identity roles within software system."@en ;
     			owl:versionInfo "1.0" ;
-    			dc:creator: "Invincea Labs"@en ;
+    			dc:creator "Invincea Labs"@en ;
     			dc:date "2014" ;
     			owl:imports <http://www.invincea.com/ontologies/icas/1.0/authentication> ,
     					<http://www.invincea.com/ontologies/icas/1.0/filesystem> ,

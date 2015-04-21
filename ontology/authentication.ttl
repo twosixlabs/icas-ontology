@@ -24,7 +24,7 @@
 			rdfs:comment "Describes elements related to authentication mechanisms in systems that grant identity to users and requests to map them to privileges"@en ;
 			dc:description "Describes elements related to authentication mechanisms in systems that grant identity to users and requests to map them to privileges"@en ;
 			owl:versionInfo "1.0" ;
-			dc:creator: "Invincea Labs"@en ;
+			dc:creator "Invincea Labs"@en ;
 			dc:date "2014" ;
 			owl:imports <http://www.invincea.com/ontologies/icas/1.0/host> ,
     					<http://www.invincea.com/ontologies/icas/1.0/user> .

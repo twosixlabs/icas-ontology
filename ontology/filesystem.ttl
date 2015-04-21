@@ -26,7 +26,7 @@
 			rdfs:comment "Ontology describing the structure, content and metadata of a filesystem"@en ;
 			dc:description "Ontology describing the structure, content and metadata of a filesystem"@en ;
 			owl:versionInfo "1.0" ;
-			dc:creator: "Invincea Labs"@en ;
+			dc:creator "Invincea Labs"@en ;
 			dc:date "2014" ;
 			owl:imports <http://www.invincea.com/ontologies/icas/1.0/acl> ,
 						<http://www.invincea.com/ontologies/icas/1.0/mime> ,

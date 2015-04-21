@@ -25,7 +25,7 @@
 			rdfs:comment "Describes Security Indicators - combinations of states, behaviors and artifacts that indicate something is either exposed to, or currently compromised by, a security threat actor."@en ;
 			dc:description "Describes Security Indicators - combinations of states, behaviors and artifacts that indicate something is either exposed to, or currently compromised by, a security threat actor."@en ;
     		owl:versionInfo "1.0" ;
-    		dc:creator: "Invincea Labs"@en ;
+    		dc:creator "Invincea Labs"@en ;
     		dc:date "2014" .
 
 			

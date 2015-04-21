@@ -28,7 +28,7 @@
 			rdfs:comment "Describes discrete computing Hosts"@en ;
 			dc:description "Describes discrete computing Hosts"@en ;
     		owl:versionInfo "1.0" ;
-    		dc:creator: "Invincea Labs"@en ;
+    		dc:creator "Invincea Labs"@en ;
     		dc:date "2014" ;
 			owl:imports <http://www.invincea.com/ontologies/icas/1.0/hardware> ,
 						<http://www.invincea.com/ontologies/icas/1.0/nic> ,

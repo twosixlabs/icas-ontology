@@ -19,7 +19,7 @@
 			rdfs:label "Common Weakness Enumeration (CWE) Ontology"@en ;
 			dc:description "an ontology of Common Weakness Enumerations."@en ;
 			owl:versionInfo "1.0" ;
-			dc:creator: "Invincea Labs"@en ;
+			dc:creator "Invincea Labs"@en ;
 			dc:date "2014" .
 			
 :Weakness

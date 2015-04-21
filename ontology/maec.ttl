@@ -18,6 +18,6 @@
 			rdfs:label "Malware Attribute Enumeration and Characterization Ontology"@en ;
 			dc:description "Malware Attribute Enumeration and Characterization Ontology"@en ;
 			owl:versionInfo "1.0" ;
-			dc:creator: "Invincea Labs"@en ;
+			dc:creator "Invincea Labs"@en ;
 			dc:date "2014" .
 
