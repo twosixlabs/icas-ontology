@@ -22,120 +22,117 @@
 @prefix process: <http://www.invincea.com/ontologies/icas/1.0/process#> .
 @prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/memory#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/memory> .
 
-<http://www.invincea.com/ontologies/icas/1.0/memory> 
-			rdf:type owl:Ontology ;
-			rdfs:label "An ontology for mapping regions of Memory Objects into their functional purposes."@en ;
-			rdfs:comment "Describes high level organization and addressing of objects within Random Access Memory"@en ;
-			dc:description "Describes high level organization and addressing of objects within Random Access Memory"@en ;
-    		owl:versionInfo "1.0" ;
-    		dc:creator "Invincea Labs"@en ;
-    		dc:date "2014" ;
-			owl:imports <http://www.invincea.com/ontologies/icas/1.0/filesystem> ,
-						<http://www.invincea.com/ontologies/icas/1.0/process> .
+<http://www.invincea.com/ontologies/icas/1.0/memory>
+    dc:creator "Invincea Labs"@en ;
+    dc:date "2014" ;
+    dc:description "Describes high level organization and addressing of objects within Random Access Memory"@en ;
+    a owl:Ontology ;
+    rdfs:comment "Describes high level organization and addressing of objects within Random Access Memory"@en ;
+    rdfs:label "An ontology for mapping regions of Memory Objects into their functional purposes."@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/filesystem>, <http://www.invincea.com/ontologies/icas/1.0/process> ;
+    owl:versionInfo "1.0" .
 
-			
-:MemoryBlock 
-			rdf:type owl:Class ;
-			rdfs:subClassOf owl:Thing ;
-			rdfs:subClassOf mere:Composite ;
-			rdfs:label "Region of Memory"@en ;
-			rdfs:comment "An area of system memory, contiguous between a start and end address"@en .
+:Code
+    a owl:Class ;
+    rdfs:comment "An area of system memory assigned for executable code"@en ;
+    rdfs:label "Region of Memory"@en ;
+    rdfs:subClassOf :MemoryBlock .
 
-:Code rdf:type 
-			owl:Class ;
-			rdfs:label "Region of Memory"@en ;
-			rdfs:comment "An area of system memory assigned for executable code"@en ;
-			rdfs:subClassOf :MemoryBlock .
+:Data
+    a owl:Class ;
+    rdfs:comment "An area of system memory assigned for non-executable data"@en ;
+    rdfs:label "Data Region of Memory"@en ;
+    rdfs:subClassOf :MemoryBlock .
 
-:Data rdf:type 
-			owl:Class ;
-			rdfs:label "Data Region of Memory"@en ;
-			rdfs:comment "An area of system memory assigned for non-executable data"@en ;
-			rdfs:subClassOf :MemoryBlock .
+:MemoryAddressPhy32
+    a rdfs:Datatype ;
+    rdfs:comment "A 32bit address, relative to the host system's entire memory space"@en ;
+    rdfs:label "32-Bit Physical Memory Address"@en ;
+    owl:equivalentClass xsd:unsignedInt .
 
-:MetaCode 
-			rdf:type owl:Class ;
-			rdfs:label "MetaCode Region of Memory"@en ;
-			rdfs:comment "An area of system memory assigned for execution-tracking items, such as the Heap and Stack"@en ;
-			rdfs:subClassOf :Code .
+:MemoryAddressPhy64
+    a rdfs:Datatype ;
+    rdfs:comment "A 64bit address, relative to the host system's entire memory space"@en ;
+    rdfs:label "64-Bit Physical Memory Address"@en ;
+    owl:equivalentClass xsd:unsignedInt .
 
-:MetaData 
-			rdf:type owl:Class ;
-			rdfs:label "MetaData Region of Memory"@en ;
-			rdfs:comment "An area of system memory assigned for data-tracking items, such as item index pointers"@en ;
-			rdfs:subClassOf :Data .
-					
-:MemoryAddressPhy64 
-			rdf:type rdfs:Datatype ;
-			rdfs:label "64-Bit Physical Memory Address"@en ;
-			rdfs:comment "A 64bit address, relative to the host system's entire memory space"@en ;
-			owl:equivalentClass xsd:unsignedInt .
+:MemoryAddressVirt32
+    a rdfs:Datatype ;
+    rdfs:comment "A 32bit address, relative to the host system's entire memory space"@en ;
+    rdfs:label "32-Bit Virtual Memory Address"@en ;
+    owl:equivalentClass xsd:unsignedInt .
 
-:MemoryAddressPhy32 
-			rdf:type rdfs:Datatype ;
-			rdfs:label "32-Bit Physical Memory Address"@en ;
-			rdfs:comment "A 32bit address, relative to the host system's entire memory space"@en ;
-			owl:equivalentClass xsd:unsignedInt .
-             		
-:MemoryAddressVirt64 
-			rdf:type rdfs:Datatype ;
-			rdfs:label "64-Bit Virtual Memory Address"@en ;
-			rdfs:comment "A 64bit address, relative to the host system's entire memory space"@en ;
-			owl:equivalentClass xsd:unsignedLong .
+:MemoryAddressVirt64
+    a rdfs:Datatype ;
+    rdfs:comment "A 64bit address, relative to the host system's entire memory space"@en ;
+    rdfs:label "64-Bit Virtual Memory Address"@en ;
+    owl:equivalentClass xsd:unsignedLong .
 
-:MemoryAddressVirt32 
-			rdf:type rdfs:Datatype ;
-			rdfs:label "32-Bit Virtual Memory Address"@en ;
-			rdfs:comment "A 32bit address, relative to the host system's entire memory space"@en ;
-			owl:equivalentClass xsd:unsignedInt .
+:MemoryBlock
+    a owl:Class ;
+    rdfs:comment "An area of system memory, contiguous between a start and end address"@en ;
+    rdfs:label "Region of Memory"@en ;
+    rdfs:subClassOf mere:Composite, owl:Thing .
 
-:hasMemoryBlock 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "contains memory region"@en ;
-			rdfs:comment "This process owns the identified block of memory"@en ; 
-			rdfs:domain process:Process ;
-			rdfs:range :MemoryBlock ;
-			owl:inverseOf :isOwnedByProcess .
+:MetaCode
+    a owl:Class ;
+    rdfs:comment "An area of system memory assigned for execution-tracking items, such as the Heap and Stack"@en ;
+    rdfs:label "MetaCode Region of Memory"@en ;
+    rdfs:subClassOf :Code .
 
-:isOwnedByProcess 
-			rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
-			rdfs:label "is owned by process"@en ;
-			rdfs:comment "the executing process that owns this region of memory"@en ;
-			owl:inverseOf :hasMemoryBlock ;
-			rdfs:domain :MemoryBlock ;
-			rdfs:range process:Process .
+:MetaData
+    a owl:Class ;
+    rdfs:comment "An area of system memory assigned for data-tracking items, such as item index pointers"@en ;
+    rdfs:label "MetaData Region of Memory"@en ;
+    rdfs:subClassOf :Data .
 
-:mappedFromFile 
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "is loaded from contents of file"@en ;
-			rdfs:comment "the contents of this memory block were drawn from this file."@en ;
-			rdfs:range filesystem:File ;
-			rdfs:domain :MemoryBlock .
+:beginsAtAddress
+    tapio:signaturePriority 1 ;
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain :MemoryBlock ;
+    rdfs:label "Begins at Address"@en ;
+    rdfs:range :MemoryAddressPhy32, :MemoryAddressPhy64, :MemoryAddressVirt32, :MemoryAddressVirt64 .
 
-:sharesVirtualMemorySpace 
-			rdf:type owl:ObjectProperty , owl:SymmetricProperty ;
-			rdfs:label "shares virtual memory space with"@en ;
-			rdfs:domain :MemoryBlock ;
-			rdfs:range :MemoryBlock .
+:endsAtAddress
+    tapio:signaturePriority 2 ;
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain :MemoryBlock ;
+    rdfs:label "Ends at Address"@en ;
+    rdfs:range :MemoryAddressPhy32, :MemoryAddressPhy64, :MemoryAddressVirt32, :MemoryAddressVirt64 .
 
-:beginsAtAddress 
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:label "Begins at Address"@en ;
-			tapio:signaturePriority 1 ; 
-			rdfs:range :MemoryAddressPhy32, :MemoryAddressPhy64, :MemoryAddressVirt32, :MemoryAddressVirt64 ;
-			rdfs:domain :MemoryBlock .
+:hasMemoryBlock
+    a owl:ObjectProperty ;
+    rdfs:comment "This process owns the identified block of memory"@en ;
+    rdfs:domain process:Process ;
+    rdfs:label "contains memory region"@en ;
+    rdfs:range :MemoryBlock ;
+    owl:inverseOf :isOwnedByProcess .
 
-:endsAtAddress 
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:label "Ends at Address"@en ;
-			tapio:signaturePriority 2 ; 
-			rdfs:range :MemoryAddressPhy32, :MemoryAddressPhy64, :MemoryAddressVirt32, :MemoryAddressVirt64 ;
-			rdfs:domain :MemoryBlock .
+:hasSize
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain :MemoryBlock ;
+    rdfs:label "Has total size"@en ;
+    rdfs:range xsd:positiveInteger .
 
-:hasSize 
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:label "Has total size"@en ;
-			rdfs:domain :MemoryBlock ;
-			rdfs:range xsd:positiveInteger .
+:isOwnedByProcess
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the executing process that owns this region of memory"@en ;
+    rdfs:domain :MemoryBlock ;
+    rdfs:label "is owned by process"@en ;
+    rdfs:range process:Process ;
+    owl:inverseOf :hasMemoryBlock .
+
+:mappedFromFile
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the contents of this memory block were drawn from this file."@en ;
+    rdfs:domain :MemoryBlock ;
+    rdfs:label "is loaded from contents of file"@en ;
+    rdfs:range filesystem:File .
+
+:sharesVirtualMemorySpace
+    a owl:ObjectProperty, owl:SymmetricProperty ;
+    rdfs:domain :MemoryBlock ;
+    rdfs:label "shares virtual memory space with"@en ;
+    rdfs:range :MemoryBlock .
+

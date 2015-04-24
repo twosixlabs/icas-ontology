@@ -9,430 +9,429 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/mime#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/mime> .
-
-<http://www.invincea.com/ontologies/icas/1.0/mime> 
-			rdf:type owl:Ontology ;
-			rdfs:label "MultiPurpose Internet Mail Extensions ontology"@en ;
-			rdfs:comment "Describes elements related to the MIME content taxonomy and encoding standard."@en ;
-			dc:description "Describes elements related to the MIME content taxonomy and encoding standard"@en ;
-    		owl:versionInfo "1.0" ;
-    		dc:creator "Invincea Labs"@en ;
-    		dc:date "2014" .
-			
-:MIMEtype 
-			rdf:type owl:Class ;
-			rdfs:label "MIME Type"@en ;
-			rdfs:comment "A Generic MIME Type with no top-level category"@en .
-
-:mimeclass 
-			rdf:type owl:AnnotationProperty ;
-			rdfs:label "MIME Data Class"@en ;
-			rdfs:comment "the class of datatype within a datatype family. The second half of a MIMEtype identifier."@en .
-
-:hasSubTypes 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "has Sub-Parts"@en ;
-			rdfs:comment "this multi-part MIME entity has the followed sub-types contained within it"@en ;
-			rdfs:range :MIMEtype ;
-			rdfs:domain :Multipart .
-
-:hasType 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "has MIME type"@en ;
-			rdfs:range :MIMEtype .
-
-:seenAt 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "was seen in"@en ;
-			rdfs:comment "the listed entity has been identified as this MIME type"@en ;
-			rdfs:domain :MIMEtype ;
-			owl:inverseOf :hasType .
-
-:Application 
-			rdf:type owl:Class ;
-			rdfs:label "Application"@en ;
-			rdfs:subClassOf :MIMEtype .
-
-:Audio 
-			rdf:type owl:Class ;
-			rdfs:label "Audio"@en ;    
-			rdfs:subClassOf :MIMEtype .
-
-:Example 
-			rdf:type owl:Class ;
-			rdfs:label "EXAMPLE"@en ;
-			rdfs:subClassOf :MIMEtype ;
-			rdfs:comment "this MIME type family is referenced in the standard, but should not be used in practise"@en .
-
-:Image 
-			rdf:type owl:Class ;
-			rdfs:label "Image"@en ;    
-			rdfs:subClassOf :MIMEtype .
-
-:Message 
-			rdf:type owl:Class ;     
-			rdfs:label "Message"@en ;    
-			rdfs:subClassOf :MIMEtype .
-
-:Model 
-			rdf:type owl:Class ;       
-			rdfs:label "Model"@en ;
-			rdfs:subClassOf :MIMEtype .
-
-:Multipart 
-			rdf:type owl:Class ;           
-			rdfs:label "Multipart"@en ; 
-			rdfs:subClassOf :MIMEtype .
-
-:Text 
-			rdf:type owl:Class ;
-			rdfs:label "Text"@en ; 
-			rdfs:subClassOf :MIMEtype .
-
-:Video 
-			rdf:type owl:Class ;
-			rdfs:label "Video"@en ;
-			rdfs:subClassOf :MIMEtype .
-
-:alternative 
-			rdf:type :Multipart ,  owl:NamedIndividual ;
-			rdfs:label "multipart-alternative"@en .
-
-:atomxml 
-			rdf:type :Application ,  owl:NamedIndividual ;
-     		rdfs:label "application-atomxml"@en .
-
-:avi 
-			rdf:type :Video ,  owl:NamedIndividual ;
-			rdfs:label "video-avi"@en .
-
-:basic 	
-			rdf:type :Audio ,   owl:NamedIndividual ;
-			rdfs:label "audio-basic"@en .
-
-:cmd 		
-			rdf:type :Text ,  owl:NamedIndividual ;
-			rdfs:label "text-cmd"@en ;
-			rdfs:comment "scripting language content"@en .
-
-:css 
-			rdf:type :Text ,  owl:NamedIndividual ;
-			rdfs:label "Cascading Style Sheet"@en ;
-			rdfs:comment "Cascading Style Sheet"@en ;
-			:mimeclass "text-css"@en .
-
-:csv 
-			rdf:type :Text ,  owl:NamedIndividual ;
-     		rdfs:label "Comma-Separated Values"@en ;
-			:mimeclass "text/css"@en .
-     		
-:ecmascript 
-			rdf:type :Application , owl:NamedIndividual ;
-			rdfs:label "application-ecmascript"@en ;
-			:mimeclass "ecmascript"@en .
-
-:edi-x12 
-			rdf:type :Application ,   owl:NamedIndividual ;
-			rdfs:label "application-edi-x12"@en .
-
-:edifact 
-			rdf:type :Application ,  owl:NamedIndividual ;
-			rdfs:label "application-edifact"@en .
-
-:encrypted 
-			rdf:type :Multipart ,  owl:NamedIndividual ;
-			rdfs:label "multipart-encrypted"@en .
-
-:exampleapp 
-			rdf:type :Application , owl:NamedIndividual ;
-			rdfs:label "application-example"@en .
-
-:exampleaudio 
-			rdf:type :Audio ,   owl:NamedIndividual ;
-			rdfs:label "audio-example"@en .
-
-:exampleexample 
-			rdf:type :Example ,  owl:NamedIndividual ;
-			rdfs:label "application-example"@en .
-
-:exampleimage 
-			rdf:type :Image ,  owl:NamedIndividual ;
-			rdfs:label "image-example"@en .
-
-:examplemessage 
-			rdf:type :Message ,   owl:NamedIndividual ;
-			rdfs:label "message-example"@en .
-
-:examplemodel 
-			rdf:type :Model ,  owl:NamedIndividual ;
-			rdfs:label "model-example"@en .
-
-:examplemultipart 
-			rdf:type :Multipart ,  owl:NamedIndividual ;
-			rdfs:label "application-atomxml"@en .
-
-:exampletext 
-			rdf:type :Text ,   owl:NamedIndividual ;
-			rdfs:label "text-example"@en .
-
-:examplevideo 
-			rdf:type :Video ,  owl:NamedIndividual ;
-			rdfs:label "video-example"@en .
-
-:fontwoff 
-			rdf:type :Application ,   owl:NamedIndividual ;
-			rdfs:label "application-atomxml"@en .
-
-:formdata 	
-			rdf:type :Multipart ,   owl:NamedIndividual ;
-			rdfs:label "multipart-data"@en .
-
-:gif 
-			rdf:type :Image ,  owl:NamedIndividual ;
-			rdfs:label "image-gif"@en .
-
-:gzip 
-			rdf:type :Application ,  owl:NamedIndividual ;
-			rdfs:label "application-gzip"@en .
-
-:html 
-			rdf:type :Text ,    owl:NamedIndividual ;
-			rdfs:label "HyperText Markup Language"@en .
-
-:http 
-			rdf:type :Message ,   owl:NamedIndividual ;
-			rdfs:label "message-http"@en .
-
-:iges 
-			rdf:type :Model ,   owl:NamedIndividual ;
-			rdfs:label "model-iges"@en .
-
-:imdnxml 
-			rdf:type :Message ,    owl:NamedIndividual ;
-			rdfs:label "message-imdxml"@en .
-
-:javascript 
-			rdf:type :Application ,   owl:NamedIndividual ;
-			rdfs:label "Javascript"@en .
-
-:javascripttext 
-			rdf:type :Text ,   owl:NamedIndividual ;
-			rdfs:label "text-javascripttext"@en ;
-			owl:deprecated "true"^^xsd:boolean .
-
-:jpeg 
-			rdf:type :Image ,    owl:NamedIndividual ;
-			rdfs:label "JPEG Image"@en ;
-			:mimeclass	"image/jpeg"@en .
-              	
-:json 
-			rdf:type :Application ,  owl:NamedIndividual ;      
-			rdfs:label "JSON Data"@en ;
-			:mimeclass	"application/json"@en .
-
-:l24 
-			rdf:type :Audio ,  owl:NamedIndividual ;
-			rdfs:label "audio-l24"@en .
-
-:mesh 
-			rdf:type :Model ,   owl:NamedIndividual ;
-			rdfs:label "model-mesh"@en .
-
-:mixed 
-			rdf:type :Multipart ,   owl:NamedIndividual ;
-			rdfs:label "multipart-mixed"@en .
-
-:mp4 
-			rdf:type :Audio ,     owl:NamedIndividual ;
-			rdfs:label "audio-mp4"@en .
-
-:mp4video 
-			rdf:type :Video ,   owl:NamedIndividual ;
-			rdfs:label "video-mp4vide"@en .
-
-:mpegaudio 
-			rdf:type :Audio ,   owl:NamedIndividual ;
-			rdfs:label "audio-mpegaudio"@en .
-
-:mpegvideo 
-			rdf:type :Video ,  owl:NamedIndividual ;
-			rdfs:label "video-mpegvideo"@en .
-
-:octet-stream 
-			rdf:type :Application ,  owl:NamedIndividual ;
-			rdfs:label "Octet-Stream"@en ;
-			:mimeclass	"application/octet-stream"@en .
-
-:oggapp 
-			rdf:type :Application ,    owl:NamedIndividual ;
-			rdfs:label "application-oggapp"@en .
-
-:oggaudio 
-			rdf:type :Audio ,   owl:NamedIndividual ;
-			rdfs:label "audio-oggaudio"@en .
-
-:oggvideo 
-			rdf:type :Video ,  owl:NamedIndividual ;
-			rdfs:label "video-oggvideo"@en .
-
-:opus 
-			rdf:type :Audio ,   owl:NamedIndividual ;
-			rdfs:label "audio-opus"@en .
-
-:partial 
-			rdf:type :Message ,  owl:NamedIndividual ;
-			rdfs:label "message-partial"@en .
-
-:pdf 
-			rdf:type :Application ,   owl:NamedIndividual ;
-			rdfs:label "application-pdf"@en .
-
-:pjpeg 
-			rdf:type :Image ,   owl:NamedIndividual ;
-			rdfs:label "image-pjpeg"@en .
-
-:plain 
-			rdf:type :Text ,   owl:NamedIndividual ;
-			rdfs:label "ASCII Plain Text"@en ;
-			:mimeclass	"text/plain"@en .
-
-:png 
-			rdf:type :Image ,     owl:NamedIndividual ;
-			rdfs:label "Portable Network Graphics Image"@en ;
-			:mimeclass	"image/png"@en .
-
-:postscript 
-			rdf:type :Application ,   owl:NamedIndividual ;
-			rdfs:label "application-postscript"@en .
-
-:quicktime 
-			rdf:type :Video ,   owl:NamedIndividual ;
-			rdfs:label "Apple QuickTime Video"@en ;
-			:mimeclass	"video/quicktime"@en .
-
-:rdfxml 
-			rdf:type :Application ,    owl:NamedIndividual ;
-			rdfs:label "application-rdfxml"@en .
-
-:related 
-			rdf:type :Multipart ,  owl:NamedIndividual ;
-			rdfs:label "multipart-related"@en .
-
-:rfc822 
-			rdf:type :Message ,  owl:NamedIndividual ;
-			rdfs:label "RFC822 Email Message"@en ;
-			:mimeclass	"message/rfc822"@en .
-		
-:rssxml 
-			rdf:type :Application ,  owl:NamedIndividual ;
-			rdfs:label "application-rssxml"@en .
-
-:rtf 
-			rdf:type :Text , owl:NamedIndividual ;
-			rdfs:label "text-rtf"@en .
-
-:signed 
-			rdf:type :Multipart ,    owl:NamedIndividual ;
-			rdfs:label "multipart-signed"@en .
-
-:soapxml 
-			rdf:type :Application ,   owl:NamedIndividual ;
-			rdfs:label "application-soapxml"@en .
-
-:svgxml 
-			rdf:type :Image ,   owl:NamedIndividual ;
-			rdfs:label "image-svgxml"@en .
-
-:vcard 
-			rdf:type :Text ,   owl:NamedIndividual ;
-			rdfs:label "text-vcard"@en .
-
-:vndabc 
-			rdf:type :Text ,  owl:NamedIndividual ;
-			rdfs:label "text-vndabc"@en .
-
-:vndrnrealaudio 
-			rdf:type :Audio ,  owl:NamedIndividual ;
-			rdfs:label "audio-vndrnrealaudio"@en .
-
-:vndwave 
-			rdf:type :Audio ,   owl:NamedIndividual ;
-			rdfs:label "audio-vndwave"@en .
-
-:vorbis 
-			rdf:type :Audio ,  owl:NamedIndividual ;
-			rdfs:label "audio-vorbis"@en .
-
-:vrml 
-			rdf:type :Model ,  owl:NamedIndividual ;
-			rdfs:label "model-vrml"@en .
-
-:webmaudio 
-			rdf:type :Audio ,    owl:NamedIndividual ;
-			rdfs:label "audio-webmaudio"@en .
-
-:webmvideo 
-			rdf:type :Video ,   owl:NamedIndividual ;
-			rdfs:label "video-webmvideo"@en .
-
-:x3dbinary 
-			rdf:type :Model ,  owl:NamedIndividual ;
-			rdfs:label "model-x3dbinary"@en .
-
-:x3dfastinfoset 
-			rdf:type :Model ,   owl:NamedIndividual ;
-			rdfs:label "model-x3dfastinfoset"@en .
-
-:x3dvrml 
-			rdf:type :Model ,   owl:NamedIndividual ;
-			rdfs:label "model-x3dvrml"@en .
-
-:x3dxml 
-			rdf:type :Model ,  owl:NamedIndividual ;
-			rdfs:label "model-x3dxml"@en .
-
-:xflv 
-			rdf:type :Video ,  owl:NamedIndividual ;
-			rdfs:label "video-xflv"@en .
-
-:xhtmlxml 
-			rdf:type :Application ,  owl:NamedIndividual ;
-			rdfs:label "application-xhtmlxml"@en .
-
-:xmatroska 
-			rdf:type :Video ,  owl:NamedIndividual ;
-			rdfs:label "video-xmatroska"@en .
-
-:xml 
-			rdf:type :Application , :Text ,  owl:NamedIndividual ;
-			rdfs:label "application-xml"@en .
-
-:xmldtd 
-			rdf:type :Application ,  owl:NamedIndividual ;
-			rdfs:label "application-xmldtd"@en .
-
-:xmswmv 
-			rdf:type :Video ,  owl:NamedIndividual ;
-			rdfs:label "application-rssxml"@en .
-
-:xnacl 
-			rdf:type :Application ,   owl:NamedIndividual ;
-			rdfs:label "application-xnacl"@en .
-
-:xopxml 
-			rdf:type :Application ,  owl:NamedIndividual ;
-			rdfs:label "application-xopxml"@en .
-
-:zip 
-			rdf:type :Application ,  owl:NamedIndividual ;
-			rdfs:label "Zip Archive File"@en ;
-			:mimeclass	"Application/zip"@en .
-
-:exe 
-			rdf:type :Application , owl:NamedIndividual ;
-			rdfs:label "Windows Executable"@en ;
-			:mimeclass	"Application/exe"@en .
+
+<http://www.invincea.com/ontologies/icas/1.0/mime>
+    dc:creator "Invincea Labs"@en ;
+    dc:date "2014" ;
+    dc:description "Describes elements related to the MIME content taxonomy and encoding standard"@en ;
+    a owl:Ontology ;
+    rdfs:comment "Describes elements related to the MIME content taxonomy and encoding standard."@en ;
+    rdfs:label "MultiPurpose Internet Mail Extensions ontology"@en ;
+    owl:versionInfo "1.0" .
+
+:Application
+    a owl:Class ;
+    rdfs:label "Application"@en ;
+    rdfs:subClassOf :MIMEtype .
+
+:Audio
+    a owl:Class ;
+    rdfs:label "Audio"@en ;
+    rdfs:subClassOf :MIMEtype .
+
+:Example
+    a owl:Class ;
+    rdfs:comment "this MIME type family is referenced in the standard, but should not be used in practise"@en ;
+    rdfs:label "EXAMPLE"@en ;
+    rdfs:subClassOf :MIMEtype .
+
+:Image
+    a owl:Class ;
+    rdfs:label "Image"@en ;
+    rdfs:subClassOf :MIMEtype .
+
+:MIMEtype
+    a owl:Class ;
+    rdfs:comment "A Generic MIME Type with no top-level category"@en ;
+    rdfs:label "MIME Type"@en .
+
+:Message
+    a owl:Class ;
+    rdfs:label "Message"@en ;
+    rdfs:subClassOf :MIMEtype .
+
+:Model
+    a owl:Class ;
+    rdfs:label "Model"@en ;
+    rdfs:subClassOf :MIMEtype .
+
+:Multipart
+    a owl:Class ;
+    rdfs:label "Multipart"@en ;
+    rdfs:subClassOf :MIMEtype .
+
+:Text
+    a owl:Class ;
+    rdfs:label "Text"@en ;
+    rdfs:subClassOf :MIMEtype .
+
+:Video
+    a owl:Class ;
+    rdfs:label "Video"@en ;
+    rdfs:subClassOf :MIMEtype .
+
+:alternative
+    a :Multipart, owl:NamedIndividual ;
+    rdfs:label "multipart-alternative"@en .
+
+:atomxml
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-atomxml"@en .
+
+:avi
+    a :Video, owl:NamedIndividual ;
+    rdfs:label "video-avi"@en .
+
+:basic
+    a :Audio, owl:NamedIndividual ;
+    rdfs:label "audio-basic"@en .
+
+:cmd
+    a :Text, owl:NamedIndividual ;
+    rdfs:comment "scripting language content"@en ;
+    rdfs:label "text-cmd"@en .
+
+:css
+    :mimeclass "text-css"@en ;
+    a :Text, owl:NamedIndividual ;
+    rdfs:comment "Cascading Style Sheet"@en ;
+    rdfs:label "Cascading Style Sheet"@en .
+
+:csv
+    :mimeclass "text/css"@en ;
+    a :Text, owl:NamedIndividual ;
+    rdfs:label "Comma-Separated Values"@en .
+
+:ecmascript
+    :mimeclass "ecmascript"@en ;
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-ecmascript"@en .
+
+:edi-x12
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-edi-x12"@en .
+
+:edifact
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-edifact"@en .
+
+:encrypted
+    a :Multipart, owl:NamedIndividual ;
+    rdfs:label "multipart-encrypted"@en .
+
+:exampleapp
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-example"@en .
+
+:exampleaudio
+    a :Audio, owl:NamedIndividual ;
+    rdfs:label "audio-example"@en .
+
+:exampleexample
+    a :Example, owl:NamedIndividual ;
+    rdfs:label "application-example"@en .
+
+:exampleimage
+    a :Image, owl:NamedIndividual ;
+    rdfs:label "image-example"@en .
+
+:examplemessage
+    a :Message, owl:NamedIndividual ;
+    rdfs:label "message-example"@en .
+
+:examplemodel
+    a :Model, owl:NamedIndividual ;
+    rdfs:label "model-example"@en .
+
+:examplemultipart
+    a :Multipart, owl:NamedIndividual ;
+    rdfs:label "application-atomxml"@en .
+
+:exampletext
+    a :Text, owl:NamedIndividual ;
+    rdfs:label "text-example"@en .
+
+:examplevideo
+    a :Video, owl:NamedIndividual ;
+    rdfs:label "video-example"@en .
+
+:exe
+    :mimeclass "Application/exe"@en ;
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "Windows Executable"@en .
+
+:fontwoff
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-atomxml"@en .
+
+:formdata
+    a :Multipart, owl:NamedIndividual ;
+    rdfs:label "multipart-data"@en .
+
+:gif
+    a :Image, owl:NamedIndividual ;
+    rdfs:label "image-gif"@en .
+
+:gzip
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-gzip"@en .
+
+:hasSubTypes
+    a owl:ObjectProperty ;
+    rdfs:comment "this multi-part MIME entity has the followed sub-types contained within it"@en ;
+    rdfs:domain :Multipart ;
+    rdfs:label "has Sub-Parts"@en ;
+    rdfs:range :MIMEtype .
+
+:hasType
+    a owl:ObjectProperty ;
+    rdfs:label "has MIME type"@en ;
+    rdfs:range :MIMEtype .
+
+:html
+    a :Text, owl:NamedIndividual ;
+    rdfs:label "HyperText Markup Language"@en .
+
+:http
+    a :Message, owl:NamedIndividual ;
+    rdfs:label "message-http"@en .
+
+:iges
+    a :Model, owl:NamedIndividual ;
+    rdfs:label "model-iges"@en .
+
+:imdnxml
+    a :Message, owl:NamedIndividual ;
+    rdfs:label "message-imdxml"@en .
+
+:javascript
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "Javascript"@en .
+
+:javascripttext
+    a :Text, owl:NamedIndividual ;
+    rdfs:label "text-javascripttext"@en ;
+    owl:deprecated true .
+
+:jpeg
+    :mimeclass "image/jpeg"@en ;
+    a :Image, owl:NamedIndividual ;
+    rdfs:label "JPEG Image"@en .
+
+:json
+    :mimeclass "application/json"@en ;
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "JSON Data"@en .
+
+:l24
+    a :Audio, owl:NamedIndividual ;
+    rdfs:label "audio-l24"@en .
+
+:mesh
+    a :Model, owl:NamedIndividual ;
+    rdfs:label "model-mesh"@en .
+
+:mimeclass
+    a owl:AnnotationProperty ;
+    rdfs:comment "the class of datatype within a datatype family. The second half of a MIMEtype identifier."@en ;
+    rdfs:label "MIME Data Class"@en .
+
+:mixed
+    a :Multipart, owl:NamedIndividual ;
+    rdfs:label "multipart-mixed"@en .
+
+:mp4
+    a :Audio, owl:NamedIndividual ;
+    rdfs:label "audio-mp4"@en .
+
+:mp4video
+    a :Video, owl:NamedIndividual ;
+    rdfs:label "video-mp4vide"@en .
+
+:mpegaudio
+    a :Audio, owl:NamedIndividual ;
+    rdfs:label "audio-mpegaudio"@en .
+
+:mpegvideo
+    a :Video, owl:NamedIndividual ;
+    rdfs:label "video-mpegvideo"@en .
+
+:octet-stream
+    :mimeclass "application/octet-stream"@en ;
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "Octet-Stream"@en .
+
+:oggapp
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-oggapp"@en .
+
+:oggaudio
+    a :Audio, owl:NamedIndividual ;
+    rdfs:label "audio-oggaudio"@en .
+
+:oggvideo
+    a :Video, owl:NamedIndividual ;
+    rdfs:label "video-oggvideo"@en .
+
+:opus
+    a :Audio, owl:NamedIndividual ;
+    rdfs:label "audio-opus"@en .
+
+:partial
+    a :Message, owl:NamedIndividual ;
+    rdfs:label "message-partial"@en .
+
+:pdf
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-pdf"@en .
+
+:pjpeg
+    a :Image, owl:NamedIndividual ;
+    rdfs:label "image-pjpeg"@en .
+
+:plain
+    :mimeclass "text/plain"@en ;
+    a :Text, owl:NamedIndividual ;
+    rdfs:label "ASCII Plain Text"@en .
+
+:png
+    :mimeclass "image/png"@en ;
+    a :Image, owl:NamedIndividual ;
+    rdfs:label "Portable Network Graphics Image"@en .
+
+:postscript
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-postscript"@en .
+
+:quicktime
+    :mimeclass "video/quicktime"@en ;
+    a :Video, owl:NamedIndividual ;
+    rdfs:label "Apple QuickTime Video"@en .
+
+:rdfxml
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-rdfxml"@en .
+
+:related
+    a :Multipart, owl:NamedIndividual ;
+    rdfs:label "multipart-related"@en .
+
+:rfc822
+    :mimeclass "message/rfc822"@en ;
+    a :Message, owl:NamedIndividual ;
+    rdfs:label "RFC822 Email Message"@en .
+
+:rssxml
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-rssxml"@en .
+
+:rtf
+    a :Text, owl:NamedIndividual ;
+    rdfs:label "text-rtf"@en .
+
+:seenAt
+    a owl:ObjectProperty ;
+    rdfs:comment "the listed entity has been identified as this MIME type"@en ;
+    rdfs:domain :MIMEtype ;
+    rdfs:label "was seen in"@en ;
+    owl:inverseOf :hasType .
+
+:signed
+    a :Multipart, owl:NamedIndividual ;
+    rdfs:label "multipart-signed"@en .
+
+:soapxml
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-soapxml"@en .
+
+:svgxml
+    a :Image, owl:NamedIndividual ;
+    rdfs:label "image-svgxml"@en .
+
+:vcard
+    a :Text, owl:NamedIndividual ;
+    rdfs:label "text-vcard"@en .
+
+:vndabc
+    a :Text, owl:NamedIndividual ;
+    rdfs:label "text-vndabc"@en .
+
+:vndrnrealaudio
+    a :Audio, owl:NamedIndividual ;
+    rdfs:label "audio-vndrnrealaudio"@en .
+
+:vndwave
+    a :Audio, owl:NamedIndividual ;
+    rdfs:label "audio-vndwave"@en .
+
+:vorbis
+    a :Audio, owl:NamedIndividual ;
+    rdfs:label "audio-vorbis"@en .
+
+:vrml
+    a :Model, owl:NamedIndividual ;
+    rdfs:label "model-vrml"@en .
+
+:webmaudio
+    a :Audio, owl:NamedIndividual ;
+    rdfs:label "audio-webmaudio"@en .
+
+:webmvideo
+    a :Video, owl:NamedIndividual ;
+    rdfs:label "video-webmvideo"@en .
+
+:x3dbinary
+    a :Model, owl:NamedIndividual ;
+    rdfs:label "model-x3dbinary"@en .
+
+:x3dfastinfoset
+    a :Model, owl:NamedIndividual ;
+    rdfs:label "model-x3dfastinfoset"@en .
+
+:x3dvrml
+    a :Model, owl:NamedIndividual ;
+    rdfs:label "model-x3dvrml"@en .
+
+:x3dxml
+    a :Model, owl:NamedIndividual ;
+    rdfs:label "model-x3dxml"@en .
+
+:xflv
+    a :Video, owl:NamedIndividual ;
+    rdfs:label "video-xflv"@en .
+
+:xhtmlxml
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-xhtmlxml"@en .
+
+:xmatroska
+    a :Video, owl:NamedIndividual ;
+    rdfs:label "video-xmatroska"@en .
+
+:xml
+    a :Application, :Text, owl:NamedIndividual ;
+    rdfs:label "application-xml"@en .
+
+:xmldtd
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-xmldtd"@en .
+
+:xmswmv
+    a :Video, owl:NamedIndividual ;
+    rdfs:label "application-rssxml"@en .
+
+:xnacl
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-xnacl"@en .
+
+:xopxml
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "application-xopxml"@en .
+
+:zip
+    :mimeclass "Application/zip"@en ;
+    a :Application, owl:NamedIndividual ;
+    rdfs:label "Zip Archive File"@en .
+

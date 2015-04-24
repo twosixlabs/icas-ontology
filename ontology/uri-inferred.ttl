@@ -9,21 +9,19 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix uri: <http://www.invincea.com/ontologies/icas/1.0/uri#> .
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/uri-inferred#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/uri-inferred> .
 
-<http://www.invincea.com/ontologies/icas/1.0/uri-inferred> 
-			rdf:type owl:Ontology ;                                            
-			rdfs:label "Unifirm Resource Identifier Ontology - Inferred Axioms"@en ;                                             
-			owl:versionInfo "1.0"@en ;                                             
-			rdfs:comment "This ontology contains additional predicates to the URI ontology, intended to be computationally inferred via an OWL reasoner"@en ;                                             
-			owl:imports <http://www.invincea.com/ontologies/icas/1.0/uri> .
+<http://www.invincea.com/ontologies/icas/1.0/uri-inferred>
+    a owl:Ontology ;
+    rdfs:comment "This ontology contains additional predicates to the URI ontology, intended to be computationally inferred via an OWL reasoner"@en ;
+    rdfs:label "Unifirm Resource Identifier Ontology - Inferred Axioms"@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/uri> ;
+    owl:versionInfo "1.0"@en .
 
-:MaliciousContentURI 
-			rdf:type owl:Class ;                     
-			rdfs:label "Malicious Content URI"@en ;                     
-			rdfs:subClassOf uri:URI ;                     
-			rdfs:comment "The content served from this URI is designed to actively compromise client applications retrieving and rendering it."@en .
+:MaliciousContentURI
+    a owl:Class ;
+    rdfs:comment "The content served from this URI is designed to actively compromise client applications retrieving and rendering it."@en ;
+    rdfs:label "Malicious Content URI"@en ;
+    rdfs:subClassOf uri:URI .
 

@@ -11,184 +11,177 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix mere: <http://www.bbn.com/ontologies/domain/foundation/mereology#> .
 @prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
 @prefix ipnet: <http://www.invincea.com/ontologies/icas/1.0/ipnet#> .
 @prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
 @prefix software: <http://www.invincea.com/ontologies/icas/1.0/software#> .
-
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/controls#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/controls> .
 
-<http://www.invincea.com/ontologies/icas/1.0/controls> 
-			rdf:type owl:Ontology ;
-			rdfs:label "Security Controls ontology"@en ;
-			rdfs:comment "an ontology describing Security controls and their outputs."@en ;
-			dc:description "an ontology describing Security controls and their outputs"@en ;
-			owl:versionInfo "1.0" ;
-			dc:creator "Invincea Labs"@en ;
-			dc:date "2014" .
-			
-:SecurityControl 
-			rdf:type owl:Class , foaf:Agent ;                 
-			rdfs:label "Security Control"@en ;
-			rdfs:comment "A technical security control, embodied as active software monitoring the activity of one or more hosts or networks."@en ;
-			rdfs:subClassOf owl:Thing .
-
-:CorrectiveSecurityControl 
-			rdf:type owl:Class ;
-			rdfs:label "Corrective Security Control"@en ;
-			rdfs:comment "Corrective Security controls take action (and usually also generate alerts) upon detection of matching conditions"@en ;
-			rdfs:subClassOf :SecurityControl .
-
-:DetectiveSecurityControl 
-			rdf:type owl:Class ;
-			rdfs:label "Detective Security Control"@en ;
-			rdfs:comment "Detective Security controls generate alerts upon detection of matching conditions"@en ;
-			rdfs:subClassOf :SecurityControl .
-
-:PreventativeSecurityControl 
-			rdf:type owl:Class ;
-			rdfs:label "Preventative Security Control"@en ;
-			rdfs:subClassOf :SecurityControl .
-
-:monitorsSubnet 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "monitors subnet"@en ;
-			rdfs:comment "this security control has visibility and governance over the following subnet"@en ;
-			rdfs:domain :SecurityControl ;
-			rdfs:range ipnet:SubNet .
-
-:monitorsHost
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "monitors host"@en ;
-			rdfs:comment "this security control has visibility and governance over the following host"@en ;
-			rdfs:domain :SecurityControl ;
-			rdfs:range host:Host .			
-
-:enforcesPolicy
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "enforces policy"@en ;
-			rdfs:label "This control is configured with rules described in the following policy group"@en ;
-			rdfs:domain :SecurityControl ;
-			rdfs:range :Policy .
-
-:runsOnHost 
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "runs on host"@en ;
-			rdfs:label "The host that this security control operates from"@en ;
-			rdfs:domain :SecurityControl ;
-			rdfs:range host:Host .
-
-:Response 
-			rdf:type owl:Class ;
-			rdfs:label "Response"@en ;
-			rdfs:comment "Controls generate Responses according to rule sets - these responses may be passive (alerting) or active (actions)."@en ;
-			rdfs:subClassOf event:Event .
+<http://www.invincea.com/ontologies/icas/1.0/controls>
+    dc:creator "Invincea Labs"@en ;
+    dc:date "2014" ;
+    dc:description "an ontology describing Security controls and their outputs"@en ;
+    a owl:Ontology ;
+    rdfs:comment "an ontology describing Security controls and their outputs."@en ;
+    rdfs:label "Security Controls ontology"@en ;
+    owl:versionInfo "1.0" .
 
 :Action
-			rdf:type owl:Class ;
-        	rdfs:label "Action"@en ;
-			rdfs:comment "Alerts are responses from a security control that only inform that a condition described in a rule has been detected"@en ;
-        	rdfs:subClassOf :Response .
+    a owl:Class ;
+    rdfs:comment "Alerts are responses from a security control that only inform that a condition described in a rule has been detected"@en ;
+    rdfs:label "Action"@en ;
+    rdfs:subClassOf :Response .
 
 :Alert
-			rdf:type owl:Class ;
-			rdfs:label "Alert" ;
-			rdfs:comment "Alerts are responses from a security control that only inform that a condition described in a rule has been detected"@en ;
-       		rdfs:subClassOf :Response .
+    a owl:Class ;
+    rdfs:comment "Alerts are responses from a security control that only inform that a condition described in a rule has been detected"@en ;
+    rdfs:label "Alert" ;
+    rdfs:subClassOf :Response .
 
-:generatedResponse
-			rdf:type owl:InverseFunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "generated action"@en ;
-			rdfs:comment "this control generated the following action in response to a rule in its configuration"@en ;
-			rdfs:subPropertyOf event:agent_in ;
-			rdfs:range :Action, :Alert;
-			rdfs:domain :SecurityControl ;
-			owl:inverseOf :generatedBy .
+:CorrectiveSecurityControl
+    a owl:Class ;
+    rdfs:comment "Corrective Security controls take action (and usually also generate alerts) upon detection of matching conditions"@en ;
+    rdfs:label "Corrective Security Control"@en ;
+    rdfs:subClassOf :SecurityControl .
 
-
-:generatedBy 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "was generated by"@en ;
-			rdfs:comment "this response was generated by this security control"@en ;	
-			rdfs:subPropertyOf event:agent;
-			rdfs:domain :Response ;
-			rdfs:range :SecurityControl ;
-			tapio:signaturePriority 1 ;
-			owl:inverseOf :generatedResponse .
-
-:hasSource
-			rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
-			rdfs:subPropertyOf event:factor ;
-			rdfs:label "has source"@en ;
-			rdfs:comment "this alert was generated as a result of the actions of this source"@en ;
-			rdfs:domain :Alert ;
-			rdfs:range owl:Thing .
-
-:hasTarget
-			rdf:type owl:ObjectProperty ;
-			rdfs:subPropertyOf event:factor ;
-			rdfs:label "has target"@en ;
-			rdfs:comment "this response action was applied to this target "@en ;
-			rdfs:domain :Action ;
-			rdfs:range owl:Thing .
+:DetectiveSecurityControl
+    a owl:Class ;
+    rdfs:comment "Detective Security controls generate alerts upon detection of matching conditions"@en ;
+    rdfs:label "Detective Security Control"@en ;
+    rdfs:subClassOf :SecurityControl .
 
 :Policy
-			rdf:type owl:Class ;
-			rdfs:label "Policy"@en ;
-			rdfs:comment "Policies, in the context of security controls, are grouping objects containing rules, that enforce or detect deviations from a stated organizational policy"@en ;
-	                rdfs:subClassOf owl:Thing ;
-			rdfs:subClassOf mere:SimpleComposite .
+    a owl:Class ;
+    rdfs:comment "Policies, in the context of security controls, are grouping objects containing rules, that enforce or detect deviations from a stated organizational policy"@en ;
+    rdfs:label "Policy"@en ;
+    rdfs:subClassOf mere:SimpleComposite, owl:Thing .
 
-:hasRule
-			rdf:type owl:ObjectProperty ;
-			owl:inverseOf :inPolicy ;
-			rdfs:label "has rule"@en ;
-			rdfs:subPropertyOf mere:hasPart ;
-			rdfs:comment "Policies contain individual rules that describe the conditions that deviate from (or enforce) the goals of the policy"@en ;
-			rdfs:domain :Policy ;
-			rdfs:range :Rule .
-			
-:inPolicy			
-			rdf:type owl:ObjectProperty ;
-			owl:inverseOf :hasRule ;
-			rdfs:label "has rule"@en ;
-			rdfs:subPropertyOf mere:partOf ;
-			rdfs:comment "Policies contain individual rules that describe the conditions that deviate from (or enforce) the goals of the policy"@en ;
-			rdfs:domain :Rule ;
-			rdfs:range :Policy .
+:PreventativeSecurityControl
+    a owl:Class ;
+    rdfs:label "Preventative Security Control"@en ;
+    rdfs:subClassOf :SecurityControl .
+
+:Response
+    a owl:Class ;
+    rdfs:comment "Controls generate Responses according to rule sets - these responses may be passive (alerting) or active (actions)."@en ;
+    rdfs:label "Response"@en ;
+    rdfs:subClassOf event:Event .
 
 :Rule
-			rdf:type owl:Class ;
-			rdfs:label "Rule"@en ;
-			rdfs:comment "Security controls produce responses according to conditions described in rules, usually with each rule producing a uniquely-named response"@en ;
-			rdfs:subClassOf owl:Thing ;
-			rdfs:subClassOf mere:Atom .
-:triggeredResponse	
-			rdf:type owl:ObjectProperty, owl:InverseFunctionalProperty ;
-			rdfs:subClassOf event:factor_in ;
-			owl:inverseOf :triggeredByRule ;
-			rdfs:label "triggered response"@en ;
-			rdfs:comment "this rule defines the matching conditions that caused the security control to create this response"@en ;
-			rdfs:domain :Rule ;
-			rdfs:range :Response .
+    a owl:Class ;
+    rdfs:comment "Security controls produce responses according to conditions described in rules, usually with each rule producing a uniquely-named response"@en ;
+    rdfs:label "Rule"@en ;
+    rdfs:subClassOf mere:Atom, owl:Thing .
+
+:SecurityControl
+    a owl:Class, foaf:Agent ;
+    rdfs:comment "A technical security control, embodied as active software monitoring the activity of one or more hosts or networks."@en ;
+    rdfs:label "Security Control"@en ;
+    rdfs:subClassOf owl:Thing .
+
+:enforcesPolicy
+    a owl:ObjectProperty ;
+    rdfs:domain :SecurityControl ;
+    rdfs:label "This control is configured with rules described in the following policy group"@en, "enforces policy"@en ;
+    rdfs:range :Policy .
+
+:generatedBy
+    tapio:signaturePriority 1 ;
+    a owl:ObjectProperty ;
+    rdfs:comment "this response was generated by this security control"@en ;
+    rdfs:domain :Response ;
+    rdfs:label "was generated by"@en ;
+    rdfs:range :SecurityControl ;
+    rdfs:subPropertyOf event:agent ;
+    owl:inverseOf :generatedResponse .
+
+:generatedResponse
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "this control generated the following action in response to a rule in its configuration"@en ;
+    rdfs:domain :SecurityControl ;
+    rdfs:label "generated action"@en ;
+    rdfs:range :Action, :Alert ;
+    rdfs:subPropertyOf event:agent_in ;
+    owl:inverseOf :generatedBy .
+
+:hasRule
+    a owl:ObjectProperty ;
+    rdfs:comment "Policies contain individual rules that describe the conditions that deviate from (or enforce) the goals of the policy"@en ;
+    rdfs:domain :Policy ;
+    rdfs:label "has rule"@en ;
+    rdfs:range :Rule ;
+    rdfs:subPropertyOf mere:hasPart ;
+    owl:inverseOf :inPolicy .
+
+:hasSource
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "this alert was generated as a result of the actions of this source"@en ;
+    rdfs:domain :Alert ;
+    rdfs:label "has source"@en ;
+    rdfs:range owl:Thing ;
+    rdfs:subPropertyOf event:factor .
+
+:hasTarget
+    a owl:ObjectProperty ;
+    rdfs:comment "this response action was applied to this target "@en ;
+    rdfs:domain :Action ;
+    rdfs:label "has target"@en ;
+    rdfs:range owl:Thing ;
+    rdfs:subPropertyOf event:factor .
+
+:inPolicy
+    a owl:ObjectProperty ;
+    rdfs:comment "Policies contain individual rules that describe the conditions that deviate from (or enforce) the goals of the policy"@en ;
+    rdfs:domain :Rule ;
+    rdfs:label "has rule"@en ;
+    rdfs:range :Policy ;
+    rdfs:subPropertyOf mere:partOf ;
+    owl:inverseOf :hasRule .
+
+:monitorsHost
+    a owl:ObjectProperty ;
+    rdfs:comment "this security control has visibility and governance over the following host"@en ;
+    rdfs:domain :SecurityControl ;
+    rdfs:label "monitors host"@en ;
+    rdfs:range host:Host .
+
+:monitorsSubnet
+    a owl:ObjectProperty ;
+    rdfs:comment "this security control has visibility and governance over the following subnet"@en ;
+    rdfs:domain :SecurityControl ;
+    rdfs:label "monitors subnet"@en ;
+    rdfs:range ipnet:SubNet .
+
+:ruleID
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "Controls typically have rule sets that govern how and what they respond to. This field is used to identify the particular rule this response was generated via, using the identity native to the source control"@en ;
+    rdfs:domain :Rule ;
+    rdfs:label "Rule ID"@en ;
+    rdfs:range xsd:normalizedString ;
+    rdfs:subPropertyOf event:literal_factor .
+
+:runsOnHost
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain :SecurityControl ;
+    rdfs:label "The host that this security control operates from"@en, "runs on host"@en ;
+    rdfs:range host:Host .
 
 :triggeredByRule
-			rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
-			rdfs:subClassOf event:factor ;
-			owl:inverseOf :triggeredResponse;
-			rdfs:label "was triggered by rule"@en ;
-			rdfs:comment "this response was triggered by conditions by conditions described in this rule"@en ;
-			rdfs:domain :Response ;
-			rdfs:range :Rule .
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "this response was triggered by conditions by conditions described in this rule"@en ;
+    rdfs:domain :Response ;
+    rdfs:label "was triggered by rule"@en ;
+    rdfs:range :Rule ;
+    rdfs:subClassOf event:factor ;
+    owl:inverseOf :triggeredResponse .
 
-:ruleID 	
-			rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
-			rdfs:label "Rule ID"@en ;
-			rdfs:comment "Controls typically have rule sets that govern how and what they respond to. This field is used to identify the particular rule this response was generated via, using the identity native to the source control"@en ;
-			rdfs:domain :Rule ;
-			rdfs:range xsd:normalizedString ;
-			rdfs:subPropertyOf event:literal_factor .
+:triggeredResponse
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "this rule defines the matching conditions that caused the security control to create this response"@en ;
+    rdfs:domain :Rule ;
+    rdfs:label "triggered response"@en ;
+    rdfs:range :Response ;
+    rdfs:subClassOf event:factor_in ;
+    owl:inverseOf :triggeredByRule .
 

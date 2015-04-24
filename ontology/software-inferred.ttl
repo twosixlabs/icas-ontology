@@ -9,18 +9,17 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/software-inferred#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/software-inferred> .
 
-<http://www.invincea.com/ontologies/icas/1.0/software-inferred> 
-			rdf:type owl:Ontology ;
-			rdfs:label "Software Ontology - Inferred Axioms"@en ;
-			owl:versionInfo "1.0"@en ;
-			rdfs:comment "This ontology contains additional predicates to the Software ontology, intended to be computationally inferred via an OWL reasoner"@en ;
-			owl:imports <http://www.invincea.com/ontologies/icas/1.0/software-applied> .
+<http://www.invincea.com/ontologies/icas/1.0/software-inferred>
+    a owl:Ontology ;
+    rdfs:comment "This ontology contains additional predicates to the Software ontology, intended to be computationally inferred via an OWL reasoner"@en ;
+    rdfs:label "Software Ontology - Inferred Axioms"@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/software-applied> ;
+    owl:versionInfo "1.0"@en .
 
-:MaliciousSoftware 
-			rdf:type owl:Class ;
-			rdfs:label "Malicious Software"@en ;
-			rdfs:subClassOf :Product .
+:MaliciousSoftware
+    a owl:Class ;
+    rdfs:label "Malicious Software"@en ;
+    rdfs:subClassOf :Product .
+

@@ -11,37 +11,47 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
 @prefix : <http://www.w3.org/2003/01/geo/wgs84_pos#> .
-@base <http://www.w3.org/2003/01/geo/wgs84_pos> .
 
 <http://www.w3.org/2003/01/geo/wgs84_pos>
-			rdf:type owl:Ontology ;
-			dc:date "$Date: 2009/04/20 15:00:30 $" ;
-			dc:description 
-"""A vocabulary for representing latitude, longitude and 
+    dc:date "$Date: 2009/04/20 15:00:30 $" ;
+    dc:description """A vocabulary for representing latitude, longitude and 
 altitude information in the WGS84 geodetic reference datum. 
 Version $Id: wgs84_pos.rdf,v 1.22 2009/04/20 15:00:30 timbl Exp $. See http://www.w3.org/2003/01/geo/ for more details."""@en ;
-			dc:title "WGS84 Geo Positioning: an RDF vocabulary" ;    		
-			rdfs:label "geo" .
-
-			
-:SpatialThing
-			rdf:type owl:Class ;       
-			rdfs:subClassOf owl:Thing ;
-			rdfs:comment """Anything with spatial extent, i.e. size, shape, or position. e.g. people, places, bowling balls, as well as abstract areas like cubes. """@en ;
-			rdfs:label "SpatialThing" .
+    dc:title "WGS84 Geo Positioning: an RDF vocabulary" ;
+    a owl:Ontology ;
+    rdfs:label "geo" .
 
 :Point
-			rdf:type owl:Class ;       
-			rdfs:comment """A point, typically described using a coordinate system relative to Earth, such as WGS84."""@en ;
-			rdfs:label "point"@en ;
-			rdfs:subClassOf :SpatialThing .
+    a owl:Class ;
+    rdfs:comment "A point, typically described using a coordinate system relative to Earth, such as WGS84."@en ;
+    rdfs:label "point"@en ;
+    rdfs:subClassOf :SpatialThing .
+
+:SpatialThing
+    a owl:Class ;
+    rdfs:comment "Anything with spatial extent, i.e. size, shape, or position. e.g. people, places, bowling balls, as well as abstract areas like cubes. "@en ;
+    rdfs:label "SpatialThing" ;
+    rdfs:subClassOf owl:Thing .
+
+:alt
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The WGS84 altitude of a SpatialThing (decimal meters above the local reference ellipsoid)."@en ;
+    rdfs:domain :SpatialThing ;
+    rdfs:label "altitude"@en ;
+    rdfs:range xsd:decimal .
+
+:lat
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The WGS84 latitude of a SpatialThing (decimal degrees)."@en ;
+    rdfs:domain :SpatialThing ;
+    rdfs:label "latitude"@en ;
+    rdfs:range xsd:decimal .
 
 :location
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:comment """The relation between something and the point, 
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment """The relation between something and the point, 
  or other geometrical thing in space, where it is.  For example, the realtionship between
  a radio tower and a Point with a given lat and long.
  Or a relationship between a park and its outline as a closed arc of points, or a road and
@@ -49,32 +59,15 @@ Version $Id: wgs84_pos.rdf,v 1.22 2009/04/20 15:00:30 timbl Exp $. See http://ww
  Clearly in practice there will be limit to the accuracy of any such statement, but one would expect
  an accuracy appropriate for the size of the object and uses such as mapping .
  """ ;
-			rdfs:label "location"@en ;
-			rdfs:domain owl:Thing ;
-			rdfs:range :SpatialThing ;
-			rdfs:subPropertyOf <http://xmlns.com/foaf/0.1/based_near> .
-
-:alt
-			rdf:type owl:FunctionalProperty ,  owl:DatatypeProperty  ;
-			rdfs:comment """The WGS84 altitude of a SpatialThing (decimal meters above the local reference ellipsoid)."""@en ;
-			rdfs:domain :SpatialThing ;
-			rdfs:range xsd:decimal ;
-			rdfs:label "altitude"@en .
-
-:lat
-			rdf:type owl:FunctionalProperty ,  owl:DatatypeProperty ;
-			rdfs:comment "The WGS84 latitude of a SpatialThing (decimal degrees)."@en ;
-			rdfs:domain :SpatialThing ;
-			rdfs:range xsd:decimal ;
-			rdfs:label "latitude"@en .
+    rdfs:domain owl:Thing ;
+    rdfs:label "location"@en ;
+    rdfs:range :SpatialThing ;
+    rdfs:subPropertyOf foaf:based_near .
 
 :long
-			rdf:type owl:FunctionalProperty ,  owl:DatatypeProperty ;
-			rdfs:comment "The WGS84 longitude of a SpatialThing (decimal degrees)." ;
-			rdfs:domain :SpatialThing ;
-			rdfs:range xsd:decimal ;
-			rdfs:label "longitude"@en .
-
-
-
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The WGS84 longitude of a SpatialThing (decimal degrees)." ;
+    rdfs:domain :SpatialThing ;
+    rdfs:label "longitude"@en ;
+    rdfs:range xsd:decimal .
 

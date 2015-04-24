@@ -9,7 +9,6 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix nic: <http://www.invincea.com/ontologies/icas/1.0/nic#> .
 @prefix oui: <http://www.invincea.com/ontologies/icas/1.0/oui#> .
 @prefix user: <http://www.invincea.com/ontologies/icas/1.0/user#> .
@@ -23,344 +22,333 @@
 @prefix process: <http://www.invincea.com/ontologies/icas/1.0/process#> .
 @prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/software#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/software> .
 
-<http://www.invincea.com/ontologies/icas/1.0/software> 
-			rdf:type owl:Ontology ;
-			rdfs:label "Software Package and Distribution Ontology"@en ;
-			rdfs:comment "Describes packages of software, their capabilities and install footprints."@en ;
-			dc:description "Describes packages of software, their capabilities and install footprints."@en ;
-			owl:versionInfo "1.0" ;
-			dc:creator "Invincea Labs"@en ;
-			dc:date "2014" ;		
-			owl:imports <http://www.invincea.com/ontologies/icas/1.0/filesystem> ,
-						<http://www.invincea.com/ontologies/icas/1.0/host> ,
-						<http://www.invincea.com/ontologies/icas/1.0/osplatform> .
+<http://www.invincea.com/ontologies/icas/1.0/software>
+    dc:creator "Invincea Labs"@en ;
+    dc:date "2014" ;
+    dc:description "Describes packages of software, their capabilities and install footprints."@en ;
+    a owl:Ontology ;
+    rdfs:comment "Describes packages of software, their capabilities and install footprints."@en ;
+    rdfs:label "Software Package and Distribution Ontology"@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/filesystem>, <http://www.invincea.com/ontologies/icas/1.0/host>, <http://www.invincea.com/ontologies/icas/1.0/osplatform> ;
+    owl:versionInfo "1.0" .
 
-			
-:Functionality 
-			rdf:type owl:Class ;
-			rdfs:label "Software Functionality"@en ;
-			rdfs:subClassOf owl:Thing ;
-			rdfs:comment "the general class and purpose of a piece of software"@en .
+:Browser
+    a owl:Class ;
+    rdfs:comment "A Web browser, encompassing all releases of it to date"@en ;
+    rdfs:label "Web Browser"@en ;
+    rdfs:subClassOf :Product .
 
-:Installation 
-			rdf:type owl:Class ;
-			rdfs:label "Installation of Software Package"@en ;
-			rdfs:comment "a specific installation of a software product, on an individual host"@en ;
-			rdfs:subClassOf owl:Thing .
+:Business
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Business Software"@en .
 
-:Package 
-			rdf:type owl:Class ;
-			rdfs:label "Software Package"@en ;
-			rdfs:comment "A packaged release of a software product, capable of being installed onto a system"@en ;
-			rdfs:subClassOf owl:Thing .
+:CAM
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Computer Aided Manufacturing Software"@en .
 
-:Product 
-			rdf:type owl:Class ;
-			rdfs:label "Software Product"@en ;
-			rdfs:comment "A Particular Software application or suite, encompassing all releases of it to date"@en ;
-			rdfs:subClassOf owl:Thing .
-			
-:Browser 
-			rdf:type owl:Class ;
-			rdfs:label "Web Browser"@en ;
-			rdfs:comment "A Web browser, encompassing all releases of it to date"@en ;
-			rdfs:subClassOf :Product .			
+:Children
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Children's Software"@en .
 
-:baseInstallDir 
-			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
-            rdfs:label "is installed in base directory"@en ;
-            rdfs:comment "the base directory the software is installed to may be an application-specific directory that all installed files are created relative to."@en ;
-            rdfs:domain :Installation ;
-            rdfs:range filesystem:Directory .
+:Chrome
+    a :Browser, owl:NamedIndividual .
 
-:canBeImplementedBy 
-			rdf:type owl:ObjectProperty ;
-            rdfs:label "can by implementing by this software"@en ;
-			rdfs:comment "Indicates known software that provides this specific capability"@en ;
-			rdfs:domain :Functionality ;
-			rdfs:range :Product ;
-			owl:inverseOf :implementsFunctionality .
+:Compiler
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Software Compiler"@en .
 
-:containsRelease 
-			rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
-			rdfs:label "is a release of"@en ;
-			rdfs:domain :Package ;
-			rdfs:range :Product ;
-			tapio:signaturePriority 3 ; 
-			owl:inverseOf :releasedAs .
+:DataManagement
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Data Management Software"@en .
 
-:hasData 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "created data file"@en ;
-			rdfs:subPropertyOf :hasFile .
+:Desktop
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Desktop Software"@en .
 
-:hasExecutable 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "created executable file"@en ;
-			rdfs:subPropertyOf :hasFile .
+:Editing
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Editing Software"@en .
 
-:hasFile 
-			rdf:type owl:InverseFunctionalProperty ,   owl:ObjectProperty ;
-			rdfs:label "created file"@en ;
-			rdfs:range filesystem:FileName ;
-			rdfs:domain :Installation .
+:Educational
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Education Software"@en .
 
-:hasInstalledSoftware 
-			rdf:type owl:InverseFunctionalProperty ,   owl:ObjectProperty ;
-			rdfs:label "has installated software"@en ;
-			rdfs:comment "this host has an installation of a software package, most likely identified through the Operating system's native package management."@en ;
-			rdfs:domain host:Host ;
-			rdfs:range :Installation ;
-			owl:inverseOf :isInstalledOn .
+:Entertainment
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Entertainment Software"@en .
 
-:hasLibrary 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "created library file"@en ;
-			rdfs:subPropertyOf :hasFile .
+:Firefox
+    a :Browser, owl:NamedIndividual .
 
-:hasSharedData 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "created shared data file"@en ;
-			rdfs:subPropertyOf :hasFile .
+:Functionality
+    a owl:Class ;
+    rdfs:comment "the general class and purpose of a piece of software"@en ;
+    rdfs:label "Software Functionality"@en ;
+    rdfs:subClassOf owl:Thing .
 
-:hasSharedLibrary 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "created shared library file"@en ;
-			rdfs:subPropertyOf :hasFile .
+:Games
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Video Game"@en .
 
-:implementsFunctionality 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "implements the following functionality"@en ;
-			rdfs:range :Functionality ;
-			rdfs:domain :Product .
+:Genealogy
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Data Management Software"@en .
 
-:installationOf 
-			rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
-            rdfs:label "is installation of"@en ;
-            rdfs:comment "indicates a specific installatin of a known software package onto a host."@en ;
-            rdfs:domain :Installation ;
-            rdfs:range :Package .
+:Government
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Government Software"@en .
 
-:isInstalledAt 
-			rdf:type owl:InverseFunctionalProperty ,   owl:ObjectProperty ;
-			rdfs:label "has an installation at"@en ;
-			rdfs:range :Installation ;
-			rdfs:domain :Package ;
-			owl:inverseOf :installationOf .
+:Graphics
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Graphics Software"@en .
 
-:isInstalledOn 
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "is installed on host"@en ;
-			rdfs:range host:Host ;
-			rdfs:domain :Installation ;
-			tapio:signaturePriority 1 ; 
-			owl:inverseOf :hasInstalledSoftware .
+:Industrial
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Industrial Software"@en .
 
-:officialSite 
-			rdf:type owl:FunctionalProperty ,    owl:ObjectProperty ;
-			rdfs:label "Official website located at"@en ;
-			rdfs:domain :Product ;
-			rdfs:range uri:URL .
+:Installation
+    a owl:Class ;
+    rdfs:comment "a specific installation of a software product, on an individual host"@en ;
+    rdfs:label "Installation of Software Package"@en ;
+    rdfs:subClassOf owl:Thing .
 
-:productName 
-			rdf:type owl:FunctionalProperty , owl:DatatypeProperty ;
-			rdfs:label "Product Name" ;
-			rdfs:domain :Product ;
-			tapio:signaturePriority 2 ; 
-			rdfs:range xsd:string .
-		
-:publisher 
-			rdf:type owl:DatatypeProperty ;
-			rdfs:label "is published by"@en ;
-			rdfs:domain :Product ;
-			rdfs:range xsd:normalizedString .
+:Internet_Explorer
+    a :Browser, owl:NamedIndividual .
 
-:releasedAs 
-			rdf:type owl:InverseFunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "released as installable package"@en ;
-			rdfs:range :Package ;
-			rdfs:domain :Product .
+:Knowledge
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Knowledge Management Software"@en .
 
-:targetPlatform 
-			rdf:type owl:ObjectProperty ;
-            rdfs:label "is compiled for platform"@en ;
-            rdfs:comment "software packages often contain content targetted for a specific computing platform , with different packages of the same software released for different target platforms."@en ;
-            rdfs:range osplatform:Platform ;
-            rdfs:domain :Package .
+:Language
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Language Software"@en .
 
-:productName 
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:label "has product name"@en ;
-			rdfs:comment "the commonly used name of a software product."@en ;
-			rdfs:domain :Product ;
-			rdfs:range xsd:normalizedString .
+:Legal
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Legal Practise Software"@en .
 
-:version 
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:label "with version "@en ;
-			rdfs:domain :Package ;
-			rdfs:range xsd:normalizedString .
+:Library
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Shared Library Software"@en .
 
-:buildNumber 
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:domain :Package ;
-			rdfs:range xsd:normalizedString .
+:Multimedia
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Multimedia Software"@en .
 
-:installedOn 
-			rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
-			rdfs:label "which was installed on"@en ;
-			rdfs:comment "when available, the timestamp for when this software package was installed on the system"@en ;
-			rdfs:domain :Installation ;
-			rdfs:range time:TemporalEntity .
-         
+:Music
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Music Software"@en .
 
-:Business 
-			rdf:type :Functionality ,    owl:NamedIndividual ;
-			rdfs:label "Business Software"@en .
+:Opera
+    a :Browser, owl:NamedIndividual .
 
-:CAM 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Computer Aided Manufacturing Software"@en .
+:PIM
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Personal Information Management Software"@en .
 
-:Children 
-			rdf:type :Functionality , owl:NamedIndividual ;
-			rdfs:label "Children's Software"@en .
+:Package
+    a owl:Class ;
+    rdfs:comment "A packaged release of a software product, capable of being installed onto a system"@en ;
+    rdfs:label "Software Package"@en ;
+    rdfs:subClassOf owl:Thing .
 
-:Compiler 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Software Compiler"@en .
+:Product
+    a owl:Class ;
+    rdfs:comment "A Particular Software application or suite, encompassing all releases of it to date"@en ;
+    rdfs:label "Software Product"@en ;
+    rdfs:subClassOf owl:Thing .
 
-:DataManagement 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Data Management Software"@en .
+:Programming
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Programming Software"@en .
 
-:Desktop 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Desktop Software"@en .
+:Religious
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Religious Software"@en .
 
-:Editing 
-			rdf:type :Functionality ,   owl:NamedIndividual ;
-			rdfs:label "Editing Software"@en .
+:Science
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Science Software"@en .
 
-:Educational 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Education Software"@en .
+:Simulation
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Simulation Software"@en .
 
-:Entertainment 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Entertainment Software"@en .
+:Spreadsheet
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Spreadsheet Software"@en .
 
-:Games 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Video Game"@en .
+:Stagecraft
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Stagecraft Software"@en .
 
-:Genealogy 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Data Management Software"@en .
+:Suite
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Software Suite"@en .
 
-:Government 
-			rdf:type :Functionality , owl:NamedIndividual ;
-			rdfs:label "Government Software"@en .
+:Transport
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Transport Software"@en .
 
-:Graphics 
-			rdf:type :Functionality , owl:NamedIndividual ;
-			rdfs:label "Graphics Software"@en .
+:Typography
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Typography Software"@en .
 
-:Industrial 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Industrial Software"@en .
+:Video
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Video Software"@en .
 
-:Knowledge 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Knowledge Management Software"@en .
+:WebBrowsing
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Web Browsing Software"@en .
 
-:Language 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Language Software"@en .
+:WordProcessor
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Word Processing Software"@en .
 
-:Legal 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Legal Practise Software"@en .
+:Workflow
+    a :Functionality, owl:NamedIndividual ;
+    rdfs:label "Workflow Software"@en .
 
-:Library 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Shared Library Software"@en .
+:baseInstallDir
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the base directory the software is installed to may be an application-specific directory that all installed files are created relative to."@en ;
+    rdfs:domain :Installation ;
+    rdfs:label "is installed in base directory"@en ;
+    rdfs:range filesystem:Directory .
 
-:Multimedia 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Multimedia Software"@en .
+:buildNumber
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain :Package ;
+    rdfs:range xsd:normalizedString .
 
-:Music 
-			rdf:type :Functionality , owl:NamedIndividual ;
-			rdfs:label "Music Software"@en .
+:canBeImplementedBy
+    a owl:ObjectProperty ;
+    rdfs:comment "Indicates known software that provides this specific capability"@en ;
+    rdfs:domain :Functionality ;
+    rdfs:label "can by implementing by this software"@en ;
+    rdfs:range :Product ;
+    owl:inverseOf :implementsFunctionality .
 
-:PIM 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Personal Information Management Software"@en .
+:containsRelease
+    tapio:signaturePriority 3 ;
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain :Package ;
+    rdfs:label "is a release of"@en ;
+    rdfs:range :Product ;
+    owl:inverseOf :releasedAs .
 
-:Programming 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Programming Software"@en .
+:hasData
+    a owl:ObjectProperty ;
+    rdfs:label "created data file"@en ;
+    rdfs:subPropertyOf :hasFile .
 
-:Religious 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Religious Software"@en .
+:hasExecutable
+    a owl:ObjectProperty ;
+    rdfs:label "created executable file"@en ;
+    rdfs:subPropertyOf :hasFile .
 
-:Science 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Science Software"@en .
+:hasFile
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain :Installation ;
+    rdfs:label "created file"@en ;
+    rdfs:range filesystem:FileName .
 
-:Simulation 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Simulation Software"@en .
+:hasInstalledSoftware
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "this host has an installation of a software package, most likely identified through the Operating system's native package management."@en ;
+    rdfs:domain host:Host ;
+    rdfs:label "has installated software"@en ;
+    rdfs:range :Installation ;
+    owl:inverseOf :isInstalledOn .
 
-:Spreadsheet 
-			rdf:type :Functionality , owl:NamedIndividual ;
-			rdfs:label "Spreadsheet Software"@en .
+:hasLibrary
+    a owl:ObjectProperty ;
+    rdfs:label "created library file"@en ;
+    rdfs:subPropertyOf :hasFile .
 
-:Stagecraft 
-			rdf:type :Functionality , owl:NamedIndividual ;
-			rdfs:label "Stagecraft Software"@en .
+:hasSharedData
+    a owl:ObjectProperty ;
+    rdfs:label "created shared data file"@en ;
+    rdfs:subPropertyOf :hasFile .
 
-:Suite 
-			rdf:type :Functionality ,  owl:NamedIndividual ;
-			rdfs:label "Software Suite"@en .
+:hasSharedLibrary
+    a owl:ObjectProperty ;
+    rdfs:label "created shared library file"@en ;
+    rdfs:subPropertyOf :hasFile .
 
-:Transport 
-			rdf:type :Functionality , owl:NamedIndividual ;
-			rdfs:label "Transport Software"@en .
+:implementsFunctionality
+    a owl:ObjectProperty ;
+    rdfs:domain :Product ;
+    rdfs:label "implements the following functionality"@en ;
+    rdfs:range :Functionality .
 
-:Typography 
-			rdf:type :Functionality , owl:NamedIndividual ;
-			rdfs:label "Typography Software"@en .
+:installationOf
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "indicates a specific installatin of a known software package onto a host."@en ;
+    rdfs:domain :Installation ;
+    rdfs:label "is installation of"@en ;
+    rdfs:range :Package .
 
-:Video 
-			rdf:type :Functionality , owl:NamedIndividual ;
-			rdfs:label "Video Software"@en .
-:WebBrowsing 
-			rdf:type :Functionality , owl:NamedIndividual ;
-			rdfs:label "Web Browsing Software"@en .
+:installedOn
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "when available, the timestamp for when this software package was installed on the system"@en ;
+    rdfs:domain :Installation ;
+    rdfs:label "which was installed on"@en ;
+    rdfs:range time:TemporalEntity .
 
-:WordProcessor 
-			rdf:type :Functionality , owl:NamedIndividual ;
-			rdfs:label "Word Processing Software"@en .
+:isInstalledAt
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain :Package ;
+    rdfs:label "has an installation at"@en ;
+    rdfs:range :Installation ;
+    owl:inverseOf :installationOf .
 
-:Workflow 
-			rdf:type :Functionality , owl:NamedIndividual ;
-			rdfs:label "Workflow Software"@en .
+:isInstalledOn
+    tapio:signaturePriority 1 ;
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain :Installation ;
+    rdfs:label "is installed on host"@en ;
+    rdfs:range host:Host ;
+    owl:inverseOf :hasInstalledSoftware .
 
-:Chrome 
-			rdf:type :Browser, owl:NamedIndividual .
-			
-:Firefox 
-			rdf:type :Browser, owl:NamedIndividual .
-			
-:Internet_Explorer 
-			rdf:type :Browser, owl:NamedIndividual .
-			
-:Opera 
-			rdf:type :Browser, owl:NamedIndividual .
-			
-			
+:officialSite
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain :Product ;
+    rdfs:label "Official website located at"@en ;
+    rdfs:range uri:URL .
+
+:productName
+    tapio:signaturePriority 2 ;
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "the commonly used name of a software product."@en ;
+    rdfs:domain :Product ;
+    rdfs:label "Product Name", "has product name"@en ;
+    rdfs:range xsd:normalizedString, xsd:string .
+
+:publisher
+    a owl:DatatypeProperty ;
+    rdfs:domain :Product ;
+    rdfs:label "is published by"@en ;
+    rdfs:range xsd:normalizedString .
+
+:releasedAs
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain :Product ;
+    rdfs:label "released as installable package"@en ;
+    rdfs:range :Package .
+
+:targetPlatform
+    a owl:ObjectProperty ;
+    rdfs:comment "software packages often contain content targetted for a specific computing platform , with different packages of the same software released for different target platforms."@en ;
+    rdfs:domain :Package ;
+    rdfs:label "is compiled for platform"@en ;
+    rdfs:range osplatform:Platform .
+
+:version
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain :Package ;
+    rdfs:label "with version "@en ;
+    rdfs:range xsd:normalizedString .
+

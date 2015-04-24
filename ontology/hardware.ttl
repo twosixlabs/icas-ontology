@@ -9,503 +9,496 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix mere: <http://www.bbn.com/ontologies/domain/foundation/mereology#> .
-	
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
 @prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/hardware#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/hardware> .
-
-<http://www.invincea.com/ontologies/icas/1.0/hardware> 
-			rdf:type owl:Ontology ;
-			rdfs:label "Computing, Storage and Infrastructure platform Ontology"@en ;
-			rdfs:comment "This ontology contains elements related to physical and virtual devices, for computing, storage, communications and general peripheral functions."@en ;                                         
-			dc:description "This ontology contains elements related to physical and virtual devices, for computing, storage, communications and general peripheral functions."@en ;
-			owl:versionInfo "1.0" ;
-			dc:creator "Invincea Labs"@en ;
-			dc:date "2014" .
-
-:Processor 
-			rdf:type owl:Class ;           
-			rdfs:label "Processor"@en ;           
-			rdfs:subClassOf owl:Thing ;           
-			rdfs:comment "The CPU(s) on this computing platform"@en .
-
-:Mainboard 
-			rdf:type owl:Class ;           
-			rdfs:label "Mainboard"@en ;           
-			rdfs:subClassOf owl:Thing ;           
-			rdfs:comment "the motherboard of a computing platform, containing the bus that connects other components and bootstrap firmware (such as BIOS, ARC or UEFI)"@en .
-
-
-:ComputingMachine 
-			rdf:type owl:Class ;
-			rdfs:subClassOf mere:Composite ;
-			rdfs:label "Computing Device"@en ;                  
-			rdfs:comment "a generic computing platform, capable of storing data and running general-purpose software. Used when the specific hardware profile of the host in question is unknown."@en .
-
-:StationaryMachine 
-			rdf:type owl:Class ;                   
-			rdfs:label "Stationary Machine"@en ;                   
-			rdfs:subClassOf :ComputingMachine ;                   
-			rdfs:comment "Stationary computing equipment is larger-scale hardware designed to be installed in a fixed physical location. They are typically connected to a single specific network(s) during their lifetime."@en .
-
-:MobileMachine 
-			rdf:type owl:Class ;               
-			rdfs:label "Mobile Device"@en ;               
-			rdfs:subClassOf :ComputingMachine ;               
-			rdfs:comment "Mobile devices are those which can be carried around at all times by an individual, typically having no fixed location or connected network."@en .
-
-:Tablet 
-			rdf:type owl:Class ;
-			rdfs:label "Tablet Mobile Device"@en ;               
-			rdfs:subClassOf :MobileMachine .
-
-:SmartPhone 
-			rdf:type owl:Class ;
-			rdfs:label "Smartphone Mobile Device"@en ;               
-			rdfs:subClassOf :MobileMachine .
-
-:VirtualMachine 
-			rdf:type owl:Class ;
-			rdfs:label "Virtual Machine"@en ;
-			rdfs:subClassOf :ComputingMachine ;
-			rdfs:comment "virtualized hardware used in the deployment of software-driven virtual machines. Since virtual hardware possesses many of the same elements as actual hardware, it is included in this ontology for consistency."@en .
-
-:VirtualBoxGuest 
-			rdf:type owl:Class ;                 
-			rdfs:subClassOf :VirtualMachine ;
-			rdfs:label "VirtualBox Guest VM"@en .
-
-:VMWareGuest 
-			rdf:type owl:Class ;
-			rdfs:subClassOf :VirtualMachine ;
-			rdfs:label "VMWare Guest VM"@en .
-
-:XenGuest 
-			rdf:type owl:Class ;          
-			rdfs:subClassOf :VirtualMachine ;
-			rdfs:label "XEN Guest VM"@en .
-
-:HyperVGuest 
-			rdf:type owl:Class ;
-			rdfs:label "HyperV Guest VM"@en ;                            
-			rdfs:subClassOf :VirtualMachine .
-
-:PowerVMGuest 
-			rdf:type owl:Class ;
-			rdfs:label "PowerVM Guest VM"@en ;               
-			rdfs:subClassOf :VirtualMachine .
-
-:KVMGuest 
-			rdf:type owl:Class ;
-			rdfs:label "KVM Guest VM"@en ;               
-			rdfs:subClassOf :VirtualMachine .
-
-:QEMUGuest 
-			rdf:type owl:Class ;
-			rdfs:label "QEMU Guest VM"@en ;                          
-			rdfs:subClassOf :VirtualMachine .
-
-:ParallelsGuest 
-			rdf:type owl:Class ;
-			rdfs:label "Parallels Guest VM"@en ;               
-			rdfs:subClassOf :VirtualMachine .
-
-:PortableMachine 
-			rdf:type owl:Class ;                 
-			rdfs:label "Portable Machine"@en ;                 
-			rdfs:subClassOf :ComputingMachine .
-
-:IntegrityVMGuest 
-			rdf:type owl:Class ;
-			rdfs:label "IntegrityVM Guest VM"@en ;               
-			rdfs:subClassOf :VirtualMachine .
-
-:Interface 
-			rdf:type owl:Class ;           
-			rdfs:subClassOf owl:Thing ;  
-			rdfs:label "Device Communication Interface"@en ;                    
-			rdfs:comment "Generally referred to as \"Busses\" or \"Sockets', these are a combination of particular hardware and an associated communications standard, for connecting a computing platform to additional devices that are not permanenely atttached to the main system/memory buss."@en .
-
-:Storage 
-			rdf:type owl:Class ;
-			rdfs:subClassOf owl:Thing ;
-			rdfs:label "Storage Device"@en .
-
-:Peripheral 
-			rdf:type owl:Class ;            
-			rdfs:subClassOf owl:Thing ;            
-			rdfs:label "Peripheral"@en ;            
-			rdfs:comment "a device (typically removable) attached to a computing device. Something that is not addressible by itself usually."@en .
-
-:UsbClassID 
-			rdf:type owl:AnnotationProperty ;
-			rdfs:label "identified by USB Class ID"^^xsd:hexBinary ;
-			rdfs:comment "The hexadecimal Class Type identifier for USB devices: each device presents its general functionality as one of these USB classes"@en ;
-			rdfs:domain :Peripheral .
-
-:attachedVia 
-			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
-			rdfs:label "attached via"@de ;
-			rdfs:comment "the device bus technology this device is connected to the host through"@en ;
-			rdfs:domain :Peripheral ;
-			rdfs:range :Interface .
-
-:hasArchitecture 
-			rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
-			rdfs:label "uses instruction set"@en ;
-			rdfs:comment "the instruction set this processor operates on. A siginificant factor in what software can run on this system."@en ;
-			rdfs:domain :Processor ;
-			rdfs:range :Architecture .
-
-:hasCPU 
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "has CPU type"@en ;
-			rdfs:subPropertyOf mere:hasPart ;
-			rdfs:domain :ComputingMachine ;
-			rdfs:range :Processor .
-
-:hasFormFactor 
-			rdf:type owl:ObjectProperty , owl:FunctionalProperty ; 
-			rdfs:label "has form-factor"@en ;
-			rdfs:comment "the computing platform this host exists on, such as a physical or virtual machine, in a fixed or mobile size."@en ;
-			rdfs:domain host:Host ;
-			rdfs:range :ComputingMachine ;
-			owl:inverseOf host:existsAs .
-
-:hasInterface 
-			rdf:type owl:InverseFunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "has device interface"@en ;
-			rdfs:range :Interface ;
-			rdfs:domain :Mainboard .
-
-:DeviceID 
-			rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
-			rdfs:label "has Device ID"@en ;
-			rdfs:comment "A Canonical Identity for this specific design of equipment - such as a manufacturers model number"@en ;
-			rdfs:domain :Processor, :ComputingMachine  , :Motherboard , :Interface , :Peripheral , :Storage ;
-			rdfs:range xsd:string .
-
-:DeviceSerial 
-			rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
-			rdfs:label "has Serial Numer"@en ;
-			tapio:signaturePriority 1 ; 
-			rdfs:comment "A Canonical Identity for this individual piece of equipment - such as a manufacturers serial number"@en ;
-			rdfs:domain :Processor, :ComputingMachine  , :Motherboard , :Interface , :Peripheral , :Storage ;
-			rdfs:range xsd:string .
-
-:Manufacturer 
-			rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
-			rdfs:label "has Manufacturer ID"@en ;
-			rdfs:comment "an Identifier for the organization that manufactured this piece of hardware."@en ;
-			rdfs:domain :ComputingMachine , :Interface , :Peripheral ;
-			rdfs:range xsd:string .
-
-:ATA 
-			rdf:type owl:Class ;     
-			rdfs:label "ATA Bus"@en ;	
-			rdfs:subClassOf :Interface .
-
-:ATM 
-			rdf:type owl:Class ;
-			rdfs:label "Asynchronous Transfer Mode Interface"@en ;	
-			rdfs:subClassOf :Communications .
-
-:ApplicationSpecific 
-			rdf:type owl:Class ;                     
-			rdfs:label "Application-Specific Interface"@en ;
-			rdfs:subClassOf :Peripheral ;
-			:UsbClassID "0FEh"^^xsd:hexBinary ;
-			rdfs:comment "Application-Specific Interfaces present an interface to extended functions on a peripheral, such as updating firmware directly, or assuming direct control of a hardware component on the attached peripheral."@en .
-
-:Architecture 
-			rdf:type owl:Class ;              
-			rdfs:label "Processor Architecture"@en ;
-			rdfs:subClassOf :Processor ;
-			rdfs:comment "Processor Architectures represent the machine language instruction set a particular CPU understand"@en .
-
-:Audio 
-			rdf:type owl:Class ;       
-			rdfs:label "Audio Device"@en ;
-			rdfs:subClassOf :Peripheral ;
-			:UsbClassID "001h"^^xsd:hexBinary .
-
-:AudioVideo 
-			rdf:type owl:Class ;            
-			rdfs:label "Audio/Video Device"@en ;
-            rdfs:subClassOf :Peripheral ;
-            :UsbClassID "010h"^^xsd:hexBinary .
-
-:Biometric 
-			rdf:type owl:Class ;
-			rdfs:label "Biometric Security Device"@en ;
-			rdfs:subClassOf :ContentSecurity .
-
-:BlueTooth 
-			rdf:type owl:Class ;
-			rdfs:label "BlueTooth Interface"@en ;
-			rdfs:subClassOf :Interface .
-
-:BlueToothAdapter 
-			rdf:type owl:Class ;                  
-			rdfs:label "BlueTooth Adapter"@en ;
-			rdfs:subClassOf :WirelessController .
-
-:Camera 
-			rdf:type owl:Class ;
-			rdfs:label "Camera"@en ;        
-			rdfs:subClassOf :Video .
-
-:Communications 
-			rdf:type owl:Class ;                
-			rdfs:label "Communications Device"@en ;
-			rdfs:subClassOf :Peripheral ;
-			:UsbClassID "002h"^^xsd:hexBinary ;
-			rdfs:comment "Communications devices typically fall into devices that implement a standard networking medium such as ethernet"@en .
-
-
-:ContentSecurity 
-			rdf:type owl:Class ;                 
-			rdfs:label "Security Device"@en ;
-			rdfs:subClassOf :Peripheral ;
-			:UsbClassID "00Dh"^^xsd:hexBinary .
-
-:Custom 
-			rdf:type owl:Class ;
-			rdfs:label "Custom Peripheral"@en ;
-			rdfs:subClassOf :Peripheral ;
-			:UsbClassID "0FFh"^^xsd:hexBinary ;
-			rdfs:comment "This peripheral fits none of the known profiles and is likely an extremely specific-purpose piece of equipment for used in specialized tasks. It will not function without vendor-specific driver software"@en .
-
-:DeviceController 
-			rdf:type owl:Class ;
-			rdfs:label "Device Controller"@en ;
-			rdfs:subClassOf :ComputingMachine .
-
-:Disk 
-			rdf:type owl:Class ;
-			rdfs:label "Storage Disk"@en ;      
-			rdfs:subClassOf :Storage .
-
-:Ether801_11 
-			rdf:type owl:Class ;
-			rdfs:label "Wireless Ethernet Interface"@en ;
-			rdfs:subClassOf :Communications .
-
-:Ether802_3 
-			rdf:type owl:Class ;
-			rdfs:label "Wired Ethernet Interface"@en ;
-			rdfs:subClassOf :Communications .
-
-:FDDI 
-			rdf:type owl:Class ;
-			rdfs:label "Fiber Distributed Data Interface"@en ;      
-			rdfs:subClassOf :Communications .
-
-:Flash 
-			rdf:type owl:Class ;
-			rdfs:label "Flash Storage"@en ;
-			rdfs:subClassOf :Storage ;
-			rdfs:comment "solid state removable, portable storage. e.g. a USB Flash drive, Secure Digital(SD) or CompactFlash card."@en .
-
-:HID 
-			rdf:type owl:Class ;
-			rdfs:label "Human Interface Device"@en ;
-			rdfs:subClassOf :Peripheral ;
-			:UsbClassID "003h"^^xsd:hexBinary .
-
-:Healthcare 
-			rdf:type owl:Class ;
-			rdfs:label "Personal Healthcare Device"@en ;
-			rdfs:subClassOf :Peripheral ;
-			:UsbClassID "00Fh"^^xsd:hexBinary ;
-			rdfs:comment "examples include pulse/pedometers worn on the wrist."@en .
-
-:Hub 
-			rdf:type owl:Class ;
-			rdfs:label "Hub"@en ;
-			rdfs:subClassOf :Peripheral ;
-			:UsbClassID "009h"^^xsd:hexBinary .
-
-:Image 
-			rdf:type owl:Class ;       
-			rdfs:label "Imaging Device"@en ;       
-			rdfs:subClassOf :Peripheral ;       
-			:UsbClassID "006h"^^xsd:hexBinary .
-
-:Joystick 
-			rdf:type owl:Class ;          
-			rdfs:label "Gaming Controller"@en ;          
-			rdfs:subClassOf :HID .
-
-
-:Keyboard 
-			rdf:type owl:Class ;          
-			rdfs:label "Keyboard"@en ;
-			rdfs:subClassOf :HID .
-
-:MIDI 
-			rdf:type owl:Class ;      
-			rdfs:label "MIDI Interface"@en ;      
-			rdfs:subClassOf :Audio .
-
-
-:MassStorage 
-			rdf:type owl:Class ;             
-			rdfs:label "Storage Enclosure"@en ;             
-			rdfs:subClassOf :Peripheral ;             
-			:UsbClassID "008h"^^xsd:hexBinary .
-
-:Misc 
-			rdf:type owl:Class ;      
-			rdfs:label "Miscellaneous Device"@en ;      
-			rdfs:subClassOf :Peripheral ;      
-			:UsbClassID "0EFh"^^xsd:hexBinary ;      
-			rdfs:comment "Miscellaneous devices usually implement a simple communication protocol to the device, such as Microsoft ActiveSync or emulation of RS232 serial communication"@en .
-
-:Modem 
-			rdf:type owl:Class ;       
-			rdfs:label "Modem"@en ;       
-			rdfs:subClassOf :Communications .
-
-:Mouse 
-			rdf:type owl:Class ;
-			rdfs:label "Mouse pointing device"@en ;               
-			rdfs:subClassOf :HID .
-
-:NetworkPrinter 
-			rdf:type owl:Class ;                
-			rdfs:label "Network Printer"@en ;                
-			rdfs:subClassOf :DeviceController ;                
-			rdfs:comment "A Host Processor to connect a printer directly to a network"@en .
-
-:Optical 
-			rdf:type owl:Class ;       
-			rdfs:label "Optical Storage"@en ;         
-			rdfs:subClassOf :Storage .
-
-:PCI 
-			rdf:type owl:Class ;
-			rdfs:label "Peripheral Component Interconnect Bus"@en ;                    
-			rdfs:subClassOf :Interface .
-
-:PID 
-			rdf:type owl:Class ;     
-			rdfs:label "Physical Interface Device"@en ;     
-			rdfs:subClassOf :Peripheral ;     
-			:UsbClassID "005h"@en ;     
-			rdfs:comment "commonly used to implement force-feedback controller devices (such as the vibration feature of gaming controllers)"@en .
-
-:Printer 
-			rdf:type owl:Class ;         
-			rdfs:label "Printer"@en ;         
-			rdfs:subClassOf :Peripheral ;         
-			:UsbClassID "007h"^^xsd:hexBinary .
-
-:SAS 
-			rdf:type owl:Class ;
-			rdfs:label "Serial-Attached-SCSI Bus"@en ;               
-			rdfs:subClassOf :Interface .
-
-:SATA 
-			rdf:type owl:Class ;
-			rdfs:label "Serial ATA Bus"@en ;               
-			rdfs:subClassOf :Interface .
-
-:SCSI 
-			rdf:type owl:Class ;
-			rdfs:label "Small Computer Systems Interface Bus"@en ;                     
-			rdfs:subClassOf :Interface .
-
-:SDIO 
-			rdf:type owl:Class ;
-			rdfs:label "Secure Digital Removable IO Bus"@en ;               
-			rdfs:subClassOf :Interface .
-
-:SONET 
-			rdf:type owl:Class ;       
-			rdfs:label "Syncronous Optical Networking Interface"@en ;               
-			rdfs:subClassOf :Communications .
-
-:SmartCard 
-			rdf:type owl:Class ;           
-			rdfs:label "Smart Card Reader"@en ;           
-			rdfs:subClassOf :Peripheral ;           
-			:UsbClassID "00Bh"^^xsd:hexBinary .
-
-:SoundCard 
-			rdf:type owl:Class ;        
-			rdfs:label "Sound Card"@en ;           
-			rdfs:subClassOf :Audio .
-
-:USB 
-			rdf:type owl:Class ;
-			rdfs:label "Universal Serial Bus"@en ;                    
-			rdfs:subClassOf :Interface .
-
-:USBDiagnostic 
-			rdf:type owl:Class ;               
-			rdfs:label "USB Diagnostic Device"@en ;               
-			rdfs:subClassOf :Peripheral ;
-			:UsbClassID "0DCh"^^xsd:hexBinary ;               
-			rdfs:comment "USB Diagnostic Devices are designed to intercept, monitor and manipulate USB traffic directly."@en .
-
-:Video 
-			rdf:type owl:Class ;
-			rdfs:label "Video Device"@en ;
-			rdfs:subClassOf :Peripheral ;
-			:UsbClassID "00Eh"^^xsd:hexBinary .
-
-:VideoCapture 
-			rdf:type owl:Class ;
-			rdfs:label "Video Capture Device"@en ;
-			rdfs:subClassOf :AudioVideo ;
-			rdfs:comment "Video Capture devices record video supplied by an external source, such as a cable television feed or non-digital camera source."@en .
-
-:WirelessController 
-			rdf:type owl:Class ;
-			rdfs:label "Wireless Device"@en ;
-			rdfs:subClassOf :Peripheral .
-
-:ARMv6 
-			rdf:type :Architecture , owl:NamedIndividual ;
-			rdfs:label "ARM version6 CPU Architecture"@en .
-
-:ARMv7 
-			rdf:type :Architecture ,  owl:NamedIndividual ;
-			rdfs:label "ARM version7 CPU Architecture"@en .
-
-:ARMv8 
-			rdf:type :Architecture ,  owl:NamedIndividual ;
-			rdfs:label "ARM version8 CPU Architecture"@en .
-
-:ARMv9 
-			rdf:type :Architecture , owl:NamedIndividual ;
-			rdfs:label "ARM version9 CPU Architecture"@en .
-
-:AVR 
-			rdf:type :Architecture , owl:NamedIndividual ;
-			rdfs:label "ATMEL AVR CPU Architecture"@en .
-
-:PA-RISC 
-			rdf:type :Architecture , owl:NamedIndividual ;
-			rdfs:label "PA-RISC CPU Architecture"@en .
-
-:POWER 
-			rdf:type :Architecture ,  owl:NamedIndividual ;
-			rdfs:label "POWERPC CPU Architecture"@en .
-
-:SPARC 
-			rdf:type :Architecture ,  owl:NamedIndividual ;
-			rdfs:label "SPARC CPU Architecture"@en .
-
-:X86_32 
-			rdf:type :Architecture ,   owl:NamedIndividual ;
-			rdfs:label "X86_32bit CPU Architecture"@en .
-
-:X86_64 
-			rdf:type :Architecture ,   owl:NamedIndividual ;
-			rdfs:label "X86_64bit CPU Architecture"@en .
+
+<http://www.invincea.com/ontologies/icas/1.0/hardware>
+    dc:creator "Invincea Labs"@en ;
+    dc:date "2014" ;
+    dc:description "This ontology contains elements related to physical and virtual devices, for computing, storage, communications and general peripheral functions."@en ;
+    a owl:Ontology ;
+    rdfs:comment "This ontology contains elements related to physical and virtual devices, for computing, storage, communications and general peripheral functions."@en ;
+    rdfs:label "Computing, Storage and Infrastructure platform Ontology"@en ;
+    owl:versionInfo "1.0" .
+
+:ARMv6
+    a :Architecture, owl:NamedIndividual ;
+    rdfs:label "ARM version6 CPU Architecture"@en .
+
+:ARMv7
+    a :Architecture, owl:NamedIndividual ;
+    rdfs:label "ARM version7 CPU Architecture"@en .
+
+:ARMv8
+    a :Architecture, owl:NamedIndividual ;
+    rdfs:label "ARM version8 CPU Architecture"@en .
+
+:ARMv9
+    a :Architecture, owl:NamedIndividual ;
+    rdfs:label "ARM version9 CPU Architecture"@en .
+
+:ATA
+    a owl:Class ;
+    rdfs:label "ATA Bus"@en ;
+    rdfs:subClassOf :Interface .
+
+:ATM
+    a owl:Class ;
+    rdfs:label "Asynchronous Transfer Mode Interface"@en ;
+    rdfs:subClassOf :Communications .
+
+:AVR
+    a :Architecture, owl:NamedIndividual ;
+    rdfs:label "ATMEL AVR CPU Architecture"@en .
+
+:ApplicationSpecific
+    :UsbClassID "0FEh"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:comment "Application-Specific Interfaces present an interface to extended functions on a peripheral, such as updating firmware directly, or assuming direct control of a hardware component on the attached peripheral."@en ;
+    rdfs:label "Application-Specific Interface"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:Architecture
+    a owl:Class ;
+    rdfs:comment "Processor Architectures represent the machine language instruction set a particular CPU understand"@en ;
+    rdfs:label "Processor Architecture"@en ;
+    rdfs:subClassOf :Processor .
+
+:Audio
+    :UsbClassID "001h"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:label "Audio Device"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:AudioVideo
+    :UsbClassID "010h"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:label "Audio/Video Device"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:Biometric
+    a owl:Class ;
+    rdfs:label "Biometric Security Device"@en ;
+    rdfs:subClassOf :ContentSecurity .
+
+:BlueTooth
+    a owl:Class ;
+    rdfs:label "BlueTooth Interface"@en ;
+    rdfs:subClassOf :Interface .
+
+:BlueToothAdapter
+    a owl:Class ;
+    rdfs:label "BlueTooth Adapter"@en ;
+    rdfs:subClassOf :WirelessController .
+
+:Camera
+    a owl:Class ;
+    rdfs:label "Camera"@en ;
+    rdfs:subClassOf :Video .
+
+:Communications
+    :UsbClassID "002h"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:comment "Communications devices typically fall into devices that implement a standard networking medium such as ethernet"@en ;
+    rdfs:label "Communications Device"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:ComputingMachine
+    a owl:Class ;
+    rdfs:comment "a generic computing platform, capable of storing data and running general-purpose software. Used when the specific hardware profile of the host in question is unknown."@en ;
+    rdfs:label "Computing Device"@en ;
+    rdfs:subClassOf mere:Composite .
+
+:ContentSecurity
+    :UsbClassID "00Dh"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:label "Security Device"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:Custom
+    :UsbClassID "0FFh"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:comment "This peripheral fits none of the known profiles and is likely an extremely specific-purpose piece of equipment for used in specialized tasks. It will not function without vendor-specific driver software"@en ;
+    rdfs:label "Custom Peripheral"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:DeviceController
+    a owl:Class ;
+    rdfs:label "Device Controller"@en ;
+    rdfs:subClassOf :ComputingMachine .
+
+:DeviceID
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "A Canonical Identity for this specific design of equipment - such as a manufacturers model number"@en ;
+    rdfs:domain :ComputingMachine, :Interface, :Motherboard, :Peripheral, :Processor, :Storage ;
+    rdfs:label "has Device ID"@en ;
+    rdfs:range xsd:string .
+
+:DeviceSerial
+    tapio:signaturePriority 1 ;
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "A Canonical Identity for this individual piece of equipment - such as a manufacturers serial number"@en ;
+    rdfs:domain :ComputingMachine, :Interface, :Motherboard, :Peripheral, :Processor, :Storage ;
+    rdfs:label "has Serial Numer"@en ;
+    rdfs:range xsd:string .
+
+:Disk
+    a owl:Class ;
+    rdfs:label "Storage Disk"@en ;
+    rdfs:subClassOf :Storage .
+
+:Ether801_11
+    a owl:Class ;
+    rdfs:label "Wireless Ethernet Interface"@en ;
+    rdfs:subClassOf :Communications .
+
+:Ether802_3
+    a owl:Class ;
+    rdfs:label "Wired Ethernet Interface"@en ;
+    rdfs:subClassOf :Communications .
+
+:FDDI
+    a owl:Class ;
+    rdfs:label "Fiber Distributed Data Interface"@en ;
+    rdfs:subClassOf :Communications .
+
+:Flash
+    a owl:Class ;
+    rdfs:comment "solid state removable, portable storage. e.g. a USB Flash drive, Secure Digital(SD) or CompactFlash card."@en ;
+    rdfs:label "Flash Storage"@en ;
+    rdfs:subClassOf :Storage .
+
+:HID
+    :UsbClassID "003h"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:label "Human Interface Device"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:Healthcare
+    :UsbClassID "00Fh"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:comment "examples include pulse/pedometers worn on the wrist."@en ;
+    rdfs:label "Personal Healthcare Device"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:Hub
+    :UsbClassID "009h"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:label "Hub"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:HyperVGuest
+    a owl:Class ;
+    rdfs:label "HyperV Guest VM"@en ;
+    rdfs:subClassOf :VirtualMachine .
+
+:Image
+    :UsbClassID "006h"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:label "Imaging Device"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:IntegrityVMGuest
+    a owl:Class ;
+    rdfs:label "IntegrityVM Guest VM"@en ;
+    rdfs:subClassOf :VirtualMachine .
+
+:Interface
+    a owl:Class ;
+    rdfs:comment "Generally referred to as \"Busses\" or \"Sockets', these are a combination of particular hardware and an associated communications standard, for connecting a computing platform to additional devices that are not permanenely atttached to the main system/memory buss."@en ;
+    rdfs:label "Device Communication Interface"@en ;
+    rdfs:subClassOf owl:Thing .
+
+:Joystick
+    a owl:Class ;
+    rdfs:label "Gaming Controller"@en ;
+    rdfs:subClassOf :HID .
+
+:KVMGuest
+    a owl:Class ;
+    rdfs:label "KVM Guest VM"@en ;
+    rdfs:subClassOf :VirtualMachine .
+
+:Keyboard
+    a owl:Class ;
+    rdfs:label "Keyboard"@en ;
+    rdfs:subClassOf :HID .
+
+:MIDI
+    a owl:Class ;
+    rdfs:label "MIDI Interface"@en ;
+    rdfs:subClassOf :Audio .
+
+:Mainboard
+    a owl:Class ;
+    rdfs:comment "the motherboard of a computing platform, containing the bus that connects other components and bootstrap firmware (such as BIOS, ARC or UEFI)"@en ;
+    rdfs:label "Mainboard"@en ;
+    rdfs:subClassOf owl:Thing .
+
+:Manufacturer
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "an Identifier for the organization that manufactured this piece of hardware."@en ;
+    rdfs:domain :ComputingMachine, :Interface, :Peripheral ;
+    rdfs:label "has Manufacturer ID"@en ;
+    rdfs:range xsd:string .
+
+:MassStorage
+    :UsbClassID "008h"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:label "Storage Enclosure"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:Misc
+    :UsbClassID "0EFh"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:comment "Miscellaneous devices usually implement a simple communication protocol to the device, such as Microsoft ActiveSync or emulation of RS232 serial communication"@en ;
+    rdfs:label "Miscellaneous Device"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:MobileMachine
+    a owl:Class ;
+    rdfs:comment "Mobile devices are those which can be carried around at all times by an individual, typically having no fixed location or connected network."@en ;
+    rdfs:label "Mobile Device"@en ;
+    rdfs:subClassOf :ComputingMachine .
+
+:Modem
+    a owl:Class ;
+    rdfs:label "Modem"@en ;
+    rdfs:subClassOf :Communications .
+
+:Mouse
+    a owl:Class ;
+    rdfs:label "Mouse pointing device"@en ;
+    rdfs:subClassOf :HID .
+
+:NetworkPrinter
+    a owl:Class ;
+    rdfs:comment "A Host Processor to connect a printer directly to a network"@en ;
+    rdfs:label "Network Printer"@en ;
+    rdfs:subClassOf :DeviceController .
+
+:Optical
+    a owl:Class ;
+    rdfs:label "Optical Storage"@en ;
+    rdfs:subClassOf :Storage .
+
+:PA-RISC
+    a :Architecture, owl:NamedIndividual ;
+    rdfs:label "PA-RISC CPU Architecture"@en .
+
+:PCI
+    a owl:Class ;
+    rdfs:label "Peripheral Component Interconnect Bus"@en ;
+    rdfs:subClassOf :Interface .
+
+:PID
+    :UsbClassID "005h"@en ;
+    a owl:Class ;
+    rdfs:comment "commonly used to implement force-feedback controller devices (such as the vibration feature of gaming controllers)"@en ;
+    rdfs:label "Physical Interface Device"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:POWER
+    a :Architecture, owl:NamedIndividual ;
+    rdfs:label "POWERPC CPU Architecture"@en .
+
+:ParallelsGuest
+    a owl:Class ;
+    rdfs:label "Parallels Guest VM"@en ;
+    rdfs:subClassOf :VirtualMachine .
+
+:Peripheral
+    a owl:Class ;
+    rdfs:comment "a device (typically removable) attached to a computing device. Something that is not addressible by itself usually."@en ;
+    rdfs:label "Peripheral"@en ;
+    rdfs:subClassOf owl:Thing .
+
+:PortableMachine
+    a owl:Class ;
+    rdfs:label "Portable Machine"@en ;
+    rdfs:subClassOf :ComputingMachine .
+
+:PowerVMGuest
+    a owl:Class ;
+    rdfs:label "PowerVM Guest VM"@en ;
+    rdfs:subClassOf :VirtualMachine .
+
+:Printer
+    :UsbClassID "007h"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:label "Printer"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:Processor
+    a owl:Class ;
+    rdfs:comment "The CPU(s) on this computing platform"@en ;
+    rdfs:label "Processor"@en ;
+    rdfs:subClassOf owl:Thing .
+
+:QEMUGuest
+    a owl:Class ;
+    rdfs:label "QEMU Guest VM"@en ;
+    rdfs:subClassOf :VirtualMachine .
+
+:SAS
+    a owl:Class ;
+    rdfs:label "Serial-Attached-SCSI Bus"@en ;
+    rdfs:subClassOf :Interface .
+
+:SATA
+    a owl:Class ;
+    rdfs:label "Serial ATA Bus"@en ;
+    rdfs:subClassOf :Interface .
+
+:SCSI
+    a owl:Class ;
+    rdfs:label "Small Computer Systems Interface Bus"@en ;
+    rdfs:subClassOf :Interface .
+
+:SDIO
+    a owl:Class ;
+    rdfs:label "Secure Digital Removable IO Bus"@en ;
+    rdfs:subClassOf :Interface .
+
+:SONET
+    a owl:Class ;
+    rdfs:label "Syncronous Optical Networking Interface"@en ;
+    rdfs:subClassOf :Communications .
+
+:SPARC
+    a :Architecture, owl:NamedIndividual ;
+    rdfs:label "SPARC CPU Architecture"@en .
+
+:SmartCard
+    :UsbClassID "00Bh"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:label "Smart Card Reader"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:SmartPhone
+    a owl:Class ;
+    rdfs:label "Smartphone Mobile Device"@en ;
+    rdfs:subClassOf :MobileMachine .
+
+:SoundCard
+    a owl:Class ;
+    rdfs:label "Sound Card"@en ;
+    rdfs:subClassOf :Audio .
+
+:StationaryMachine
+    a owl:Class ;
+    rdfs:comment "Stationary computing equipment is larger-scale hardware designed to be installed in a fixed physical location. They are typically connected to a single specific network(s) during their lifetime."@en ;
+    rdfs:label "Stationary Machine"@en ;
+    rdfs:subClassOf :ComputingMachine .
+
+:Storage
+    a owl:Class ;
+    rdfs:label "Storage Device"@en ;
+    rdfs:subClassOf owl:Thing .
+
+:Tablet
+    a owl:Class ;
+    rdfs:label "Tablet Mobile Device"@en ;
+    rdfs:subClassOf :MobileMachine .
+
+:USB
+    a owl:Class ;
+    rdfs:label "Universal Serial Bus"@en ;
+    rdfs:subClassOf :Interface .
+
+:USBDiagnostic
+    :UsbClassID "0DCh"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:comment "USB Diagnostic Devices are designed to intercept, monitor and manipulate USB traffic directly."@en ;
+    rdfs:label "USB Diagnostic Device"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:UsbClassID
+    a owl:AnnotationProperty ;
+    rdfs:comment "The hexadecimal Class Type identifier for USB devices: each device presents its general functionality as one of these USB classes"@en ;
+    rdfs:domain :Peripheral ;
+    rdfs:label "identified by USB Class ID"^^xsd:hexBinary .
+
+:VMWareGuest
+    a owl:Class ;
+    rdfs:label "VMWare Guest VM"@en ;
+    rdfs:subClassOf :VirtualMachine .
+
+:Video
+    :UsbClassID "00Eh"^^xsd:hexBinary ;
+    a owl:Class ;
+    rdfs:label "Video Device"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:VideoCapture
+    a owl:Class ;
+    rdfs:comment "Video Capture devices record video supplied by an external source, such as a cable television feed or non-digital camera source."@en ;
+    rdfs:label "Video Capture Device"@en ;
+    rdfs:subClassOf :AudioVideo .
+
+:VirtualBoxGuest
+    a owl:Class ;
+    rdfs:label "VirtualBox Guest VM"@en ;
+    rdfs:subClassOf :VirtualMachine .
+
+:VirtualMachine
+    a owl:Class ;
+    rdfs:comment "virtualized hardware used in the deployment of software-driven virtual machines. Since virtual hardware possesses many of the same elements as actual hardware, it is included in this ontology for consistency."@en ;
+    rdfs:label "Virtual Machine"@en ;
+    rdfs:subClassOf :ComputingMachine .
+
+:WirelessController
+    a owl:Class ;
+    rdfs:label "Wireless Device"@en ;
+    rdfs:subClassOf :Peripheral .
+
+:X86_32
+    a :Architecture, owl:NamedIndividual ;
+    rdfs:label "X86_32bit CPU Architecture"@en .
+
+:X86_64
+    a :Architecture, owl:NamedIndividual ;
+    rdfs:label "X86_64bit CPU Architecture"@en .
+
+:XenGuest
+    a owl:Class ;
+    rdfs:label "XEN Guest VM"@en ;
+    rdfs:subClassOf :VirtualMachine .
+
+:attachedVia
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the device bus technology this device is connected to the host through"@en ;
+    rdfs:domain :Peripheral ;
+    rdfs:label "attached via"@de ;
+    rdfs:range :Interface .
+
+:hasArchitecture
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the instruction set this processor operates on. A siginificant factor in what software can run on this system."@en ;
+    rdfs:domain :Processor ;
+    rdfs:label "uses instruction set"@en ;
+    rdfs:range :Architecture .
+
+:hasCPU
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain :ComputingMachine ;
+    rdfs:label "has CPU type"@en ;
+    rdfs:range :Processor ;
+    rdfs:subPropertyOf mere:hasPart .
+
+:hasFormFactor
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the computing platform this host exists on, such as a physical or virtual machine, in a fixed or mobile size."@en ;
+    rdfs:domain host:Host ;
+    rdfs:label "has form-factor"@en ;
+    rdfs:range :ComputingMachine ;
+    owl:inverseOf host:existsAs .
+
+:hasInterface
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain :Mainboard ;
+    rdfs:label "has device interface"@en ;
+    rdfs:range :Interface .
 

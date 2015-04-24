@@ -3,464 +3,456 @@
 @prefix tzont: <http://www.w3.org/2006/timezone#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
 @prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
 @prefix : <http://www.w3.org/2006/time#> .
-@base <http://www.w3.org/2006/time> .
 
 <http://www.w3.org/2006/time>
-			a owl:Ontology ;
-			rdfs:comment """
+    a owl:Ontology ;
+    rdfs:comment """
 			  An OWL Ontology of Time (OWL-Time).
 			""" ;
-			rdfs:seeAlso <http://www.w3.org/TR/owl-time> .
-
-			
-:Instant
-			a owl:Class ;
-			rdfs:label "Instant"@en ;
-			rdfs:subClassOf :TemporalEntity ;
-			owl:disjointWith :ProperInterval .
-
-:Interval
-			a owl:Class ;
-			rdfs:label "Interval"@en ;
-			rdfs:subClassOf :TemporalEntity .
+    rdfs:seeAlso <http://www.w3.org/TR/owl-time> .
 
 :DateTimeDescription
-			a owl:Class ;
-			rdfs:subClassOf [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :week
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :second
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :hour
-			], [
-			    a owl:Restriction ;
-			    owl:cardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :unitType
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :dayOfWeek
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :timeZone
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :dayOfYear
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :minute
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :day
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :month
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :year
-			] .
+    a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :week
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :month
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :year
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :second
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hour
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :unitType
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :dayOfWeek
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :timeZone
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :dayOfYear
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :minute
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :day
+    ] .
 
 :DateTimeInterval
-			a owl:Class ;
-			rdfs:subClassOf :ProperInterval .
+    a owl:Class ;
+    rdfs:subClassOf :ProperInterval .
 
 :DayOfWeek
-			a owl:Class ;
-			owl:equivalentClass [
-			    a owl:Class ;
-			    owl:oneOf (:Wednesday
-			        :Friday
-			        :Saturday
-			        :Tuesday
-			        :Monday
-			        :Sunday
-			        :Thursday
-			    )
-			] .
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:oneOf (:Wednesday
+            :Friday
+            :Saturday
+            :Tuesday
+            :Monday
+            :Sunday
+            :Thursday
+        )
+    ] .
 
 :DurationDescription
-			a owl:Class ;
-			rdfs:subClassOf [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :years
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :weeks
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :seconds
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :hours
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :days
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :months
-			], [
-			    a owl:Restriction ;
-			    owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :minutes
-			] .
-
-
-
-
-:January
-			a owl:Class ;
-			rdfs:subClassOf :DateTimeDescription, [
-			    a owl:Restriction ;
-			    owl:hasValue "--01"^^xsd:gMonth ;
-			    owl:onProperty :month
-			], [
-			    a owl:Restriction ;
-			    owl:hasValue :unitMonth ;
-			    owl:onProperty :unitType
-			] .
-
-
-:ProperInterval
-			a owl:Class ;
-			rdfs:subClassOf :Interval .
-
-
-:TemporalEntity
-			a owl:Class ;
-			owl:equivalentClass [
-			    a owl:Class ;
-			    owl:unionOf (:Instant
-			        :Interval
-			    )
-			] .
-
-:TemporalUnit
-			a owl:Class ;
-			owl:equivalentClass [
-			    a owl:Class ;
-			    owl:oneOf (:unitMonth
-			        :unitMinute
-			        :unitDay
-			        :unitHour
-			        :unitYear
-			        :unitSecond
-			        :unitWeek
-			    )
-			] .
-			
-
-:Year
-			a owl:Class ;
-			rdfs:subClassOf :DurationDescription, [
-			    a owl:Restriction ;
-			    owl:cardinality "0"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :months
-			], [
-			    a owl:Restriction ;
-			    owl:cardinality "0"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :minutes
-			], [
-			    a owl:Restriction ;
-			    owl:cardinality "0"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :weeks
-			], [
-			    a owl:Restriction ;
-			    owl:cardinality "1"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :years
-			], [
-			    a owl:Restriction ;
-			    owl:cardinality "0"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :days
-			], [
-			    a owl:Restriction ;
-			    owl:cardinality "0"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :seconds
-			], [
-			    a owl:Restriction ;
-			    owl:cardinality "0"^^xsd:nonNegativeInteger ;
-			    owl:onProperty :hours
-			] .
-
-:after
-			a owl:ObjectProperty ;
-			rdfs:domain :TemporalEntity ;
-			rdfs:range :TemporalEntity ;
-			owl:inverseOf :before .
-
-:before
-			a owl:ObjectProperty, owl:TransitiveProperty ;
-			rdfs:domain :TemporalEntity ;
-			rdfs:range :TemporalEntity ;
-			owl:inverseOf :after .
-
-:day
-			a owl:DatatypeProperty ;
-			rdfs:domain :DateTimeDescription ;
-			rdfs:range xsd:gDay .
-
-:dayOfWeek
-			a owl:ObjectProperty ;
-			rdfs:domain :DateTimeDescription ;
-			rdfs:range :DayOfWeek .
-
-:dayOfYear
-			a owl:DatatypeProperty ;
-			rdfs:domain :DateTimeDescription ;
-			rdfs:range xsd:nonNegativeInteger .
-
-:days
-			a owl:DatatypeProperty ;
-			rdfs:domain :DurationDescription ;
-			rdfs:range xsd:decimal .
-
-:hasBeginning
-			a owl:ObjectProperty ;
-			rdfs:domain :TemporalEntity ;
-			rdfs:range :Instant .
-
-:hasDateTimeDescription
-			a owl:ObjectProperty ;
-			rdfs:domain :DateTimeInterval ;
-			rdfs:range :DateTimeDescription .
-
-:hasDurationDescription
-			a owl:ObjectProperty ;
-			rdfs:domain :TemporalEntity ;
-			rdfs:range :DurationDescription .
-
-:hasEnd
-			a owl:ObjectProperty ;
-			rdfs:domain :TemporalEntity ;
-			rdfs:range :Instant .
-
-:hour
-			a owl:DatatypeProperty ;
-			rdfs:domain :DateTimeDescription ;
-			rdfs:range xsd:nonNegativeInteger .
-
-:hours
-			a owl:DatatypeProperty ;
-			rdfs:domain :DurationDescription ;
-			rdfs:range xsd:decimal .
-
-:inDateTime
-			a owl:ObjectProperty ;
-			rdfs:domain :Instant ;
-			rdfs:range :DateTimeDescription .
-
-:inXSDDateTime
-			a owl:DatatypeProperty ;
-			rdfs:domain :Instant ;
-			rdfs:range xsd:dateTime .
-
-:inside
-			a owl:ObjectProperty ;
-			rdfs:domain :Interval ;
-			rdfs:range :Instant .
-
-:intervalAfter
-			a owl:ObjectProperty ;
-			rdfs:domain :ProperInterval ;
-			rdfs:range :ProperInterval ;
-			owl:inverseOf :intervalBefore ;
-			rdfs:subPropertyOf :after .
-
-:intervalBefore
-			a owl:ObjectProperty ;
-			rdfs:domain :ProperInterval ;
-			rdfs:range :ProperInterval ;
-			owl:inverseOf :intervalAfter ;
-			rdfs:subPropertyOf :before .
-
-:intervalContains
-			a owl:ObjectProperty ;
-			rdfs:domain :ProperInterval ;
-			rdfs:range :ProperInterval ;
-			owl:inverseOf :intervalDuring .
-
-:intervalDuring
-			a owl:ObjectProperty ;
-			rdfs:domain :ProperInterval ;
-			rdfs:range :ProperInterval ;
-			owl:inverseOf :intervalContains .
-
-:intervalEquals
-			a owl:ObjectProperty ;
-			rdfs:domain :ProperInterval ;
-			rdfs:range :ProperInterval .
-
-:intervalFinishedBy
-			a owl:ObjectProperty ;
-			rdfs:domain :ProperInterval ;
-			rdfs:range :ProperInterval ;
-			owl:inverseOf :intervalFinishes .
-
-:intervalFinishes
-			a owl:ObjectProperty ;
-			rdfs:domain :ProperInterval ;
-			rdfs:range :ProperInterval ;
-			owl:inverseOf :intervalFinishedBy .
-
-:intervalMeets
-			a owl:ObjectProperty ;
-			rdfs:domain :ProperInterval ;
-			rdfs:range :ProperInterval ;
-			owl:inverseOf :intervalMetBy .
-
-:intervalMetBy
-			a owl:ObjectProperty ;
-			rdfs:domain :ProperInterval ;
-			rdfs:range :ProperInterval ;
-			owl:inverseOf :intervalMeets .
-
-:intervalOverlappedBy
-			a owl:ObjectProperty ;
-			rdfs:domain :ProperInterval ;
-			rdfs:range :ProperInterval ;
-			owl:inverseOf :intervalOverlaps .
-
-:intervalOverlaps
-			a owl:ObjectProperty ;
-			rdfs:domain :ProperInterval ;
-			rdfs:range :ProperInterval ;
-			owl:inverseOf :intervalOverlappedBy .
-
-:intervalStartedBy
-			a owl:ObjectProperty ;
-			rdfs:domain :ProperInterval ;
-			rdfs:range :ProperInterval ;
-			owl:inverseOf :intervalStarts .
-
-:intervalStarts
-			a owl:ObjectProperty ;
-			rdfs:domain :ProperInterval ;
-			rdfs:range :ProperInterval ;
-			owl:inverseOf :intervalStartedBy .
-
-:minute
-			a owl:DatatypeProperty ;
-			rdfs:domain :DateTimeDescription ;
-			rdfs:range xsd:nonNegativeInteger .
-
-:minutes
-			a owl:DatatypeProperty ;
-			rdfs:domain :DurationDescription ;
-			rdfs:range xsd:decimal .
-
-:month
-			a owl:DatatypeProperty ;
-			rdfs:domain :DateTimeDescription ;
-			rdfs:range xsd:gMonth .
-
-:months
-			a owl:DatatypeProperty ;
-			rdfs:domain :DurationDescription ;
-			rdfs:range xsd:decimal .
-
-:second
-			a owl:DatatypeProperty ;
-			rdfs:domain :DateTimeDescription ;
-			rdfs:range xsd:decimal .
-
-:seconds
-			a owl:DatatypeProperty ;
-			rdfs:domain :DurationDescription ;
-			rdfs:range xsd:decimal .
-
-:timeZone
-			a owl:ObjectProperty ;
-			rdfs:domain :DateTimeDescription ;
-			rdfs:range tzont:TimeZone .
-
-:unitType
-			a owl:ObjectProperty ;
-			rdfs:domain :DateTimeDescription ;
-			rdfs:range :TemporalUnit .
-
-:unitDay
-			a owl:NamedIndividual, :TemporalUnit .
-
-:unitHour
-			a owl:NamedIndividual, :TemporalUnit .
-
-:unitMinute
-			a owl:NamedIndividual, :TemporalUnit .
-
-:unitMonth
-			a owl:NamedIndividual, :TemporalUnit .
-
-:unitSecond
-			a owl:NamedIndividual, :TemporalUnit .
-
-:unitWeek
-			a owl:NamedIndividual, :TemporalUnit .
-
-:unitYear
-			a owl:NamedIndividual, :TemporalUnit .
-
-:week
-			a owl:DatatypeProperty ;
-			rdfs:domain :DateTimeDescription ;
-			rdfs:range xsd:nonNegativeInteger .
-
-:weeks
-			a owl:DatatypeProperty ;
-			rdfs:domain :DurationDescription ;
-			rdfs:range xsd:decimal .
-
-:xsdDateTime
-			a owl:DatatypeProperty ;
-			rdfs:domain :DateTimeInterval ;
-			rdfs:range xsd:dateTime .
-
-:year
-			a owl:DatatypeProperty ;
-			rdfs:domain :DateTimeDescription ;
-			rdfs:range xsd:gYear .
-
-:years
-			a owl:DatatypeProperty ;
-			rdfs:domain :DurationDescription ;
-			rdfs:range xsd:decimal .
-
-:Monday
-			a owl:NamedIndividual, :DayOfWeek .
-
-:Tuesday
-			a owl:NamedIndividual, :DayOfWeek .
-
-:Wednesday
-			a owl:NamedIndividual, :DayOfWeek .
-
-:Thursday
-			a owl:NamedIndividual, :DayOfWeek .
+    a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :years
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :weeks
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :seconds
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hours
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :days
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :months
+    ], [
+        a owl:Restriction ;
+        owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :minutes
+    ] .
 
 :Friday
-			a owl:NamedIndividual, :DayOfWeek .
+    a owl:NamedIndividual, :DayOfWeek .
+
+:Instant
+    a owl:Class ;
+    rdfs:label "Instant"@en ;
+    rdfs:subClassOf :TemporalEntity ;
+    owl:disjointWith :ProperInterval .
+
+:Interval
+    a owl:Class ;
+    rdfs:label "Interval"@en ;
+    rdfs:subClassOf :TemporalEntity .
+
+:January
+    a owl:Class ;
+    rdfs:subClassOf :DateTimeDescription, [
+        a owl:Restriction ;
+        owl:hasValue "--01"^^xsd:gMonth ;
+        owl:onProperty :month
+    ], [
+        a owl:Restriction ;
+        owl:hasValue :unitMonth ;
+        owl:onProperty :unitType
+    ] .
+
+:Monday
+    a owl:NamedIndividual, :DayOfWeek .
+
+:ProperInterval
+    a owl:Class ;
+    rdfs:subClassOf :Interval .
 
 :Saturday
-			a owl:NamedIndividual, :DayOfWeek .
+    a owl:NamedIndividual, :DayOfWeek .
 
 :Sunday
-			a owl:NamedIndividual, :DayOfWeek .
+    a owl:NamedIndividual, :DayOfWeek .
+
+:TemporalEntity
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:unionOf (:Instant
+            :Interval
+        )
+    ] .
+
+:TemporalUnit
+    a owl:Class ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:oneOf (:unitMonth
+            :unitMinute
+            :unitDay
+            :unitHour
+            :unitYear
+            :unitSecond
+            :unitWeek
+        )
+    ] .
+
+:Thursday
+    a owl:NamedIndividual, :DayOfWeek .
+
+:Tuesday
+    a owl:NamedIndividual, :DayOfWeek .
+
+:Wednesday
+    a owl:NamedIndividual, :DayOfWeek .
+
+:Year
+    a owl:Class ;
+    rdfs:subClassOf :DurationDescription, [
+        a owl:Restriction ;
+        owl:cardinality "0"^^xsd:nonNegativeInteger ;
+        owl:onProperty :months
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "0"^^xsd:nonNegativeInteger ;
+        owl:onProperty :minutes
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "0"^^xsd:nonNegativeInteger ;
+        owl:onProperty :weeks
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "1"^^xsd:nonNegativeInteger ;
+        owl:onProperty :years
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "0"^^xsd:nonNegativeInteger ;
+        owl:onProperty :days
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "0"^^xsd:nonNegativeInteger ;
+        owl:onProperty :seconds
+    ], [
+        a owl:Restriction ;
+        owl:cardinality "0"^^xsd:nonNegativeInteger ;
+        owl:onProperty :hours
+    ] .
+
+:after
+    a owl:ObjectProperty ;
+    rdfs:domain :TemporalEntity ;
+    rdfs:range :TemporalEntity ;
+    owl:inverseOf :before .
+
+:before
+    a owl:ObjectProperty, owl:TransitiveProperty ;
+    rdfs:domain :TemporalEntity ;
+    rdfs:range :TemporalEntity ;
+    owl:inverseOf :after .
+
+:day
+    a owl:DatatypeProperty ;
+    rdfs:domain :DateTimeDescription ;
+    rdfs:range xsd:gDay .
+
+:dayOfWeek
+    a owl:ObjectProperty ;
+    rdfs:domain :DateTimeDescription ;
+    rdfs:range :DayOfWeek .
+
+:dayOfYear
+    a owl:DatatypeProperty ;
+    rdfs:domain :DateTimeDescription ;
+    rdfs:range xsd:nonNegativeInteger .
+
+:days
+    a owl:DatatypeProperty ;
+    rdfs:domain :DurationDescription ;
+    rdfs:range xsd:decimal .
+
+:hasBeginning
+    a owl:ObjectProperty ;
+    rdfs:domain :TemporalEntity ;
+    rdfs:range :Instant .
+
+:hasDateTimeDescription
+    a owl:ObjectProperty ;
+    rdfs:domain :DateTimeInterval ;
+    rdfs:range :DateTimeDescription .
+
+:hasDurationDescription
+    a owl:ObjectProperty ;
+    rdfs:domain :TemporalEntity ;
+    rdfs:range :DurationDescription .
+
+:hasEnd
+    a owl:ObjectProperty ;
+    rdfs:domain :TemporalEntity ;
+    rdfs:range :Instant .
+
+:hour
+    a owl:DatatypeProperty ;
+    rdfs:domain :DateTimeDescription ;
+    rdfs:range xsd:nonNegativeInteger .
+
+:hours
+    a owl:DatatypeProperty ;
+    rdfs:domain :DurationDescription ;
+    rdfs:range xsd:decimal .
+
+:inDateTime
+    a owl:ObjectProperty ;
+    rdfs:domain :Instant ;
+    rdfs:range :DateTimeDescription .
+
+:inXSDDateTime
+    a owl:DatatypeProperty ;
+    rdfs:domain :Instant ;
+    rdfs:range xsd:dateTime .
+
+:inside
+    a owl:ObjectProperty ;
+    rdfs:domain :Interval ;
+    rdfs:range :Instant .
+
+:intervalAfter
+    a owl:ObjectProperty ;
+    rdfs:domain :ProperInterval ;
+    rdfs:range :ProperInterval ;
+    rdfs:subPropertyOf :after ;
+    owl:inverseOf :intervalBefore .
+
+:intervalBefore
+    a owl:ObjectProperty ;
+    rdfs:domain :ProperInterval ;
+    rdfs:range :ProperInterval ;
+    rdfs:subPropertyOf :before ;
+    owl:inverseOf :intervalAfter .
+
+:intervalContains
+    a owl:ObjectProperty ;
+    rdfs:domain :ProperInterval ;
+    rdfs:range :ProperInterval ;
+    owl:inverseOf :intervalDuring .
+
+:intervalDuring
+    a owl:ObjectProperty ;
+    rdfs:domain :ProperInterval ;
+    rdfs:range :ProperInterval ;
+    owl:inverseOf :intervalContains .
+
+:intervalEquals
+    a owl:ObjectProperty ;
+    rdfs:domain :ProperInterval ;
+    rdfs:range :ProperInterval .
+
+:intervalFinishedBy
+    a owl:ObjectProperty ;
+    rdfs:domain :ProperInterval ;
+    rdfs:range :ProperInterval ;
+    owl:inverseOf :intervalFinishes .
+
+:intervalFinishes
+    a owl:ObjectProperty ;
+    rdfs:domain :ProperInterval ;
+    rdfs:range :ProperInterval ;
+    owl:inverseOf :intervalFinishedBy .
+
+:intervalMeets
+    a owl:ObjectProperty ;
+    rdfs:domain :ProperInterval ;
+    rdfs:range :ProperInterval ;
+    owl:inverseOf :intervalMetBy .
+
+:intervalMetBy
+    a owl:ObjectProperty ;
+    rdfs:domain :ProperInterval ;
+    rdfs:range :ProperInterval ;
+    owl:inverseOf :intervalMeets .
+
+:intervalOverlappedBy
+    a owl:ObjectProperty ;
+    rdfs:domain :ProperInterval ;
+    rdfs:range :ProperInterval ;
+    owl:inverseOf :intervalOverlaps .
+
+:intervalOverlaps
+    a owl:ObjectProperty ;
+    rdfs:domain :ProperInterval ;
+    rdfs:range :ProperInterval ;
+    owl:inverseOf :intervalOverlappedBy .
+
+:intervalStartedBy
+    a owl:ObjectProperty ;
+    rdfs:domain :ProperInterval ;
+    rdfs:range :ProperInterval ;
+    owl:inverseOf :intervalStarts .
+
+:intervalStarts
+    a owl:ObjectProperty ;
+    rdfs:domain :ProperInterval ;
+    rdfs:range :ProperInterval ;
+    owl:inverseOf :intervalStartedBy .
+
+:minute
+    a owl:DatatypeProperty ;
+    rdfs:domain :DateTimeDescription ;
+    rdfs:range xsd:nonNegativeInteger .
+
+:minutes
+    a owl:DatatypeProperty ;
+    rdfs:domain :DurationDescription ;
+    rdfs:range xsd:decimal .
+
+:month
+    a owl:DatatypeProperty ;
+    rdfs:domain :DateTimeDescription ;
+    rdfs:range xsd:gMonth .
+
+:months
+    a owl:DatatypeProperty ;
+    rdfs:domain :DurationDescription ;
+    rdfs:range xsd:decimal .
+
+:second
+    a owl:DatatypeProperty ;
+    rdfs:domain :DateTimeDescription ;
+    rdfs:range xsd:decimal .
+
+:seconds
+    a owl:DatatypeProperty ;
+    rdfs:domain :DurationDescription ;
+    rdfs:range xsd:decimal .
+
+:timeZone
+    a owl:ObjectProperty ;
+    rdfs:domain :DateTimeDescription ;
+    rdfs:range tzont:TimeZone .
+
+:unitDay
+    a owl:NamedIndividual, :TemporalUnit .
+
+:unitHour
+    a owl:NamedIndividual, :TemporalUnit .
+
+:unitMinute
+    a owl:NamedIndividual, :TemporalUnit .
+
+:unitMonth
+    a owl:NamedIndividual, :TemporalUnit .
+
+:unitSecond
+    a owl:NamedIndividual, :TemporalUnit .
+
+:unitType
+    a owl:ObjectProperty ;
+    rdfs:domain :DateTimeDescription ;
+    rdfs:range :TemporalUnit .
+
+:unitWeek
+    a owl:NamedIndividual, :TemporalUnit .
+
+:unitYear
+    a owl:NamedIndividual, :TemporalUnit .
+
+:week
+    a owl:DatatypeProperty ;
+    rdfs:domain :DateTimeDescription ;
+    rdfs:range xsd:nonNegativeInteger .
+
+:weeks
+    a owl:DatatypeProperty ;
+    rdfs:domain :DurationDescription ;
+    rdfs:range xsd:decimal .
+
+:xsdDateTime
+    a owl:DatatypeProperty ;
+    rdfs:domain :DateTimeInterval ;
+    rdfs:range xsd:dateTime .
+
+:year
+    a owl:DatatypeProperty ;
+    rdfs:domain :DateTimeDescription ;
+    rdfs:range xsd:gYear .
+
+:years
+    a owl:DatatypeProperty ;
+    rdfs:domain :DurationDescription ;
+    rdfs:range xsd:decimal .
+

@@ -9,23 +9,19 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix user: <http://www.invincea.com/ontologies/icas/1.0/user#> .
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/user-applied#> .
-@prefix user-applied: <http://www.invincea.com/ontologies/icas/1.0/user-applied#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/user-applied> .
 
-<http://www.invincea.com/ontologies/icas/1.0/user-applied> 
-			rdf:type owl:Ontology ;
-			rdfs:label "User Ontology - User Applied Elements"@en ;
-			owl:versionInfo "1.0"@en ;
-			rdfs:comment "This ontology contains additional predicates to the User ontology, intended to only be applied manually by a security analyst in the course of their work."@en ;
-			owl:imports <http://www.invincea.com/ontologies/icas/1.0/user> .
+<http://www.invincea.com/ontologies/icas/1.0/user-applied>
+    a owl:Ontology ;
+    rdfs:comment "This ontology contains additional predicates to the User ontology, intended to only be applied manually by a security analyst in the course of their work."@en ;
+    rdfs:label "User Ontology - User Applied Elements"@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/user> ;
+    owl:versionInfo "1.0"@en .
 
-
-:CompromisedUserAccount 
-			rdf:type owl:Class ;
-			rdfs:label "Compromised User Account"@en ;
-			rdfs:subClassOf user:UserAccount ;
-			rdfs:comment "This user account is under the control of a hostile party."@en .
+:CompromisedUserAccount
+    a owl:Class ;
+    rdfs:comment "This user account is under the control of a hostile party."@en ;
+    rdfs:label "Compromised User Account"@en ;
+    rdfs:subClassOf user:UserAccount .
 

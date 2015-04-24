@@ -9,20 +9,17 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/privilege-applied#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/privilege-applied> .
 
-<http://www.invincea.com/ontologies/icas/1.0/privilege-applied> 
-			rdf:type owl:Ontology ;                                                  
-			rdfs:label "Privilege Ontology - User Applied Elements"@en ;                                                  
-			owl:versionInfo "1.0"@en ;                                                  
-			rdfs:comment "This ontology contains additional predicates to the Privilege ontology, intended to only be applied manually by a security analyst in the course of their work."@en ;                                                  
-			owl:imports <http://www.invincea.com/ontologies/icas/1.0/privilege> .
+<http://www.invincea.com/ontologies/icas/1.0/privilege-applied>
+    a owl:Ontology ;
+    rdfs:comment "This ontology contains additional predicates to the Privilege ontology, intended to only be applied manually by a security analyst in the course of their work."@en ;
+    rdfs:label "Privilege Ontology - User Applied Elements"@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/privilege> ;
+    owl:versionInfo "1.0"@en .
 
-
-:HijackedPrivilegeUsage  
-			rdf:type owl:Class ;
-			rdfs:subClassOf :PrivilegeUsage ;
-			rdfs:label "Usage of Privilege by a Hijacked Account"@en .
+:HijackedPrivilegeUsage
+    a owl:Class ;
+    rdfs:label "Usage of Privilege by a Hijacked Account"@en ;
+    rdfs:subClassOf :PrivilegeUsage .
 

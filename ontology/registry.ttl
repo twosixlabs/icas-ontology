@@ -17,186 +17,173 @@
 @prefix process: <http://www.invincea.com/ontologies/icas/1.0/process#> .
 @prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/registry#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/registry> .
 
-<http://www.invincea.com/ontologies/icas/1.0/registry> 
-			rdf:type owl:Ontology ;
-			rdfs:label "Windows Registry Ontology"@en ;
-			rdfs:comment "Describes elements within  the Windows configuration Registry system."@en ;
-			dc:description "Describes elements within  the Windows configuration Registry system"@en ;
-			owl:versionInfo "1.0" ;
-			dc:creator "Invincea Labs"@en ;
-			dc:date "2014" ;
-			owl:imports <http://www.invincea.com/ontologies/icas/1.0/acl> ,
-						<http://www.invincea.com/ontologies/icas/1.0/filesystem> ,
-						<http://www.invincea.com/ontologies/icas/1.0/user> .
+<http://www.invincea.com/ontologies/icas/1.0/registry>
+    dc:creator "Invincea Labs"@en ;
+    dc:date "2014" ;
+    dc:description "Describes elements within  the Windows configuration Registry system"@en ;
+    a owl:Ontology ;
+    rdfs:comment "Describes elements within  the Windows configuration Registry system."@en ;
+    rdfs:label "Windows Registry Ontology"@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/acl>, <http://www.invincea.com/ontologies/icas/1.0/filesystem>, <http://www.invincea.com/ontologies/icas/1.0/user> ;
+    owl:versionInfo "1.0" .
 
-			
-:referencesPath 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "references filesystem path"@en ;
-			rdfs:comment "the specified value is a path to a specific file or directory"@en ;
-			rdfs:domain :stringvalue ;
-			rdfs:range filesystem:FileName .
+:Hive
+    a owl:Class ;
+    rdfs:comment "A Hive within a windows registry. Hives are individual registry files on-disk (such as HKEY_LOCAL_MACHINE)"@en ;
+    rdfs:label "Hive"@en ;
+    rdfs:subClassOf mere:Composite, owl:Thing .
 
-:binaryValue 
-			rdf:type rdfs:Datatype ;
-			rdfs:label "Binary Value"@en ;
-			rdfs:comment "A binary value in a Registry Key"@en .
+:Key
+    a owl:Class ;
+    rdfs:comment "a Registry key within a Registry Hive"@en ;
+    rdfs:label "Registry Key"@en ;
+    rdfs:subClassOf mere:Composite, owl:Thing .
 
-:dwordValue 
-			rdf:type rdfs:Datatype ;
-			rdfs:label "DWORD Value"@en ;
-			rdfs:comment "a DWORD (32-bit) Registry Key value"@en .
+:Registry
+    a owl:Class ;
+    rdfs:comment "A Windows Configuration Registry, specific to a particular instance of a Windows OS."@en ;
+    rdfs:label "Windows Registry"@en ;
+    rdfs:subClassOf owl:Thing .
 
-:expandablestringValue 
-			rdf:type rdfs:Datatype ;
-			rdfs:label "Expandable String Value"@en ;
-			rdfs:comment "an Expandable-String Registry Key value"@en .
+:Value
+    a owl:Class ;
+    rdfs:comment "a value within a Registry Key"@en ;
+    rdfs:label "Key Value"@en ;
+    rdfs:subClassOf owl:Thing .
 
-:multistringValue 
-			rdf:type rdfs:Datatype ;
-			rdfs:label "Multi-String Value"@en ;
-			rdfs:comment "a Multi-string Registry Key value"@en .
+:binaryValue
+    a rdfs:Datatype ;
+    rdfs:comment "A binary value in a Registry Key"@en ;
+    rdfs:label "Binary Value"@en .
 
-:qwordValue 
-			rdf:type rdfs:Datatype ;
-			rdfs:label "QWORD value"@en ;
-			rdfs:comment "a QWORD (64-bit) Registry Key value"@en .
+:dwordValue
+    a rdfs:Datatype ;
+    rdfs:comment "a DWORD (32-bit) Registry Key value"@en ;
+    rdfs:label "DWORD Value"@en .
 
-:stringValue 
-			rdf:type rdfs:Datatype ;
-			rdfs:label "String Value"@en ;
-			rdfs:comment "a String Registry Key value"@en .
+:existsAsFile
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the filesystem location this registry hive is stored at."@en ;
+    rdfs:domain :Hive ;
+    rdfs:label "is stored in file"@en ;
+    rdfs:range filesystem:FileName .
 
-:existsAsFile 
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "is stored in file"@en ;
-			rdfs:comment "the filesystem location this registry hive is stored at."@en ;
-			rdfs:range filesystem:FileName ;
-			rdfs:domain :Hive .
+:expandablestringValue
+    a rdfs:Datatype ;
+    rdfs:comment "an Expandable-String Registry Key value"@en ;
+    rdfs:label "Expandable String Value"@en .
 
-:hasAcl 
-			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
-			rdfs:label "has access control list"@en ;
-			rdfs:comment "All versions of Microsoft windows from XP onwards enable access control on the contents of their registry."@en ;
-			rdfs:range acl:ACL ;
-			rdfs:domain :Key .
+:hasAcl
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "All versions of Microsoft windows from XP onwards enable access control on the contents of their registry."@en ;
+    rdfs:domain :Key ;
+    rdfs:label "has access control list"@en ;
+    rdfs:range acl:ACL .
 
-:hasHive 
-			rdf:type owl:InverseFunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "has Hive"@en ;
-			rdfs:comment "Indicates that the listed Hive is loaded into this registry"@en ;
-			rdfs:range :Hive ;
-			tapio:signaturePriority 2 ; 
-			rdfs:domain :Registry .
+:hasContent
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "the contents of a value within a registry key"@en ;
+    rdfs:domain :Value ;
+    rdfs:label "has value"@en ;
+    rdfs:range :binaryValue, :dwordValue, :expandablestringValue, :multistringValue, :qwordValue, :stringValue .
 
-:hasRegistry 
-			rdf:type owl:FunctionalProperty ,  owl:InverseFunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "has registry configuration"@en ;
-			rdfs:comment "All Microsoft Windows Operating systems store configuration information in a centralization store called the Registry."@en ;
-			rdfs:domain host:Host ;
-			rdfs:range :Registry ;
-			owl:inverseOf :isOnHost .
+:hasHive
+    tapio:signaturePriority 2 ;
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "Indicates that the listed Hive is loaded into this registry"@en ;
+    rdfs:domain :Registry ;
+    rdfs:label "has Hive"@en ;
+    rdfs:range :Hive .
 
-:hasSubKey 
-			rdf:type owl:InverseFunctionalProperty ,    owl:ObjectProperty ;
-			rdfs:label "has Sub-Key"@en ;
-			rdfs:comment "This registry key has a subkey attached to it"@en ;
-			rdfs:subPropertyOf mere:directlyHasPart ;
-			rdfs:domain :Hive , :Key ;
-			rdfs:range :Key ;
-			tapio:signaturePriority 3 ; 
-			owl:propertyDisjointWith :isSubKeyOf .
+:hasRegistry
+    a owl:FunctionalProperty, owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "All Microsoft Windows Operating systems store configuration information in a centralization store called the Registry."@en ;
+    rdfs:domain host:Host ;
+    rdfs:label "has registry configuration"@en ;
+    rdfs:range :Registry ;
+    owl:inverseOf :isOnHost .
 
-:hasValue 	
-			rdf:type owl:InverseFunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "has value"@en ;
-			rdfs:comment "this key has a value called"@en ;
-			rdfs:domain :Key ;
-			rdfs:range :Value .
+:hasSubKey
+    tapio:signaturePriority 3 ;
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "This registry key has a subkey attached to it"@en ;
+    rdfs:domain :Hive, :Key ;
+    rdfs:label "has Sub-Key"@en ;
+    rdfs:range :Key ;
+    rdfs:subPropertyOf mere:directlyHasPart ;
+    owl:propertyDisjointWith :isSubKeyOf .
 
-:isLoadedInto 
-			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
-			rdfs:label "Loaded Into Registry"@en ;
-			rdfs:comment "The active registry this Hive is loaded into"@en ;
-			rdfs:domain :Hive ;
-			rdfs:range :Registry ;
-			owl:inverseOf :hasHive .
+:hasValue
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "this key has a value called"@en ;
+    rdfs:domain :Key ;
+    rdfs:label "has value"@en ;
+    rdfs:range :Value .
+
+:hasValueName
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain :Value ;
+    rdfs:label "has value name"@en ;
+    rdfs:range xsd:normalizedString .
+
+:isLoadedInto
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "The active registry this Hive is loaded into"@en ;
+    rdfs:domain :Hive ;
+    rdfs:label "Loaded Into Registry"@en ;
+    rdfs:range :Registry ;
+    owl:inverseOf :hasHive .
 
 :isOnHost
-			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
-			rdfs:label "is on host"@en ;
-			rdfs:comment "the host this registry is from"@en ;
-			rdfs:range host:Host ;
-			tapio:signaturePriority 1 ; 
-			rdfs:domain :Registry .
+    tapio:signaturePriority 1 ;
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the host this registry is from"@en ;
+    rdfs:domain :Registry ;
+    rdfs:label "is on host"@en ;
+    rdfs:range host:Host .
 
-:isSubKeyOf 
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "is Subkey of"@en ;
-			rdfs:comment "indicates this keys parent key"@en ;
-			rdfs:subPropertyOf mere:directlyPartOf ;
-			rdfs:range :Hive ;
-			rdfs:domain :Key ;
-			rdfs:range :Key .
+:isSubKeyOf
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "indicates this keys parent key"@en ;
+    rdfs:domain :Key ;
+    rdfs:label "is Subkey of"@en ;
+    rdfs:range :Hive, :Key ;
+    rdfs:subPropertyOf mere:directlyPartOf .
 
-:ownedBy 
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "is owned by"@en ;
-			rdfs:comment "Registry keys are assigned an owner (either a user or group). By default this is usually the account that created the key."@en ;
-			rdfs:domain :Key ;
-			rdfs:range user:Group ,  user:UserAccount .
+:modifiedOn
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "the timestamp of the last change made to any of the values within this registry key. Cannot track individual values, only the key as a whole."@en ;
+    rdfs:domain :Key ;
+    rdfs:label "last modified on"@en ;
+    rdfs:range xsd:dateTimeStamp .
 
-:referencesPath 
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "references filesystem path"@en ;
-			rdfs:comment "the specified value is a path to a specific file or directory"@en ;
-			rdfs:range filesystem:Path ;
-			rdfs:domain :Value .
+:multistringValue
+    a rdfs:Datatype ;
+    rdfs:comment "a Multi-string Registry Key value"@en ;
+    rdfs:label "Multi-String Value"@en .
 
-:hasContent 
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:label "has value"@en ;
-			rdfs:comment "the contents of a value within a registry key"@en ;
-			rdfs:domain :Value ;
-			rdfs:range :binaryValue , :dwordValue ,  :expandablestringValue , :multistringValue , :qwordValue , :stringValue .
+:ownedBy
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "Registry keys are assigned an owner (either a user or group). By default this is usually the account that created the key."@en ;
+    rdfs:domain :Key ;
+    rdfs:label "is owned by"@en ;
+    rdfs:range user:Group, user:UserAccount .
 
-:hasValueName 
-			rdf:type owl:DatatypeProperty ,   owl:FunctionalProperty ;
-			rdfs:label "has value name"@en ;
-			rdfs:domain :Value ;
-			rdfs:range xsd:normalizedString .
+:qwordValue
+    a rdfs:Datatype ;
+    rdfs:comment "a QWORD (64-bit) Registry Key value"@en ;
+    rdfs:label "QWORD value"@en .
 
-:modifiedOn 
-			rdf:type owl:DatatypeProperty ,   owl:FunctionalProperty ;
-			rdfs:label "last modified on"@en ;
-			rdfs:comment "the timestamp of the last change made to any of the values within this registry key. Cannot track individual values, only the key as a whole."@en ;
-			rdfs:domain :Key ;
-			rdfs:range xsd:dateTimeStamp .
+:referencesPath
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the specified value is a path to a specific file or directory"@en ;
+    rdfs:domain :Value, :stringvalue ;
+    rdfs:label "references filesystem path"@en ;
+    rdfs:range filesystem:FileName, filesystem:Path .
 
-:Hive 
-			rdf:type owl:Class ;
-			rdfs:label "Hive"@en ;
-			rdfs:subClassOf owl:Thing ;
-			rdfs:subClassOf mere:Composite ;
-			rdfs:comment "A Hive within a windows registry. Hives are individual registry files on-disk (such as HKEY_LOCAL_MACHINE)"@en .
+:stringValue
+    a rdfs:Datatype ;
+    rdfs:comment "a String Registry Key value"@en ;
+    rdfs:label "String Value"@en .
 
-:Key 
-			rdf:type owl:Class ;
-			rdfs:label "Registry Key"@en ;
-			rdfs:subClassOf owl:Thing ;
-			rdfs:subClassOf mere:Composite ;
-			rdfs:comment "a Registry key within a Registry Hive"@en .
-
-:Registry 
-			rdf:type owl:Class ;
-			rdfs:label "Windows Registry"@en ;
-			rdfs:subClassOf owl:Thing ;
-			rdfs:comment "A Windows Configuration Registry, specific to a particular instance of a Windows OS."@en .
-
-:Value 
-			rdf:type owl:Class ;
-			rdfs:label "Key Value"@en ;
-			rdfs:subClassOf owl:Thing ;
-			rdfs:comment "a value within a Registry Key"@en .

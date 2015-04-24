@@ -9,7 +9,6 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
 @prefix acl: <http://www.invincea.com/ontologies/icas/1.0/acl#> .
 @prefix authentication: <http://www.invincea.com/ontologies/icas/1.0/authentication#> .
@@ -17,99 +16,94 @@
 @prefix user: <http://www.invincea.com/ontologies/icas/1.0/user#> .
 @prefix process: <http://www.invincea.com/ontologies/icas/1.0/process#> .
 @prefix uri: <http://www.invincea.com/ontologies/icas/1.0/uri#> .
-
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/privilege#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/privilege> .
 
-<http://www.invincea.com/ontologies/icas/1.0/privilege> 
-			rdf:type owl:Ontology ;                                          
-			rdfs:label "Ontology for System Permissions"@en ;                                          
-			rdfs:comment "Links entities together based on their ability to modify other elements. Describes the path of modifications and access between other ontologies."@en ;
-			rdfs:comment "Links entities together based on their ability to modify other elements. Describes the path of modifications and access between other ontologies."@en ;
-			dc:description "Links entities together based on their ability to modify other elements. Describes the path of modifications and access between other ontologies."@en ;
-			owl:versionInfo "0.1" ;
-			dc:creator "Invincea Labs"@en ;
-			dc:date "2014" .
+<http://www.invincea.com/ontologies/icas/1.0/privilege>
+    dc:creator "Invincea Labs"@en ;
+    dc:date "2014" ;
+    dc:description "Links entities together based on their ability to modify other elements. Describes the path of modifications and access between other ontologies."@en ;
+    a owl:Ontology ;
+    rdfs:comment "Links entities together based on their ability to modify other elements. Describes the path of modifications and access between other ontologies."@en ;
+    rdfs:label "Ontology for System Permissions"@en ;
+    owl:versionInfo "0.1" .
 
-			
-:Privilege  
-			rdf:type owl:Class ;
-			rdfs:label "Privilege"@en ;
-			rdfs:comment "Privilege describes the ability of a particular identity or system to perform operations, based on a culmination of access controls and visibility to a resource"@en .
+:Create
+    a owl:Class ;
+    rdfs:comment "This privilege allows the creation of a new resource."@en ;
+    rdfs:label "Create"@en ;
+    rdfs:subClassOf :Privilege .
 
-:PrivilegeUsage 
-                        rdf:type owl:Class ;
-                        rdfs:subClassOf event:Event ;
-			rdfs:label "Privilege Usage"@en ;
-			rdfs:comment "An observed usage of a privilege to access resources"@en .
-			
-:onResource
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "to access resource"@en ;
-			rdfs:comment "The resource obtained via exercise of this privilege"@en ;
-			rdfs:domain :Privilege ;
-			tapio:signaturePriority 1 ; 
-			rdfs:range filesystem:File , filesystem:Directory , uri:URI , user:UserAccount , user:Group, process:Process .
+:Delete
+    a owl:Class ;
+    rdfs:comment "This privilege allows the removal of an existing resource."@en ;
+    rdfs:label "Delete"@en ;
+    rdfs:subClassOf :Privilege .
 
-:usedPrivilege 
-			rdf:type owl:ObjectProperty , owl:InverseFunctionalProperty;
-			rdfs:label "used their privilege to"@en ;
-			rdfs:subPropertyOf event:factor_in ;
-			rdfs:comment "The privileged action carried out in this event"@en ;
-			rdfs:domain user:UserAccount , process:Process ;
-			rdfs:range :PrivilegeUsage .
+:Impersonate
+    a owl:Class ;
+    rdfs:comment "This privilege allows one entity to act under the identity of another"@en ;
+    rdfs:label "Impersonate"@en ;
+    rdfs:subClassOf :Privilege .
 
-:hasPrivilege
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "has privilege to"@en ;
-			rdfs:comment ""@en ;
-			tapio:signaturePriority 2 ; 
-			rdfs:domain user:UserAccount , process:Process ;
-			rdfs:range :Privilege .
+:Privilege
+    a owl:Class ;
+    rdfs:comment "Privilege describes the ability of a particular identity or system to perform operations, based on a culmination of access controls and visibility to a resource"@en ;
+    rdfs:label "Privilege"@en .
 
-:ofPrivilege
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "of privilege"@en ;
-			rdfs:subPropertyOf event:factor ;
-			rdfs:comment "The privilege this was a usage of"@en ;
-			rdfs:domain :PrivilegeUsage ;
-			rdfs:range :Privilege .
+:PrivilegeUsage
+    a owl:Class ;
+    rdfs:comment "An observed usage of a privilege to access resources"@en ;
+    rdfs:label "Privilege Usage"@en ;
+    rdfs:subClassOf event:Event .
+
+:Read
+    a owl:Class ;
+    rdfs:comment "This privilege allows the reading of an existing resource."@en ;
+    rdfs:label "Read"@en ;
+    rdfs:subClassOf :Privilege .
+
+:Update
+    a owl:Class ;
+    rdfs:comment "This privilege allows the modification of an existing resource."@en ;
+    rdfs:label "Update"@en ;
+    rdfs:subClassOf :Privilege .
 
 :grantedBy
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "granted by"@en ;
-			rdfs:comment "The entity that granted this privilege"@en ;
-			rdfs:domain :Privilege , :PrivilegeUsage ;
-			rdfs:range user:Group , user:Realm , process:Process , acl:ACLEntry, authentication:AuthProvider , authentication:AuthEvent .
+    a owl:ObjectProperty ;
+    rdfs:comment "The entity that granted this privilege"@en ;
+    rdfs:domain :Privilege, :PrivilegeUsage ;
+    rdfs:label "granted by"@en ;
+    rdfs:range acl:ACLEntry, authentication:AuthEvent, authentication:AuthProvider, process:Process, user:Group, user:Realm .
 
+:hasPrivilege
+    tapio:signaturePriority 2 ;
+    a owl:ObjectProperty ;
+    rdfs:comment ""@en ;
+    rdfs:domain process:Process, user:UserAccount ;
+    rdfs:label "has privilege to"@en ;
+    rdfs:range :Privilege .
 
-:Create 
-			rdf:type owl:Class ;
-			rdfs:subClassOf :Privilege ;
-			rdfs:label "Create"@en ;
-			rdfs:comment "This privilege allows the creation of a new resource."@en .
+:ofPrivilege
+    a owl:ObjectProperty ;
+    rdfs:comment "The privilege this was a usage of"@en ;
+    rdfs:domain :PrivilegeUsage ;
+    rdfs:label "of privilege"@en ;
+    rdfs:range :Privilege ;
+    rdfs:subPropertyOf event:factor .
 
-:Read 
-			rdf:type owl:Class ; 
-			rdfs:subClassOf :Privilege ;
-			rdfs:label "Read"@en ;
-			rdfs:comment "This privilege allows the reading of an existing resource."@en .
+:onResource
+    tapio:signaturePriority 1 ;
+    a owl:ObjectProperty ;
+    rdfs:comment "The resource obtained via exercise of this privilege"@en ;
+    rdfs:domain :Privilege ;
+    rdfs:label "to access resource"@en ;
+    rdfs:range filesystem:Directory, filesystem:File, process:Process, uri:URI, user:Group, user:UserAccount .
 
-:Update 
-			rdf:type owl:Class ; 
-			rdfs:subClassOf :Privilege ;
-			rdfs:label "Update"@en ;
-			rdfs:comment "This privilege allows the modification of an existing resource."@en .
-
-:Delete 
-			rdf:type owl:Class ; 
-			rdfs:subClassOf :Privilege ;
-			rdfs:label "Delete"@en ;
-			rdfs:comment "This privilege allows the removal of an existing resource."@en .
-
-:Impersonate 
-			rdf:type owl:Class ; 
-			rdfs:subClassOf :Privilege ;
-			rdfs:label "Impersonate"@en ;
-			rdfs:comment "This privilege allows one entity to act under the identity of another"@en .
+:usedPrivilege
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "The privileged action carried out in this event"@en ;
+    rdfs:domain process:Process, user:UserAccount ;
+    rdfs:label "used their privilege to"@en ;
+    rdfs:range :PrivilegeUsage ;
+    rdfs:subPropertyOf event:factor_in .
 

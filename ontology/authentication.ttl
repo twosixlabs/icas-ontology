@@ -9,143 +9,140 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
 @prefix user: <http://www.invincea.com/ontologies/icas/1.0/user#> .
 @prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
 @prefix process: <http://www.invincea.com/ontologies/icas/1.0/process#> .
 @prefix ipnet: <http://www.invincea.com/ontologies/icas/1.0/ipnet#> .
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/authentication#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/authentication> .
 
 <http://www.invincea.com/ontologies/icas/1.0/authentication>
-			rdf:type owl:Ontology ;
-			rdfs:label "Authentication Ontology"@en ;
-			rdfs:comment "Describes elements related to authentication mechanisms in systems that grant identity to users and requests to map them to privileges"@en ;
-			dc:description "Describes elements related to authentication mechanisms in systems that grant identity to users and requests to map them to privileges"@en ;
-			owl:versionInfo "1.0" ;
-			dc:creator "Invincea Labs"@en ;
-			dc:date "2014" ;
-			owl:imports <http://www.invincea.com/ontologies/icas/1.0/host> ,
-    					<http://www.invincea.com/ontologies/icas/1.0/user> .
-
-			
-:Credential 
-			rdf:type owl:Class ;
-			rdfs:subClassOf owl:Thing ;
-			rdfs:label "Credential"@en ;
-			rdfs:comment "A credential that can be used for authentication."@en .
-
-:LoginCredential
-			rdf:type owl:Class ;
-			rdfs:subClassOf :Credential ;
-			rdfs:label "Login Credential"@en ;
-			rdfs:comment "The generic set of credentials which are authenticated using a username  and (optionally) a password."@en .
-
-:AuthEvent
-			rdf:type owl:Class ;
-			rdfs:subClassOf event:Event ;
-			rdfs:label "Authentication Event"@en ;
-			rdfs:comment "A generic attempt by a user to authenticate to a service."@en .
-
-:AuthProvider
-			rdf:type owl:Class ;
-			rdfs:subClassOf owl:Thing ;
-			rdfs:label "Authentication Provider"@en ;
-			rdfs:comment "A provider capable of providing authentication services. Examples might include RADIUS, local, etc."@en .
-
-:authBy
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "authenticated By"@en ;
-			rdfs:comment "Relates an authentication provider to an authentication event. "@en ;
-			rdfs:subPropertyOf event:agent ;
-			rdfs:domain :AuthEvent ;
-			rdfs:range :AuthProvider .
-
-:authToHost
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "authenticating To" ;
-			rdfs:comment "The host that this authentication event is providing authentication for."@en ;
-			rdfs:subPropertyOf event:factor ;
-			rdfs:domain :AuthEvent ;
-			rdfs:range host:Host .
-
-:authRequestedFrom 
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "authentication attempted from" ;
-			rdfs:comment "The Source of the authentication attempt. The client endpoint of an authentication connection."@en ;
-			rdfs:subPropertyOf event:factor ;
-			rdfs:domain :AuthEvent ;
-			rdfs:range host:Host , ipnet:Address .
-
-:hasCredential
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "has credential"@en ;
-			rdfs:comment "Links user#UserAccount to credential sets."@en ;
-			rdfs:domain user:UserAccount ;
-			rdfs:range :Credential ;
-			owl:equivalentProperty user:hasCredential .
-
-:usingCredential
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "Authenticated With Credential"@en ;
-			rdfs:comment "The credential token presented to verify  that the user is who they attest to be during this authentication session"@en ;
-			rdfs:subPropertyOf event:factor ;
-			rdfs:range :Credential ;
-			rdfs:domain :AuthEvent .
-
-:authStatus
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:label "Authentication Status"@en ;
-			rdfs:comment "The status of an authentication event. Could be 'success', 'failure', 'inprogress', etc."@en ;
-			rdfs:domain :AuthEvent ;
-			rdfs:range xsd:string .
-
-:sessionId
-            rdf:type owl:DatatypeProperty ,   owl:FunctionalProperty ;
-			rdfs:label "Unique ID for the authentication session"@en ;            
-			rdfs:comment "The unique session ID given to this authentication event."@en ;
-			rdfs:domain :AuthEvent ;
-			tapio:signaturePriority 1 ;
-			rdfs:range xsd:string .            
-
-:loginName
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:label "Login Name"@en ;
-			rdfs:comment "The specific string used to identify an account via keyboard input"@en ;
-			rdfs:domain :LoginCredential ;
-			tapio:signaturePriority 2 ;
-			rdfs:range xsd:string .
-
-:loginPass 
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:label "Login Password"@en ;
-			rdfs:comment "A password or passphrase used for login credentials"@en ;
-			rdfs:domain :LoginCredential ;
-			rdfs:range xsd:string .
-
-:authenticatesAgainstRealm
-			rdf:type owl:ObjectProperty ,  owl:FunctionalProperty ;
-			rdfs:label "authenticates against account realm"@en ;
-			rdfs:domain :AuthProvider ;
-			rdfs:range user:Realm .
-
-:LocalAccount
-			rdf:type :AuthProvider ,  owl:NamedIndividual ;
-			rdfs:label "Local Host Account Authenticator"@en;
-			rdfs:comment "A local host account, such as controlled by PAM or Windows Account Services."@en .
-
-:RADIUS
-			rdf:type :AuthProvider ,   owl:NamedIndividual ;
-			rdfs:label "RADIUS Authenticator"@en ;
-			rdfs:comment "A RADIUS remote authentication service." .
-
-:LDAP
-			rdf:type :AuthProvider ,   owl:NamedIndividual ;
-			rdfs:label "LDAP Authenticator"@en ;
-			rdfs:comment "An LDAP authentication service." .
+    dc:creator "Invincea Labs"@en ;
+    dc:date "2014" ;
+    dc:description "Describes elements related to authentication mechanisms in systems that grant identity to users and requests to map them to privileges"@en ;
+    a owl:Ontology ;
+    rdfs:comment "Describes elements related to authentication mechanisms in systems that grant identity to users and requests to map them to privileges"@en ;
+    rdfs:label "Authentication Ontology"@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/host>, <http://www.invincea.com/ontologies/icas/1.0/user> ;
+    owl:versionInfo "1.0" .
 
 :ActiveDirectory
-			rdf:type :AuthProvider ,   owl:NamedIndividual ;
-			rdfs:label "LDAP Service"@en ;
-			rdfs:comment "An ActiveDirectory authentication service." .
+    a :AuthProvider, owl:NamedIndividual ;
+    rdfs:comment "An ActiveDirectory authentication service." ;
+    rdfs:label "LDAP Service"@en .
+
+:AuthEvent
+    a owl:Class ;
+    rdfs:comment "A generic attempt by a user to authenticate to a service."@en ;
+    rdfs:label "Authentication Event"@en ;
+    rdfs:subClassOf event:Event .
+
+:AuthProvider
+    a owl:Class ;
+    rdfs:comment "A provider capable of providing authentication services. Examples might include RADIUS, local, etc."@en ;
+    rdfs:label "Authentication Provider"@en ;
+    rdfs:subClassOf owl:Thing .
+
+:Credential
+    a owl:Class ;
+    rdfs:comment "A credential that can be used for authentication."@en ;
+    rdfs:label "Credential"@en ;
+    rdfs:subClassOf owl:Thing .
+
+:LDAP
+    a :AuthProvider, owl:NamedIndividual ;
+    rdfs:comment "An LDAP authentication service." ;
+    rdfs:label "LDAP Authenticator"@en .
+
+:LocalAccount
+    a :AuthProvider, owl:NamedIndividual ;
+    rdfs:comment "A local host account, such as controlled by PAM or Windows Account Services."@en ;
+    rdfs:label "Local Host Account Authenticator"@en .
+
+:LoginCredential
+    a owl:Class ;
+    rdfs:comment "The generic set of credentials which are authenticated using a username  and (optionally) a password."@en ;
+    rdfs:label "Login Credential"@en ;
+    rdfs:subClassOf :Credential .
+
+:RADIUS
+    a :AuthProvider, owl:NamedIndividual ;
+    rdfs:comment "A RADIUS remote authentication service." ;
+    rdfs:label "RADIUS Authenticator"@en .
+
+:authBy
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "Relates an authentication provider to an authentication event. "@en ;
+    rdfs:domain :AuthEvent ;
+    rdfs:label "authenticated By"@en ;
+    rdfs:range :AuthProvider ;
+    rdfs:subPropertyOf event:agent .
+
+:authRequestedFrom
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "The Source of the authentication attempt. The client endpoint of an authentication connection."@en ;
+    rdfs:domain :AuthEvent ;
+    rdfs:label "authentication attempted from" ;
+    rdfs:range host:Host, ipnet:Address ;
+    rdfs:subPropertyOf event:factor .
+
+:authStatus
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The status of an authentication event. Could be 'success', 'failure', 'inprogress', etc."@en ;
+    rdfs:domain :AuthEvent ;
+    rdfs:label "Authentication Status"@en ;
+    rdfs:range xsd:string .
+
+:authToHost
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "The host that this authentication event is providing authentication for."@en ;
+    rdfs:domain :AuthEvent ;
+    rdfs:label "authenticating To" ;
+    rdfs:range host:Host ;
+    rdfs:subPropertyOf event:factor .
+
+:authenticatesAgainstRealm
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain :AuthProvider ;
+    rdfs:label "authenticates against account realm"@en ;
+    rdfs:range user:Realm .
+
+:hasCredential
+    a owl:ObjectProperty ;
+    rdfs:comment "Links user#UserAccount to credential sets."@en ;
+    rdfs:domain user:UserAccount ;
+    rdfs:label "has credential"@en ;
+    rdfs:range :Credential ;
+    owl:equivalentProperty user:hasCredential .
+
+:loginName
+    tapio:signaturePriority 2 ;
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The specific string used to identify an account via keyboard input"@en ;
+    rdfs:domain :LoginCredential ;
+    rdfs:label "Login Name"@en ;
+    rdfs:range xsd:string .
+
+:loginPass
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "A password or passphrase used for login credentials"@en ;
+    rdfs:domain :LoginCredential ;
+    rdfs:label "Login Password"@en ;
+    rdfs:range xsd:string .
+
+:sessionId
+    tapio:signaturePriority 1 ;
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The unique session ID given to this authentication event."@en ;
+    rdfs:domain :AuthEvent ;
+    rdfs:label "Unique ID for the authentication session"@en ;
+    rdfs:range xsd:string .
+
+:usingCredential
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "The credential token presented to verify  that the user is who they attest to be during this authentication session"@en ;
+    rdfs:domain :AuthEvent ;
+    rdfs:label "Authenticated With Credential"@en ;
+    rdfs:range :Credential ;
+    rdfs:subPropertyOf event:factor .
+
