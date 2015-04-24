@@ -138,8 +138,7 @@
     a owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain :Group ;
     rdfs:label "has group name"@en ;
-    rdfs:range :groupName ;
-    owl:equivalentProperty :systemName .
+    rdfs:range :groupName .
 
 :hasMember
     a owl:ObjectProperty ;
@@ -154,15 +153,13 @@
     rdfs:comment "the human-readable system identifier for this account, group or realm"@en ;
     rdfs:domain :UserAccount ;
     rdfs:label "has login name"@en ;
-    rdfs:range :userName ;
-    owl:equivalentProperty :systemName .
+    rdfs:range :userName .
 
 :hasRealmName
     a owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:domain :Realm ;
     rdfs:label "has realm name"@en ;
-    rdfs:range :realmName ;
-    owl:equivalentProperty :systemName .
+    rdfs:range :realmName .
 
 :hasUID
     a owl:DatatypeProperty, owl:FunctionalProperty ;
@@ -206,13 +203,6 @@
 :realmName
     a rdfs:Datatype ;
     rdfs:label "Realm Name String"@en .
-
-:systemName
-    a owl:DatatypeProperty ;
-    rdfs:comment "convenient access to the role system names"@en ;
-    rdfs:domain :Group, :Realm, :UserAccount ;
-    rdfs:label "has system name"@en ;
-    rdfs:range xsd:normalizedString .
 
 :userAcctCreated
     a owl:FunctionalProperty, owl:ObjectProperty ;
