@@ -9,61 +9,57 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
 @prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
 @prefix uri: <http://www.invincea.com/ontologies/icas/1.0/uri#> .
 @prefix filesystemartifacts: <http://www.invincea.com/ontologies/icas/1.0/filesystemartifacts#> .
 @prefix memoryartifacts: <http://www.invincea.com/ontologies/icas/1.0/memoryartifacts#> .
-
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/indicators#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/indicators> .
 
-<http://www.invincea.com/ontologies/icas/1.0/indicators> 
-			rdf:type owl:Ontology ;
-			rdfs:label "Indicators Ontology"@en ;
-			rdfs:comment "Describes Security Indicators - combinations of states, behaviors and artifacts that indicate something is either exposed to, or currently compromised by, a security threat actor."@en ;
-			dc:description "Describes Security Indicators - combinations of states, behaviors and artifacts that indicate something is either exposed to, or currently compromised by, a security threat actor."@en ;
-    		owl:versionInfo "1.0" ;
-    		dc:creator "Invincea Labs"@en ;
-    		dc:date "2014" .
+<http://www.invincea.com/ontologies/icas/1.0/indicators>
+    dc:creator "Invincea Labs"@en ;
+    dc:date "2014" ;
+    dc:description "Describes Security Indicators - combinations of states, behaviors and artifacts that indicate something is either exposed to, or currently compromised by, a security threat actor."@en ;
+    a owl:Ontology ;
+    rdfs:comment "Describes Security Indicators - combinations of states, behaviors and artifacts that indicate something is either exposed to, or currently compromised by, a security threat actor."@en ;
+    rdfs:label "Indicators Ontology"@en ;
+    owl:versionInfo "1.0" .
 
-			
 :Indicator
-			rdf:type owl:Class ;
-			rdfs:subClassOf owl:Thing ;
-			rdfs:label "Indicator"@en ;
-			rdfs:comment ""@en .
+    a owl:Class ;
+    rdfs:comment ""@en ;
+    rdfs:label "Indicator"@en ;
+    rdfs:subClassOf owl:Thing .
 
-:IndicatorOfCompromise 
-			rdf:type owl:Class ;
-			rdfs:subClassOf :Indicator ;
-			rdfs:label "Indicator of Compromise"@en ;
-			rdfs:comment ""@en .
+:IndicatorOfCompromise
+    a owl:Class ;
+    rdfs:comment ""@en ;
+    rdfs:label "Indicator of Compromise"@en ;
+    rdfs:subClassOf :Indicator .
 
-:IndicatorOfExposure 
-			rdf:type owl:Class ;
-			rdfs:subClassOf :Indicator ;
-			rdfs:label "Indicator of Exposure"@en ;
-			rdfs:comment ""@en .
+:IndicatorOfExposure
+    a owl:Class ;
+    rdfs:comment ""@en ;
+    rdfs:label "Indicator of Exposure"@en ;
+    rdfs:subClassOf :Indicator .
 
-:exhibitsIndicator 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "exhibits all signs of the indicator"@en ;
-			rdfs:domain host:Host ;
-			rdfs:range :Indicator ;
-			owl:inverseOf :presentOnHost .
+:InvolvesURI
+    a owl:ObjectProperty ;
+    rdfs:domain :Indicator ;
+    rdfs:label "References access to URI"@en ;
+    rdfs:range uri:Uri .
 
-:presentOnHost 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "involves host"@en ;
-			rdfs:domain :Indicator ;
-			rdfs:range host:Host ;
-			owl:inverseOf :exhibitsIndicator .
-			
-:InvolvesURI 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "References access to URI"@en ;
-			rdfs:domain :Indicator ;
-			rdfs:range uri:Uri .
+:exhibitsIndicator
+    a owl:ObjectProperty ;
+    rdfs:domain host:Host ;
+    rdfs:label "exhibits all signs of the indicator"@en ;
+    rdfs:range :Indicator ;
+    owl:inverseOf :presentOnHost .
+
+:presentOnHost
+    a owl:ObjectProperty ;
+    rdfs:domain :Indicator ;
+    rdfs:label "involves host"@en ;
+    rdfs:range host:Host ;
+    owl:inverseOf :exhibitsIndicator .
 

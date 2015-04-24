@@ -9,115 +9,111 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix mere: <http://www.bbn.com/ontologies/domain/foundation/mereology#> .
 @prefix nic: <http://www.invincea.com/ontologies/icas/1.0/nic#> .
 @prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
 @prefix ipnet: <http://www.invincea.com/ontologies/icas/1.0/ipnet#> .
 @prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/dhcp#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/dhcp> .
 
-<http://www.invincea.com/ontologies/icas/1.0/dhcp> 
-			rdf:type owl:Ontology ;
-			rdfs:label "Dynamic Host Control Protocol Ontology"@en ;
-			rdfs:comment "an ontology of DHCP Leases and Services."@en ;
-			dc:description "Describes elements related to authentication mechanisms in systems that grant identity to users and requests to map them to privileges"@en ;
-			owl:versionInfo "1.0" ;
-			dc:creator "Invincea Labs"@en ;
-			dc:date "2014" ;
-			owl:imports <http://www.invincea.com/ontologies/icas/1.0/user> ,
-    					<http://www.invincea.com/ontologies/icas/1.0/ipnet> .
+<http://www.invincea.com/ontologies/icas/1.0/dhcp>
+    dc:creator "Invincea Labs"@en ;
+    dc:date "2014" ;
+    dc:description "Describes elements related to authentication mechanisms in systems that grant identity to users and requests to map them to privileges"@en ;
+    a owl:Ontology ;
+    rdfs:comment "an ontology of DHCP Leases and Services."@en ;
+    rdfs:label "Dynamic Host Control Protocol Ontology"@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/ipnet>, <http://www.invincea.com/ontologies/icas/1.0/user> ;
+    owl:versionInfo "1.0" .
 
+:Lease
+    a owl:Class ;
+    rdfs:comment "A Lease for a single IP Address from a DHCP Pool to a Network Interface on a Host"@en ;
+    rdfs:label "DHCP Lease"@en ;
+    rdfs:subClassOf owl:Thing .
 
-:Pool 
-			rdf:type owl:Class ;
-			rdfs:label "DHCP IP Address Pool"@en ;
-			rdfs:comment "DHCP assigns addresses to systems from a pool of assigned addresses. "@en ;
-			rdfs:subClassOf owl:Thing ;
-			rdfs:subClassOf mere:Composite .
+:Pool
+    a owl:Class ;
+    rdfs:comment "DHCP assigns addresses to systems from a pool of assigned addresses. "@en ;
+    rdfs:label "DHCP IP Address Pool"@en ;
+    rdfs:subClassOf mere:Composite, owl:Thing .
 
-:inPool 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "belongs to DHCP Pool"@en ;
-			rdfs:comment "this address has been allocated to a DHCP Pool, and is not permanently assigned to any particular host"@en ;
-			rdfs:subPropertyOf mere:partOf ;
-			rdfs:domain ipnet:Address ;
-			rdfs:range :Pool ;
-			owl:inverseOf :containsAddress .
-
-:containsAddress 
-			rdf:type owl:InverseFunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "controls assignment of"@en ;
-			rdfs:comment "this DHCP address pool is authoritative for this IP address, and controls leasing of it to client systems."@en ;
-			rdfs:subPropertyOf mere:hasPart ;
-			rdfs:domain :Pool ;
-			rdfs:range ipnet:Address ;
-			tapio:signaturePriority 1 ;
-			owl:inverseOf :inPool .
-
-:Lease 
-			rdf:type owl:Class ;
-			rdfs:label "DHCP Lease"@en ;
-			rdfs:comment "A Lease for a single IP Address from a DHCP Pool to a Network Interface on a Host"@en;
-			rdfs:subClassOf owl:Thing .
-
-:leased 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "was granted lease"@en ;
-			rdfs:comment "this NIC was successfully granted this DHC lease for an IP Address"@en ;
-			rdfs:domain nic:NIC ;
-			rdfs:range :Lease ;
-			owl:inverseOf :leasedTo .
-
-:leasedto 
-			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
-			rdfs:label "was issued to"@en ;
-			rdfs:comment "this lease was succesfully issued to a requesting NIC to grant it a temporary IP Address"@en ;
-			rdfs:domain :Lease ;
-			rdfs:range nic:NIC ;
-			owl:inverseOf :leased .
-
-:leaseEnd
-			rdf:type owl:DatatypeProperty ,   owl:FunctionalProperty ;
-			rdfs:label "lease ended on"@en ;
-			rdfs:comment "when the lease expired"@en ;
-			rdfs:domain :Lease ;
-			rdfs:range xsd:dateTimeStamp .
-
-:leaseStart
-			rdf:type owl:DatatypeProperty,   owl:FunctionalProperty ;
-			rdfs:label "lease ended on"@en ;
-			rdfs:comment "when the lease was granted"@en ;
-			rdfs:domain :Lease ;
-			rdfs:range xsd:dateTimeStamp .
+:containsAddress
+    tapio:signaturePriority 1 ;
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "this DHCP address pool is authoritative for this IP address, and controls leasing of it to client systems."@en ;
+    rdfs:domain :Pool ;
+    rdfs:label "controls assignment of"@en ;
+    rdfs:range ipnet:Address ;
+    rdfs:subPropertyOf mere:hasPart ;
+    owl:inverseOf :inPool .
 
 :forAddress
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "for address"@en ;
-			rdfs:comment "the IP Address that was granted via a successful DHCP Lease"@en ;
-			rdfs:domain :Lease ;
-			rdfs:range ipnet:Address .
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the IP Address that was granted via a successful DHCP Lease"@en ;
+    rdfs:domain :Lease ;
+    rdfs:label "for address"@en ;
+    rdfs:range ipnet:Address .
 
 :forHostName
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "for hostname"@en ;
-			rdfs:comment "leases may identify themselves with a particular hostname, which may have its associated DNS Entry updated once the lease is granted. This is used extensively in Microsoft Active Directory"@en ;
-			rdfs:domain host:Host ;
-			rdfs:range :Lease .
+    a owl:ObjectProperty ;
+    rdfs:comment "leases may identify themselves with a particular hostname, which may have its associated DNS Entry updated once the lease is granted. This is used extensively in Microsoft Active Directory"@en ;
+    rdfs:domain host:Host ;
+    rdfs:label "for hostname"@en ;
+    rdfs:range :Lease .
 
 :fromAuthority
-			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
-			rdfs:label "issued from"@en ;
-			rdfs:comment "the NIC (and therefore MAC) address this lease was issued by."@en ;
-			rdfs:domain :Lease ;
-			rdfs:range nic:NIC ;
-			owl:inverseOf :issuedLease .
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the NIC (and therefore MAC) address this lease was issued by."@en ;
+    rdfs:domain :Lease ;
+    rdfs:label "issued from"@en ;
+    rdfs:range nic:NIC ;
+    owl:inverseOf :issuedLease .
 
-:issuedLease	
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "issued lease"@en ;
-			rdfs:comment "This NIC issued a DHCP to the requesting NIC"@en ;
-			rdfs:range :Lease ;
-			rdfs:domain nic:NIC ;
-			owl:inverseOf :fromAuthority .
+:inPool
+    a owl:ObjectProperty ;
+    rdfs:comment "this address has been allocated to a DHCP Pool, and is not permanently assigned to any particular host"@en ;
+    rdfs:domain ipnet:Address ;
+    rdfs:label "belongs to DHCP Pool"@en ;
+    rdfs:range :Pool ;
+    rdfs:subPropertyOf mere:partOf ;
+    owl:inverseOf :containsAddress .
+
+:issuedLease
+    a owl:ObjectProperty ;
+    rdfs:comment "This NIC issued a DHCP to the requesting NIC"@en ;
+    rdfs:domain nic:NIC ;
+    rdfs:label "issued lease"@en ;
+    rdfs:range :Lease ;
+    owl:inverseOf :fromAuthority .
+
+:leaseEnd
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "when the lease expired"@en ;
+    rdfs:domain :Lease ;
+    rdfs:label "lease ended on"@en ;
+    rdfs:range xsd:dateTimeStamp .
+
+:leaseStart
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "when the lease was granted"@en ;
+    rdfs:domain :Lease ;
+    rdfs:label "lease ended on"@en ;
+    rdfs:range xsd:dateTimeStamp .
+
+:leased
+    a owl:ObjectProperty ;
+    rdfs:comment "this NIC was successfully granted this DHC lease for an IP Address"@en ;
+    rdfs:domain nic:NIC ;
+    rdfs:label "was granted lease"@en ;
+    rdfs:range :Lease ;
+    owl:inverseOf :leasedTo .
+
+:leasedto
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "this lease was succesfully issued to a requesting NIC to grant it a temporary IP Address"@en ;
+    rdfs:domain :Lease ;
+    rdfs:label "was issued to"@en ;
+    rdfs:range nic:NIC ;
+    owl:inverseOf :leased .
+

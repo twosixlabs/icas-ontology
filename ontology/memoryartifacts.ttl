@@ -19,289 +19,282 @@
 @prefix process: <http://www.invincea.com/ontologies/icas/1.0/process#> .
 @prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/memoryartifacts#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/memoryartifacts> .
 
-<http://www.invincea.com/ontologies/icas/1.0/memoryartifacts> 
-			rdf:type owl:Ontology ;
-			rdfs:label "Memory Artifacts Ontology"@en ;
-			rdfs:comment "An extended Ontology that contains extremely fine-grained objects that deal with forensic artifacts from computer memory. This ontology is directly dependent upon the Memory ontology, but split off into a seperate namespace to allow use of the basic memory ontology when this level of detail is not required."@en ;
-			dc:description "An extended Ontology that contains extremely fine-grained objects that deal with forensic artifacts from computer memory. This ontology is directly dependent upon the Memory ontology, but split off into a seperate namespace to allow use of the basic memory ontology when this level of detail is not required."@en ;
-			owl:versionInfo "1.0" ;
-			dc:creator "Invincea Labs"@en ;
-			dc:date "2014" ;
-			owl:imports <http://www.invincea.com/ontologies/icas/1.0/filesystem> ,
-						<http://www.invincea.com/ontologies/icas/1.0/memory> ,
-						<http://www.invincea.com/ontologies/icas/1.0/process> .
-			
+<http://www.invincea.com/ontologies/icas/1.0/memoryartifacts>
+    dc:creator "Invincea Labs"@en ;
+    dc:date "2014" ;
+    dc:description "An extended Ontology that contains extremely fine-grained objects that deal with forensic artifacts from computer memory. This ontology is directly dependent upon the Memory ontology, but split off into a seperate namespace to allow use of the basic memory ontology when this level of detail is not required."@en ;
+    a owl:Ontology ;
+    rdfs:comment "An extended Ontology that contains extremely fine-grained objects that deal with forensic artifacts from computer memory. This ontology is directly dependent upon the Memory ontology, but split off into a seperate namespace to allow use of the basic memory ontology when this level of detail is not required."@en ;
+    rdfs:label "Memory Artifacts Ontology"@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/filesystem>, <http://www.invincea.com/ontologies/icas/1.0/memory>, <http://www.invincea.com/ontologies/icas/1.0/process> ;
+    owl:versionInfo "1.0" .
+
+:ApiHook
+    a owl:Class ;
+    rdfs:comment "An API hook is a registration of additional code into a registered function call, to add additional functionality when applications call that function."@en ;
+    rdfs:label "API Hook"@en ;
+    rdfs:seeAlso "https://code.google.com/p/volatility/wiki/CommandReferenceMal22#apihooks"@en ;
+    rdfs:subClassOf :MemoryArtifact .
+
+:Atom
+    a owl:Class ;
+    rdfs:comment "_RTL_ATOM_TABLE data structures are registered, shared strings in memory, used to identify shared resources such as GUI Windows"@en ;
+    rdfs:label "Atom"@en ;
+    rdfs:seeAlso "https://code.google.com/p/volatility/wiki/CommandReferenceGui22#atomscan"@en ;
+    rdfs:subClassOf :MemoryArtifact .
+
+:ClipBoard
+    a owl:Class ;
+    rdfs:comment "text or other data temporarily copied into memory by the user."@en ;
+    rdfs:label "In-Memory Clipboard Object"@en ;
+    rdfs:subClassOf :MemoryArtifact .
+
+:ClipboardContent
+    a owl:DatatypeProperty ;
+    rdfs:domain :ClipBoard ;
+    rdfs:label "has copied content"@en ;
+    rdfs:range xsd:string .
+
+:DataSectionObject
+    a owl:Class ;
+    rdfs:label "Data Section Object"@en ;
+    rdfs:subClassOf :MemoryArtifact .
+
+:Desktop
+    a owl:Class ;
+    rdfs:comment "An interactive Desktop session presents a canvas for applications to draw UI Windows on to. The desktop may be presented to an attached video display unit, or to a remote client over a network connection."@en ;
+    rdfs:label "Interactive Desktop Session"@en ;
+    rdfs:subClassOf :MemoryArtifact .
+
+:DeviceDriver
+    a owl:Class ;
+    rdfs:label "In-Memory Hardware Device Driver"@en ;
+    rdfs:subClassOf :Driver .
+
+:Driver
+    a owl:Class ;
+    rdfs:label "In-Memory Device Driver Code"@en ;
+    rdfs:subClassOf :MemoryArtifact .
+
+:EventHook
+    a owl:Class ;
+    rdfs:comment "Event hooks connect a process to an event-driven object, such as a UI window, allowing code to respond when an event (such as a button press, or window update) occurs within that object"@en ;
+    rdfs:label "Event Hook"@en ;
+    rdfs:seeAlso "http://volatility-labs.blogspot.com/2012/09/movp-31-detecting-malware-hooks-in.html"@en ;
+    rdfs:subClassOf :MemoryArtifact .
+
+:FileSystemDriver
+    a owl:Class ;
+    rdfs:label "In-Memory File System Driver"@en ;
+    rdfs:subClassOf :Driver .
+
+:FileTable
+    a owl:Class ;
+    rdfs:comment "A table of all current file handles within memory"@en ;
+    rdfs:label "Open File Handle Table"@en ;
+    rdfs:subClassOf :MemoryArtifact .
+
+:Function
+    a owl:Class ;
+    rdfs:comment "A function within a piece of code, identified by its calling address in memory"@en ;
+    rdfs:label "Function"@en ;
+    rdfs:subClassOf :MemoryArtifact .
+
+:HookFilter
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "the type of filter used for this message hook. Must be one of WH_CBT, WH_GETMESSAGE or WH_SHELL"@en ;
+    rdfs:label "with filter"@en .
+
+:ImageDate
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "the timestamp the memory image was captured on"@en ;
+    rdfs:domain :MemoryImage ;
+    rdfs:label "Image captured on"@en ;
+    rdfs:range xsd:dateTimeStamp .
+
+:KernelModeApiHook
+    a owl:Class ;
+    rdfs:label "Kernel Mode API Hook"@en ;
+    rdfs:subClassOf :ApiHook .
+
+:MappedFromFile
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain :DataSectionObject, :SharedCacheMap ;
+    rdfs:label "was mapped from file"@en ;
+    rdfs:range filesystem:File .
+
 :MemoryArtifact
-			rdf:type owl:Class ;
-			rdfs:subClassOf owl:Thing ;
-			rdfs:label "Memory Artifact"@en ;
-			rdfs:comment "An Object extracted from the Memory of a Host"@en .
+    a owl:Class ;
+    rdfs:comment "An Object extracted from the Memory of a Host"@en ;
+    rdfs:label "Memory Artifact"@en ;
+    rdfs:subClassOf owl:Thing .
 
+:MemoryImage
+    a owl:Class ;
+    rdfs:comment "a Memory dump from a host"@en ;
+    rdfs:label "Memory Image"@en ;
+    rdfs:subClassOf :MemoryArtifact .
 
-:ApiHook 	
-			rdf:type owl:Class ;
-			rdfs:label "API Hook"@en ;
-			rdfs:subClassOf :MemoryArtifact ;
-			rdfs:comment "An API hook is a registration of additional code into a registered function call, to add additional functionality when applications call that function."@en ;
-			rdfs:seeAlso "https://code.google.com/p/volatility/wiki/CommandReferenceMal22#apihooks"@en .
+:MessageHook
+    a owl:Class ;
+    rdfs:comment "message hooks connect processes to UI elements and desktop sessions"@en ;
+    rdfs:label "Message Hook"@en ;
+    rdfs:subClassOf :MemoryArtifact .
 
-:Atom 
-			rdf:type owl:Class ;
-			rdfs:subClassOf :MemoryArtifact ;
-			rdfs:label "Atom"@en ;
-			rdfs:comment "_RTL_ATOM_TABLE data structures are registered, shared strings in memory, used to identify shared resources such as GUI Windows"@en ;
-			rdfs:seeAlso "https://code.google.com/p/volatility/wiki/CommandReferenceGui22#atomscan"@en .
+:Mutex
+    a owl:Class ;
+    rdfs:comment "Mutes are Mutually Exclusive signals in memory, that allow concurrent processes to access to a resource without conflicting, or that only a single instance of an application runs a once. Mutexs are called Mutants in the Windows OS."@en ;
+    rdfs:label "Mutex"@en ;
+    rdfs:seeAlso "http://computer.forensikblog.de/en/2009/04/searching-for-mutants.html"@en, "https://code.google.com/p/volatility/wiki/CommandReference#mutantscan"@en ;
+    rdfs:subClassOf :MemoryArtifact .
 
-:ClipBoard 
-			rdf:type owl:Class ;
-			rdfs:label "In-Memory Clipboard Object"@en ;
-			rdfs:subClassOf :MemoryArtifact ;
-			rdfs:comment "text or other data temporarily copied into memory by the user."@en .
+:PasswdHash
+    a owl:Class ;
+    rdfs:label "In-Memory Password Hash"@en ;
+    rdfs:subClassOf :MemoryArtifact .
 
-:DataSectionObject 
-			rdf:type owl:Class ;
-			rdfs:label "Data Section Object"@en ;
-			rdfs:subClassOf :MemoryArtifact ; .
+:ProtocolDriver
+    a owl:Class ;
+    rdfs:label "In Memory Network Protocol Driver"@en ;
+    rdfs:subClassOf :Driver .
 
-:Desktop 
-			rdf:type owl:Class ;
-			rdfs:label "Interactive Desktop Session"@en ;
-			rdfs:subClassOf :MemoryArtifact ;
-			rdfs:comment "An interactive Desktop session presents a canvas for applications to draw UI Windows on to. The desktop may be presented to an attached video display unit, or to a remote client over a network connection."@en .
+:SharedCacheMap
+    a owl:Class ;
+    rdfs:label "Shared Cache Map"@en ;
+    rdfs:subClassOf :MemoryArtifact .
 
-:DeviceDriver 
-			rdf:type owl:Class ;
-			rdfs:label "In-Memory Hardware Device Driver"@en ;
-			rdfs:subClassOf :Driver .
+:Timer
+    a owl:Class ;
+    rdfs:label "Timer"@en ;
+    rdfs:subClassOf :MemoryArtifact .
 
-:Driver 
-			rdf:type owl:Class ;
-			rdfs:label "In-Memory Device Driver Code"@en ;
-			rdfs:subClassOf :MemoryArtifact .
+:UserHandle
+    a owl:Class ;
+    rdfs:label "User Handle Object"@en ;
+    rdfs:subClassOf :MemoryArtifact .
 
-:EventHook 
-			rdf:type owl:Class ;
-			rdfs:label "Event Hook"@en ;
-			rdfs:subClassOf :MemoryArtifact ;
-			rdfs:comment "Event hooks connect a process to an event-driven object, such as a UI window, allowing code to respond when an event (such as a button press, or window update) occurs within that object"@en ;
-			rdfs:seeAlso "http://volatility-labs.blogspot.com/2012/09/movp-31-detecting-malware-hooks-in.html"@en .
+:UserModeApiHook
+    a owl:Class ;
+    rdfs:label "User Mode API Hook"@en ;
+    rdfs:subClassOf :ApiHook .
 
-:FileSystemDriver 
-			rdf:type owl:Class ;
-			rdfs:label "In-Memory File System Driver"@en ;
-			rdfs:subClassOf :Driver .
+:Window
+    a owl:Class ;
+    rdfs:label "GUI Window Memory Object"@en ;
+    rdfs:subClassOf :MemoryArtifact .
 
-:FileTable 
-			rdf:type owl:Class ;
-			rdfs:label "Open File Handle Table"@en ;
-			rdfs:subClassOf :MemoryArtifact ;
-			rdfs:comment "A table of all current file handles within memory"@en .
+:boundToThread
+    a owl:ObjectProperty ;
+    rdfs:domain :Mutex ;
+    rdfs:range process:Thread .
 
-:Function 
-			rdf:type owl:Class ;
-			rdfs:label "Function"@en ;
-			rdfs:subClassOf :MemoryArtifact ;
-			rdfs:comment "A function within a piece of code, identified by its calling address in memory"@en .
+:cmdhistory
+    a owl:Class ;
+    rdfs:label "Command History Object"@en ;
+    rdfs:subClassOf :MemoryArtifact .
 
-:KernelModeApiHook 
-			rdf:type owl:Class ;
-			rdfs:label "Kernel Mode API Hook"@en ;
-			rdfs:subClassOf :ApiHook .
+:executedFile
+    a owl:ObjectProperty ;
+    rdfs:comment "the command history in memory shows that this file was previously executed"@en ;
+    rdfs:domain :cmdhistory ;
+    rdfs:label "records execution of"@en ;
+    rdfs:range filesystem:File, filesystem:FileName .
 
-:MemoryImage 
-			rdf:type owl:Class ;
-			rdfs:label "Memory Image"@en ;
-			rdfs:subClassOf :MemoryArtifact ;
-			rdfs:comment "a Memory dump from a host"@en .
+:fromLibrary
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain :Function ;
+    rdfs:label "from library"@en ;
+    rdfs:range process:Library .
 
-:MessageHook 
-			rdf:type owl:Class ;
-			rdfs:label "Message Hook"@en ;
-			rdfs:subClassOf :MemoryArtifact ;
-			rdfs:comment "message hooks connect processes to UI elements and desktop sessions"@en .
+:hasAddress
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:domain :Function, :Mutex ;
+    rdfs:label "has physical memory address"@en ;
+    rdfs:range :MemoryAddressPhy32, :MemoryAddressPhy64, :MemoryAddressVirt32, :MemoryAddressVirt64 .
 
-:Mutex 
-			rdf:type owl:Class ;
-       		rdfs:label "Mutex"@en ;
-			rdfs:subClassOf :MemoryArtifact ;
-			rdfs:comment "Mutes are Mutually Exclusive signals in memory, that allow concurrent processes to access to a resource without conflicting, or that only a single instance of an application runs a once. Mutexs are called Mutants in the Windows OS."@en ;
-			rdfs:seeAlso "http://computer.forensikblog.de/en/2009/04/searching-for-mutants.html"@en ,
-                    "https://code.google.com/p/volatility/wiki/CommandReference#mutantscan"@en .
-
-:PasswdHash 
-			rdf:type owl:Class ;
-            rdfs:label "In-Memory Password Hash"@en ;
-            rdfs:subClassOf :MemoryArtifact .
-
-
-:ProtocolDriver 
-			rdf:type owl:Class ;
-			rdfs:label "In Memory Network Protocol Driver"@en ;
-			rdfs:subClassOf :Driver .
-
-:SharedCacheMap 
-			rdf:type owl:Class ;
-			rdfs:label "Shared Cache Map"@en ;
-			rdfs:subClassOf :MemoryArtifact .
-
-:Timer 
-			rdf:type owl:Class ;
-			rdfs:label "Timer"@en ;
-			rdfs:subClassOf :MemoryArtifact .
-
-:UserHandle 
-			rdf:type owl:Class ;
-            rdfs:label "User Handle Object"@en ;
-            rdfs:subClassOf :MemoryArtifact .
-
-:UserModeApiHook 
-			rdf:type owl:Class ;
-			rdfs:label "User Mode API Hook"@en ;
-			rdfs:subClassOf :ApiHook .
-
-:Window 		
-			rdf:type owl:Class ;
-			rdfs:label "GUI Window Memory Object"@en ;
-			rdfs:subClassOf :MemoryArtifact .
-
-:cmdhistory 
-			rdf:type owl:Class ;
-            rdfs:label "Command History Object"@en ;
-            rdfs:subClassOf :MemoryArtifact .
-
-:inMemoryBlock 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "is in Memory Block"@en ; 
-			rdfs:subPropertyOf mere:directlyPartOf ;
-			rdfs:domain :MemoryArtifact ;
-			rdfs:range memory:MemoryBlock .
-
-:MappedFromFile 
-			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
-			rdfs:label "was mapped from file"@en ;
-			rdfs:domain :DataSectionObject ,  :SharedCacheMap ;
-			rdfs:range filesystem:File .
-
-:boundToThread 
-			rdf:type owl:ObjectProperty ;
-			rdfs:domain :Mutex ;
-			rdfs:range process:Thread . 
-
-:executedFile 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "records execution of"@en ;
-			rdfs:comment "the command history in memory shows that this file was previously executed"@en ;
-			rdfs:domain :cmdhistory ;
-			rdfs:range filesystem:File , filesystem:FileName .
-
-:fromLibrary 
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "from library"@en ;
-			rdfs:domain :Function ;
-			rdfs:range process:Library .
-
-:hasFileTable 
-			rdf:type owl:FunctionalProperty , owl:InverseFunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "has file table"@en ;
-			rdfs:comment "the list of current open file handles"@en ;
-			rdfs:range :FileTable ;
-			rdfs:domain :MemoryImage, host:Host .
+:hasFileTable
+    a owl:FunctionalProperty, owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the list of current open file handles"@en ;
+    rdfs:domain host:Host, :MemoryImage ;
+    rdfs:label "has file table"@en ;
+    rdfs:range :FileTable .
 
 :hasFunction
-			rdf:type owl:InverseFunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "provides function"@en ;
-			rdfs:domain process:Library ;
-			rdfs:range :Function ;
-			owl:inverseOf :fromLibrary .
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain process:Library ;
+    rdfs:label "provides function"@en ;
+    rdfs:range :Function ;
+    owl:inverseOf :fromLibrary .
 
-:hasProcessList 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "has process list"@en;
-			rdfs:comment "the process list at the moment in time this memory snapshot was taken"@en ;
-			rdfs:domain :MemoryImage ;
-			rdfs:range process:ProcessList .
-
-:hookedByProcess 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "used by process"@en ;
-			rdfs:comment "a running process this memory object is used by"@en ;
-			rdfs:domain :ApiHook ;
-			rdfs:range process:Process .
-
-:hooksIntoFunction 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "hooks into function"@en ;
-			rdfs:comment "the function that has had additional code appended to."@en ;
-			rdfs:domain :ApiHook ;
-			rdfs:range :Function .
-
-:imagedAs 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "has memory snapshot"@en ;
-			rdfs:comment "this host has a dump of its memory contents available"@en ;
-			rdfs:domain host:Host ;
-			rdfs:range :MemoryImage ; 
-			owl:inverseOf :takenFromHost .
-
-:importsFunction 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "uses library function"@en ;
-			rdfs:comment "when a process loads a library file, the system will track which functions are used (imported) from the library"@en ;
-			rdfs:domain process:Process ;
-			rdfs:range :Function ;
-			rdfs:domain process:Process .
-
-:isImportedBy
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "is called by process"@en ;
-			rdfs:comment "this function is used by the code of this process."@en ;
-			rdfs:domain :Function ;
-			rdfs:range process:Process ;
-			owl:inverseOf :importsFunction .
-
-:showsExecution 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "shows Execution"@en ;
-			rdfs:domain :MemoryArtifact ;
-			rdfs:range filesystem:Executable .
-
-:takenFromHost 
-			rdf:type owl:FunctionalProperty , owl:ObjectProperty ;
-			rdfs:label "was captured from Host"@en ;
-			rdfs:comment "the host this memory image was snapshotted from"@en ;
-			rdfs:domain :MemoryImage ;
-			rdfs:range host:Host .
-
-:ClipboardContent 
-			rdf:type owl:DatatypeProperty ;
-			rdfs:label "has copied content"@en ;
-			rdfs:domain :ClipBoard ;
-			rdfs:range xsd:string .
-
-:HookFilter 
-			rdf:type owl:DatatypeProperty ,
-			owl:FunctionalProperty ;
-            rdfs:label "with filter"@en ;
-            rdfs:comment "the type of filter used for this message hook. Must be one of WH_CBT, WH_GETMESSAGE or WH_SHELL"@en .
-
-:ImageDate 
-			rdf:type owl:DatatypeProperty ,owl:FunctionalProperty ;
-			rdfs:label "Image captured on"@en ;
-			rdfs:comment "the timestamp the memory image was captured on"@en ;
-			rdfs:domain :MemoryImage ;
-			rdfs:range xsd:dateTimeStamp .
-
-:hasAddress 
-			rdf:type owl:DatatypeProperty ,   owl:FunctionalProperty ;
-            rdfs:label "has physical memory address"@en ;
-            rdfs:domain :Function , :Mutex ;
-            rdfs:range :MemoryAddressPhy64 ,  :MemoryAddressPhy32 , :MemoryAddressVirt64 , :MemoryAddressVirt32.
+:hasProcessList
+    a owl:ObjectProperty ;
+    rdfs:comment "the process list at the moment in time this memory snapshot was taken"@en ;
+    rdfs:domain :MemoryImage ;
+    rdfs:label "has process list"@en ;
+    rdfs:range process:ProcessList .
 
 :hasProcessTable
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "has these running processes"@en ;
-			rdfs:comment "the process table at the time the memory image snapshot was created"@en ;
-			rdfs:domain :MemoryImage ;
-			rdfs:range process:ProcessTable .
+    a owl:ObjectProperty ;
+    rdfs:comment "the process table at the time the memory image snapshot was created"@en ;
+    rdfs:domain :MemoryImage ;
+    rdfs:label "has these running processes"@en ;
+    rdfs:range process:ProcessTable .
+
+:hookedByProcess
+    a owl:ObjectProperty ;
+    rdfs:comment "a running process this memory object is used by"@en ;
+    rdfs:domain :ApiHook ;
+    rdfs:label "used by process"@en ;
+    rdfs:range process:Process .
+
+:hooksIntoFunction
+    a owl:ObjectProperty ;
+    rdfs:comment "the function that has had additional code appended to."@en ;
+    rdfs:domain :ApiHook ;
+    rdfs:label "hooks into function"@en ;
+    rdfs:range :Function .
+
+:imagedAs
+    a owl:ObjectProperty ;
+    rdfs:comment "this host has a dump of its memory contents available"@en ;
+    rdfs:domain host:Host ;
+    rdfs:label "has memory snapshot"@en ;
+    rdfs:range :MemoryImage ;
+    owl:inverseOf :takenFromHost .
+
+:importsFunction
+    a owl:ObjectProperty ;
+    rdfs:comment "when a process loads a library file, the system will track which functions are used (imported) from the library"@en ;
+    rdfs:domain process:Process ;
+    rdfs:label "uses library function"@en ;
+    rdfs:range :Function .
+
+:inMemoryBlock
+    a owl:ObjectProperty ;
+    rdfs:domain :MemoryArtifact ;
+    rdfs:label "is in Memory Block"@en ;
+    rdfs:range memory:MemoryBlock ;
+    rdfs:subPropertyOf mere:directlyPartOf .
+
+:isImportedBy
+    a owl:ObjectProperty ;
+    rdfs:comment "this function is used by the code of this process."@en ;
+    rdfs:domain :Function ;
+    rdfs:label "is called by process"@en ;
+    rdfs:range process:Process ;
+    owl:inverseOf :importsFunction .
+
+:showsExecution
+    a owl:ObjectProperty ;
+    rdfs:domain :MemoryArtifact ;
+    rdfs:label "shows Execution"@en ;
+    rdfs:range filesystem:Executable .
+
+:takenFromHost
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the host this memory image was snapshotted from"@en ;
+    rdfs:domain :MemoryImage ;
+    rdfs:label "was captured from Host"@en ;
+    rdfs:range host:Host .
+

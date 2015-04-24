@@ -9,7 +9,6 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix nic: <http://www.invincea.com/ontologies/icas/1.0/nic#> .
 @prefix oui: <http://www.invincea.com/ontologies/icas/1.0/oui#> .
 @prefix user: <http://www.invincea.com/ontologies/icas/1.0/user#> .
@@ -20,104 +19,100 @@
 @prefix process: <http://www.invincea.com/ontologies/icas/1.0/process#> .
 @prefix osplatform: <http://www.invincea.com/ontologies/icas/1.0/osplatform#> .
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/host#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/host> .
 
-<http://www.invincea.com/ontologies/icas/1.0/host> 
-			rdf:type owl:Ontology ;
-			rdfs:label "Computing Host Ontology"@en ;
-			rdfs:comment "Describes discrete computing Hosts"@en ;
-			dc:description "Describes discrete computing Hosts"@en ;
-    		owl:versionInfo "1.0" ;
-    		dc:creator "Invincea Labs"@en ;
-    		dc:date "2014" ;
-			owl:imports <http://www.invincea.com/ontologies/icas/1.0/hardware> ,
-						<http://www.invincea.com/ontologies/icas/1.0/nic> ,
-						<http://www.invincea.com/ontologies/icas/1.0/osplatform> ,
-						<http://www.invincea.com/ontologies/icas/1.0/user> .
+<http://www.invincea.com/ontologies/icas/1.0/host>
+    dc:creator "Invincea Labs"@en ;
+    dc:date "2014" ;
+    dc:description "Describes discrete computing Hosts"@en ;
+    a owl:Ontology ;
+    rdfs:comment "Describes discrete computing Hosts"@en ;
+    rdfs:label "Computing Host Ontology"@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/hardware>, <http://www.invincea.com/ontologies/icas/1.0/nic>, <http://www.invincea.com/ontologies/icas/1.0/osplatform>, <http://www.invincea.com/ontologies/icas/1.0/user> ;
+    owl:versionInfo "1.0" .
 
-			
-:UsedByUser 
-			rdf:type owl:ObjectProperty ;
-			rdfs:label "is used by"@en ;
-			rdfs:comment "authenticated activity from this user has been observed on this host."@en ;
-			rdfs:domain :Host ;
-			rdfs:range user:UserAccount .
-
-:existsAs 
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "exists as device"@en ;
-			rdfs:comment "the physical or virtual hardware underlying the operating system of this host"@en ;
-			rdfs:range hardware:ComputingMachine ;
-			rdfs:domain :Host .
-
-:hasAgent 
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "has TAPIO Agent"@en ;
-			rdfs:domain :Host ;
-			tapio:signaturePriority 1 ; 
-			rdfs:range tapio:Agent .
-
-:hasFileSystemRoot 
-			rdf:type owl:InverseFunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "has a filesystem root at"@en ;
-			rdfs:comment "a root (top-level) Directory from while the system may access file resources by names relative to"@en ;
-			owl:inverseOf filesystem:isFilesystemRootOn ;
-			rdfs:domain :Host ;
-			rdfs:range filesystem:Directory .
-
-:hasNIC 
-			rdf:type owl:InverseFunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "has network interface"@en ;
-			rdfs:comment "this host is bonded to a network interface. Hosts may have many network interfaces, and many hosts may utilize a NIC in some abstracted way, but only a single host can have direct (driver-level control) of the device."@en ;
-			rdfs:domain :Host ;
-			rdfs:range nic:NIC .
-
-:hasProcessList 
-			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
-			rdfs:label "has Process List"@en ;
-			rdfs:domain :Host ;
-			rdfs:range process:ProcessList ;
-			owl:inverseOf process:onHost .
-
-:hostName 
-			rdf:type owl:DatatypeProperty ,   owl:FunctionalProperty ;
-			rdfs:label "has host name"@en ;
-			rdfs:comment "the internal hostname this system refers to itself as. May differ from other name-based systems (such as DNS)."@en ;
-			rdfs:domain :Host ;
-			tapio:signaturePriority 4 ; 
-			rdfs:range xsd:string .
-                    
 :Host
-			rdf:type owl:Class ;
-			rdfs:label "Host"@en ;
-			rdfs:comment "A single host, as an abstract concept. Hosts are the intersection between hardware (physical or virtual), an instance of an operating system and associated software.  Can also be though of as a code execution compartment - a kernel with associated single process table."@en .
+    a owl:Class ;
+    rdfs:comment "A single host, as an abstract concept. Hosts are the intersection between hardware (physical or virtual), an instance of an operating system and associated software.  Can also be though of as a code execution compartment - a kernel with associated single process table."@en ;
+    rdfs:label "Host"@en .
 
-:IPenabledDevice 
-			rdf:type owl:Class ;
-			rdfs:label "IP Enabled Device"@en ;
-			rdfs:comment "A TCP/IP Connected Device that does not fall into the idea of a general computing machine"@en ;                
-			rdfs:subClassOf :Host .
+:IPenabledDevice
+    a owl:Class ;
+    rdfs:comment "A TCP/IP Connected Device that does not fall into the idea of a general computing machine"@en ;
+    rdfs:label "IP Enabled Device"@en ;
+    rdfs:subClassOf :Host .
 
-:Infrastructure 
-			rdf:type owl:Class ;
-			rdfs:label "Infrastructure Host"@en ;
-			rdfs:comment "A Host that is a critical piece of the surrounding infrastructure - typically a router, switch or other connectivity device"@en ;                   
-			rdfs:subClassOf :Host .
+:Infrastructure
+    a owl:Class ;
+    rdfs:comment "A Host that is a critical piece of the surrounding infrastructure - typically a router, switch or other connectivity device"@en ;
+    rdfs:label "Infrastructure Host"@en ;
+    rdfs:subClassOf :Host .
 
-:Mobile 
-			rdf:type owl:Class ;
-			rdfs:label "Mobile Host"@en ;
-			rdfs:comment "A Physically mobile device that is expected to move from network to networ with some regularity"@en ;  
-			rdfs:subClassOf :Host .
+:Mobile
+    a owl:Class ;
+    rdfs:comment "A Physically mobile device that is expected to move from network to networ with some regularity"@en ;
+    rdfs:label "Mobile Host"@en ;
+    rdfs:subClassOf :Host .
 
-:Server 
-			rdf:type owl:Class ;
-			rdfs:label "Server Host"@en ;
-			rdfs:comment "A Host that is expected to be at a predictable location or address, providing network services to a number of client hosts"@en ; 
-			rdfs:subClassOf :Host .
+:Server
+    a owl:Class ;
+    rdfs:comment "A Host that is expected to be at a predictable location or address, providing network services to a number of client hosts"@en ;
+    rdfs:label "Server Host"@en ;
+    rdfs:subClassOf :Host .
 
-:Workstation 
-			rdf:type owl:Class ;
-			rdfs:label "Workstation Host"@en ;
-			rdfs:subClassOf :Host ;
-			rdfs:comment "A machine intended to be used locally, by a single primary user, from a fixed location and network"@en .
+:UsedByUser
+    a owl:ObjectProperty ;
+    rdfs:comment "authenticated activity from this user has been observed on this host."@en ;
+    rdfs:domain :Host ;
+    rdfs:label "is used by"@en ;
+    rdfs:range user:UserAccount .
+
+:Workstation
+    a owl:Class ;
+    rdfs:comment "A machine intended to be used locally, by a single primary user, from a fixed location and network"@en ;
+    rdfs:label "Workstation Host"@en ;
+    rdfs:subClassOf :Host .
+
+:existsAs
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the physical or virtual hardware underlying the operating system of this host"@en ;
+    rdfs:domain :Host ;
+    rdfs:label "exists as device"@en ;
+    rdfs:range hardware:ComputingMachine .
+
+:hasAgent
+    tapio:signaturePriority 1 ;
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain :Host ;
+    rdfs:label "has TAPIO Agent"@en ;
+    rdfs:range tapio:Agent .
+
+:hasFileSystemRoot
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "a root (top-level) Directory from while the system may access file resources by names relative to"@en ;
+    rdfs:domain :Host ;
+    rdfs:label "has a filesystem root at"@en ;
+    rdfs:range filesystem:Directory ;
+    owl:inverseOf filesystem:isFilesystemRootOn .
+
+:hasNIC
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "this host is bonded to a network interface. Hosts may have many network interfaces, and many hosts may utilize a NIC in some abstracted way, but only a single host can have direct (driver-level control) of the device."@en ;
+    rdfs:domain :Host ;
+    rdfs:label "has network interface"@en ;
+    rdfs:range nic:NIC .
+
+:hasProcessList
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:domain :Host ;
+    rdfs:label "has Process List"@en ;
+    rdfs:range process:ProcessList ;
+    owl:inverseOf process:onHost .
+
+:hostName
+    tapio:signaturePriority 4 ;
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "the internal hostname this system refers to itself as. May differ from other name-based systems (such as DNS)."@en ;
+    rdfs:domain :Host ;
+    rdfs:label "has host name"@en ;
+    rdfs:range xsd:string .
+

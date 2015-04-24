@@ -9,30 +9,28 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/dns-applied#> .
 @prefix dns: <http://www.invincea.com/ontologies/icas/1.0/dns#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/dns-applied> .
 
-<http://www.invincea.com/ontologies/icas/1.0/dns-applied> rdf:type 
-			owl:Ontology ;
-			rdfs:label "DNS Ontology - User Applied Elements"@en ;
-			owl:versionInfo "1.0"@en ;
-			rdfs:comment "This ontology contains additional predicates to the DNS ontology, intended to only be applied manually by a security analyst in the course of their work."@en ;
-			owl:imports <http://www.invincea.com/ontologies/icas/1.0/dns> .
+<http://www.invincea.com/ontologies/icas/1.0/dns-applied>
+    a owl:Ontology ;
+    rdfs:comment "This ontology contains additional predicates to the DNS ontology, intended to only be applied manually by a security analyst in the course of their work."@en ;
+    rdfs:label "DNS Ontology - User Applied Elements"@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/dns> ;
+    owl:versionInfo "1.0"@en .
 
+:CompromisedDomain
+    a owl:Class ;
+    rdfs:label "Compromised Domain"@en ;
+    rdfs:subClassOf dns:Domain .
 
-:CompromisedDomain 
-			rdf:type owl:Class ;
-			rdfs:label "Compromised Domain"@en ;
-			rdfs:subClassOf dns:Domain .
- 	
-:FastFluxDomain 
-			rdf:type owl:Class ;
-			rdfs:label "Fast-Flux Domain"@en ;
-			rdfs:subClassOf dns:Domain .
+:FastFluxDomain
+    a owl:Class ;
+    rdfs:label "Fast-Flux Domain"@en ;
+    rdfs:subClassOf dns:Domain .
 
-:MaliciousDomain 
-			rdf:type owl:Class ;
-			rdfs:label "Malicious Domain"@en ;
-			rdfs:subClassOf dns:Domain .
+:MaliciousDomain
+    a owl:Class ;
+    rdfs:label "Malicious Domain"@en ;
+    rdfs:subClassOf dns:Domain .
+

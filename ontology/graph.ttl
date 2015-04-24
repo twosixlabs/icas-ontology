@@ -4,25 +4,29 @@
 @prefix rdfg: <http://www.w3.org/2004/03/trix/rdfg-1/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 
-<http://www.w3.org/2004/03/trix/rdfg-1/>  a owl:Ontology ;
-    rdfs:label "RDF Graph Ontology"@en ;
-    rdfs:comment "An RDF Ontology of RDF Graph Relationships."@en .
-    
-rdfg:Graph a rdfs:Class ;
-    rdfs:subClassOf mere:Composite ;
+<http://www.w3.org/2004/03/trix/rdfg-1/>
+    a owl:Ontology ;
+    rdfs:comment "An RDF Ontology of RDF Graph Relationships."@en ;
+    rdfs:label "RDF Graph Ontology"@en .
+
+rdfg:Graph
+    a rdfs:Class ;
     rdfs:comment "An RDF graph (with intensional semantics)."@en ;
-    rdfs:label "Graph" .
+    rdfs:label "Graph" ;
+    rdfs:subClassOf mere:Composite .
 
-rdfg:equivalentGraph a rdf:Property ;
+rdfg:equivalentGraph
+    a rdf:Property ;
+    rdfs:comment "The graphs associated with the subject and object are equivalent."@en ;
+    rdfs:domain rdfg:Graph ;
     rdfs:label "equivalent graph" ;
-	rdfs:comment "The graphs associated with the subject and object are equivalent."@en ;
-    rdfs:domain rdfg:Graph ;
-
     rdfs:range rdfg:Graph .
 
-rdfg:subGraphOf a rdf:Property ;
-    rdfs:subPropertyOf mere:directlyPartOf ;
+rdfg:subGraphOf
+    a rdf:Property ;
+    rdfs:comment "The graph associated with the subject is a subgraph of a graph equivalent to that associated with the object." ;
+    rdfs:domain rdfg:Graph ;
     rdfs:label "subgraph of" ;
-	rdfs:comment "The graph associated with the subject is a subgraph of a graph equivalent to that associated with the object." ;
-    rdfs:domain rdfg:Graph ;
-    rdfs:range rdfg:Graph .
+    rdfs:range rdfg:Graph ;
+    rdfs:subPropertyOf mere:directlyPartOf .
+

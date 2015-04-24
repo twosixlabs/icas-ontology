@@ -9,191 +9,186 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
 @prefix oui: <http://www.invincea.com/ontologies/icas/1.0/oui#> .
 @prefix hardware: <http://www.invincea.com/ontologies/icas/1.0/hardware#> .
 @prefix ipnet: <http://www.invincea.com/ontologies/icas/1.0/ipnet#> .
 @prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/nic#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/nic> .
 
-<http://www.invincea.com/ontologies/icas/1.0/nic> 
-			rdf:type owl:Ontology ;
-			rdfs:label "Network Interface Card Ontology"@en ;
-			rdfs:comment "Describes network interface adapters and other virtual layer-2 adapters"@en ;
-			dc:description "Describes network interface adapters and other virtual layer-2 adapters"@en ;
-			owl:versionInfo "1.0" ;
-			dc:creator "Invincea Labs"@en ;
-			dc:date "2014" ;                          
-			owl:imports <http://www.invincea.com/ontologies/icas/1.0/hardware> ,
-						<http://www.invincea.com/ontologies/icas/1.0/host> ,
-						<http://www.invincea.com/ontologies/icas/1.0/ipnet> ,
-						<http://www.invincea.com/ontologies/icas/1.0/oui> .
-			
-:NIC 
-			rdf:type owl:Class ;
-			rdfs:label "Network Interface Card"@en ;
-			rdfs:comment "A Device, created either in hardware or software, that allows an operating system to communicate with other hosts"@en .
+<http://www.invincea.com/ontologies/icas/1.0/nic>
+    dc:creator "Invincea Labs"@en ;
+    dc:date "2014" ;
+    dc:description "Describes network interface adapters and other virtual layer-2 adapters"@en ;
+    a owl:Ontology ;
+    rdfs:comment "Describes network interface adapters and other virtual layer-2 adapters"@en ;
+    rdfs:label "Network Interface Card Ontology"@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/hardware>, <http://www.invincea.com/ontologies/icas/1.0/host>, <http://www.invincea.com/ontologies/icas/1.0/ipnet>, <http://www.invincea.com/ontologies/icas/1.0/oui> ;
+    owl:versionInfo "1.0" .
 
-:Ethernet 
-			rdf:type owl:Class ;
-			rdfs:label "Ethernet"@en ;
-			rdfs:comment "Ethernet interfaces provide single-circuit-multiple-access frame-based communication between local area hosts"@en ;			
-			rdfs:subClassOf :NIC .
+<http://www.invincea.com/ontologies/icas/1.0/nic#802_11>
+    a owl:Class ;
+    rdfs:comment "802.11 describes local area network interfaces that communicate via packet radio"@en ;
+    rdfs:label "Wireless Ethernet Interface"@en ;
+    rdfs:subClassOf :Ethernet .
 
-:802_11 
-			rdf:type owl:Class ;
-			rdfs:label "Wireless Ethernet Interface"@en ;
-			rdfs:comment "802.11 describes local area network interfaces that communicate via packet radio"@en ;
-			rdfs:subClassOf :Ethernet .
-
-:802_3 
-			rdf:type owl:Class ;
-			rdfs:label "Wired Ethernet Interface"@en ;
-			rdfs:comment "802.3 describes local area network interfaces that communicate via 4-wire cable"@en ;			
-			rdfs:subClassOf :Ethernet .
-
-:FDDI 
-			rdf:type owl:Class ;
-			rdfs:label "Fiber Distrbuted Data Interface"@en ;
-			rdfs:comment "FDDI is a dual-ring system over optical cables, often used for interconnect between networking devices"@en ;
-			rdfs:subClassOf :NIC .
-
-:FrameRelay 
-			rdf:type owl:Class ;
-			rdfs:label "Frame Relay CSU/DSU"@en ;
-			rdfs:comment "Frame Relay is a common wide area network interface, supporting multiple virtual circuits over the same line"@en ;
-			rdfs:subClassOf :NIC .
+<http://www.invincea.com/ontologies/icas/1.0/nic#802_3>
+    a owl:Class ;
+    rdfs:comment "802.3 describes local area network interfaces that communicate via 4-wire cable"@en ;
+    rdfs:label "Wired Ethernet Interface"@en ;
+    rdfs:subClassOf :Ethernet .
 
 :ATM
-			rdf:type owl:Class ;
-			rdfs:label "Asynchronous Transfer Mode"@en ;
-			rdfs:comment "Asynchronous Transfer Mode Interfaces implement "@en ;
-			rdfs:subClassOf :NIC .
+    a owl:Class ;
+    rdfs:comment "Asynchronous Transfer Mode Interfaces implement "@en ;
+    rdfs:label "Asynchronous Transfer Mode"@en ;
+    rdfs:subClassOf :NIC .
 
-:L2TP 
-			rdf:type owl:Class ;
-			rdfs:label "Layer 2 Tunnelling Protocol Interface"@en ;
-			rdfs:comment "Layer 2 Tunnel Protocol is a software-defined network interface used to create virtal network topologies over existing physical networks"@en ;
-			rdfs:subClassOf :PTP .
+:Ethernet
+    a owl:Class ;
+    rdfs:comment "Ethernet interfaces provide single-circuit-multiple-access frame-based communication between local area hosts"@en ;
+    rdfs:label "Ethernet"@en ;
+    rdfs:subClassOf :NIC .
 
-:PTP 
-			rdf:type owl:Class ;
-			rdfs:label "Point-To-Point Interface"@en ;
-			rdfs:comment "Point-To-Point interfaces are software or hardware interfaces that only connect exactly two systems directly to one another"@en ;
-			rdfs:subClassOf :NIC .
+:FDDI
+    a owl:Class ;
+    rdfs:comment "FDDI is a dual-ring system over optical cables, often used for interconnect between networking devices"@en ;
+    rdfs:label "Fiber Distrbuted Data Interface"@en ;
+    rdfs:subClassOf :NIC .
 
-:SONET 
-			rdf:type owl:Class ;
-			rdfs:label "Synchronous Optical Networking Interface"@en ;
-			rdfs:comment "SONET is a combined voice and data interface using optical cables, commonly used in backbone trunking"@en ;
-			rdfs:subClassOf :NIC .
+:FrameRelay
+    a owl:Class ;
+    rdfs:comment "Frame Relay is a common wide area network interface, supporting multiple virtual circuits over the same line"@en ;
+    rdfs:label "Frame Relay CSU/DSU"@en ;
+    rdfs:subClassOf :NIC .
 
-:hasIPaddress 
-			rdf:type owl:InverseFunctionalProperty ,   owl:ObjectProperty ;
-			rdfs:label "has IP Address"@en ;
-			rdfs:comment "An IP Address must be attached to a network adapter (whether physical or virtual) to enable communication via that address. Pairings of addresses to Interfaces must be unique within a network."@en ;
-			rdfs:range ipnet:Address ;
-			rdfs:domain :NIC .
+:L2TP
+    a owl:Class ;
+    rdfs:comment "Layer 2 Tunnel Protocol is a software-defined network interface used to create virtal network topologies over existing physical networks"@en ;
+    rdfs:label "Layer 2 Tunnelling Protocol Interface"@en ;
+    rdfs:subClassOf :PTP .
 
-:hasNIC 
-			rdf:type owl:InverseFunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "has Network Interface"@en ;
-			rdfs:comment "this host has the following network interface available"@en ;
-			rdfs:range :NIC ;
-			rdfs:domain host:Host ;
-			owl:inverseOf :onHost .
+:MAC
+    a rdfs:Datatype ;
+    rdfs:comment "The standard 48-bit hexadecimal address scheme used to assign a globally unique identifier to network interfaces"@en ;
+    rdfs:label "Media Access Control Address"@en .
 
-:hasOUI 
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "manufactured by"@en ;
-			rdfs:comment "the first portion of a MAC address is a unique sequence assigned to a particular manufacturer, to prevent MAC address collisions between network cards created by different companies."@en ;
-			rdfs:domain :NIC ;
-			rdfs:range oui:OUI .
+:NIC
+    a owl:Class ;
+    rdfs:comment "A Device, created either in hardware or software, that allows an operating system to communicate with other hosts"@en ;
+    rdfs:label "Network Interface Card"@en .
 
-:isHardware 
-			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
-			rdfs:label "exists as hardware device"@en ;
-			rdfs:comment "the physical electronics that implement this network interface."@en ;
-			rdfs:range hardware:Communications ;
-			rdfs:domain :NIC .
+:PTP
+    a owl:Class ;
+    rdfs:comment "Point-To-Point interfaces are software or hardware interfaces that only connect exactly two systems directly to one another"@en ;
+    rdfs:label "Point-To-Point Interface"@en ;
+    rdfs:subClassOf :NIC .
 
-:onHost 
-			rdf:type owl:FunctionalProperty ,   owl:ObjectProperty ;
-			rdfs:label "on Host"@en ;
-			rdfs:comment "the Host this Network card connects to."@en ;
-			rdfs:domain :NIC ;
-			tapio:signaturePriority 1 ; 
-			rdfs:range host:Host ;
-			owl:inverseOf :hasNIC .
+:SONET
+    a owl:Class ;
+    rdfs:comment "SONET is a combined voice and data interface using optical cables, commonly used in backbone trunking"@en ;
+    rdfs:label "Synchronous Optical Networking Interface"@en ;
+    rdfs:subClassOf :NIC .
 
-:hasMAC 
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:label "has MAC address"@en ;
-			rdfs:comment "this interface is uniquely identified by the following 48-bit Media Access Control Address"@en ;			
-			rdfs:domain :Ethernet ;
-			tapio:signaturePriority 2 ; 
-			rdfs:range :MAC .
+:hasIPaddress
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "An IP Address must be attached to a network adapter (whether physical or virtual) to enable communication via that address. Pairings of addresses to Interfaces must be unique within a network."@en ;
+    rdfs:domain :NIC ;
+    rdfs:label "has IP Address"@en ;
+    rdfs:range ipnet:Address .
 
-:inBytes 
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:label "Received Bytes"@en ;
-			rdfs:comment "The number of bytes successfully recieved by this interface since it was brought online"@en ;			
-			rdfs:domain :NIC ;
-			rdfs:range xsd:unsignedLong .
+:hasMAC
+    tapio:signaturePriority 2 ;
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "this interface is uniquely identified by the following 48-bit Media Access Control Address"@en ;
+    rdfs:domain :Ethernet ;
+    rdfs:label "has MAC address"@en ;
+    rdfs:range :MAC .
 
-:inDrops 
-			rdf:type owl:DatatypeProperty ,   owl:FunctionalProperty ;
-			rdfs:label "Inbound Dropped Packets"@en ;
-			rdfs:comment "The number of bytes unsuccessfully recieved by this interface since it was brought online"@en ;			
-			rdfs:domain :NIC ;
-			rdfs:range xsd:unsignedLong .
+:hasNIC
+    a owl:InverseFunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "this host has the following network interface available"@en ;
+    rdfs:domain host:Host ;
+    rdfs:label "has Network Interface"@en ;
+    rdfs:range :NIC ;
+    owl:inverseOf :onHost .
 
-:inErrors 
-			rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
-			rdfs:label "Inbound Errors"@en ;
-			rdfs:comment "The number of errors reported while recieving data by this interface since it was brought online"@en ;			
-			rdfs:domain :NIC ;
-			rdfs:range xsd:unsignedLong .
+:hasOUI
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the first portion of a MAC address is a unique sequence assigned to a particular manufacturer, to prevent MAC address collisions between network cards created by different companies."@en ;
+    rdfs:domain :NIC ;
+    rdfs:label "manufactured by"@en ;
+    rdfs:range oui:OUI .
 
-:inPackets 
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:label "Recieved Packets"@en ;
-			rdfs:comment "The number of network packets recieved by this interface since it was brought online"@en ;
-			rdfs:domain :NIC ;
-			rdfs:range xsd:unsignedLong .
+:inBytes
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The number of bytes successfully recieved by this interface since it was brought online"@en ;
+    rdfs:domain :NIC ;
+    rdfs:label "Received Bytes"@en ;
+    rdfs:range xsd:unsignedLong .
 
-:outBytes 
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:label "Transmitted Bytes"@en ;
-			rdfs:comment "The number of bytes successfully transmitted by this interface since it was brought online"@en ;			
-			rdfs:domain :NIC ;
-			rdfs:range xsd:unsignedLong .
+:inDrops
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The number of bytes unsuccessfully recieved by this interface since it was brought online"@en ;
+    rdfs:domain :NIC ;
+    rdfs:label "Inbound Dropped Packets"@en ;
+    rdfs:range xsd:unsignedLong .
 
-:outDrops 
-			rdf:type owl:DatatypeProperty ,   owl:FunctionalProperty ;
-			rdfs:label "Outbound Dropped Packets"@en ;
-			rdfs:comment "The number of network packets unsuccessfully transmitted by this interface since it was brought online"@en ;			
-			rdfs:domain :NIC ;
-			rdfs:range xsd:unsignedLong .
+:inErrors
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The number of errors reported while recieving data by this interface since it was brought online"@en ;
+    rdfs:domain :NIC ;
+    rdfs:label "Inbound Errors"@en ;
+    rdfs:range xsd:unsignedLong .
 
-:outErrors 
-			rdf:type owl:DatatypeProperty ,   owl:FunctionalProperty ;
-			rdfs:label "Outbound Errors"@en ;
-			rdfs:comment "The number of errors reported while recieving data by this interface since it was brought online"@en ;			
-			rdfs:domain :NIC ;
-			rdfs:range xsd:unsignedLong .
+:inPackets
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The number of network packets recieved by this interface since it was brought online"@en ;
+    rdfs:domain :NIC ;
+    rdfs:label "Recieved Packets"@en ;
+    rdfs:range xsd:unsignedLong .
 
-:outPackets 
-			rdf:type owl:DatatypeProperty ,  owl:FunctionalProperty ;
-			rdfs:label "Outbound Packets"@en ;
-			rdfs:comment "The number of network packets successfully transmitted by this interface since it was brought online"@en ;
-			rdfs:domain :NIC ;
-			rdfs:range xsd:unsignedLong .
+:isHardware
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the physical electronics that implement this network interface."@en ;
+    rdfs:domain :NIC ;
+    rdfs:label "exists as hardware device"@en ;
+    rdfs:range hardware:Communications .
 
-:MAC 
-			rdf:type rdfs:Datatype ;
-			rdfs:label "Media Access Control Address"@en ;
-			rdfs:comment "The standard 48-bit hexadecimal address scheme used to assign a globally unique identifier to network interfaces"@en .
+:onHost
+    tapio:signaturePriority 1 ;
+    a owl:FunctionalProperty, owl:ObjectProperty ;
+    rdfs:comment "the Host this Network card connects to."@en ;
+    rdfs:domain :NIC ;
+    rdfs:label "on Host"@en ;
+    rdfs:range host:Host ;
+    owl:inverseOf :hasNIC .
+
+:outBytes
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The number of bytes successfully transmitted by this interface since it was brought online"@en ;
+    rdfs:domain :NIC ;
+    rdfs:label "Transmitted Bytes"@en ;
+    rdfs:range xsd:unsignedLong .
+
+:outDrops
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The number of network packets unsuccessfully transmitted by this interface since it was brought online"@en ;
+    rdfs:domain :NIC ;
+    rdfs:label "Outbound Dropped Packets"@en ;
+    rdfs:range xsd:unsignedLong .
+
+:outErrors
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The number of errors reported while recieving data by this interface since it was brought online"@en ;
+    rdfs:domain :NIC ;
+    rdfs:label "Outbound Errors"@en ;
+    rdfs:range xsd:unsignedLong .
+
+:outPackets
+    a owl:DatatypeProperty, owl:FunctionalProperty ;
+    rdfs:comment "The number of network packets successfully transmitted by this interface since it was brought online"@en ;
+    rdfs:domain :NIC ;
+    rdfs:label "Outbound Packets"@en ;
+    rdfs:range xsd:unsignedLong .
 

@@ -9,32 +9,30 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/software-applied#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/software-applied> .
 
-<http://www.invincea.com/ontologies/icas/1.0/software-applied> rdf:type owl:Ontology ;
-                                                 rdfs:label "Software Ontology - User Applied Elements"@en ;
-                                                 owl:versionInfo "1.0"@en ;
-                                                 rdfs:comment "This ontology contains additional predicates to the Software ontology, intended to only be applied manually by a security analyst in the course of their work."@en ;
-                                                 owl:imports <http://www.invincea.com/ontologies/icas/1.0/software> .
+<http://www.invincea.com/ontologies/icas/1.0/software-applied>
+    a owl:Ontology ;
+    rdfs:comment "This ontology contains additional predicates to the Software ontology, intended to only be applied manually by a security analyst in the course of their work."@en ;
+    rdfs:label "Software Ontology - User Applied Elements"@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/software> ;
+    owl:versionInfo "1.0"@en .
 
-:ApprovedSoftware 
-			rdf:type owl:Class ;
-			rdfs:label "Approved Software"@en ;
-			rdfs:subClassOf :Product ;
-			owl:disjointWith :MaliciousSoftware , :UnapprovedSoftware .
+:ApprovedSoftware
+    a owl:Class ;
+    rdfs:label "Approved Software"@en ;
+    rdfs:subClassOf :Product ;
+    owl:disjointWith :MaliciousSoftware, :UnapprovedSoftware .
 
-:RestrictedSoftware 
-			rdf:type owl:Class ;
-			rdfs:label "Restricted Software"@en ; 
-			rdfs:subClassOf :Product ;
-			owl:disjointWith :ApprovedSoftware , 
-                                    :UnapprovedSoftware .
+:RestrictedSoftware
+    a owl:Class ;
+    rdfs:label "Restricted Software"@en ;
+    rdfs:subClassOf :Product ;
+    owl:disjointWith :ApprovedSoftware, :UnapprovedSoftware .
 
-:UnapprovedSoftware 
-			rdf:type owl:Class ;
-			rdfs:label "Unapproved Software"@en ;
-			rdfs:subClassOf :Product ;
-			owl:disjointWith :ApprovedSoftware , :UnapprovedSoftware .
+:UnapprovedSoftware
+    a owl:Class ;
+    rdfs:label "Unapproved Software"@en ;
+    rdfs:subClassOf :Product ;
+    owl:disjointWith :ApprovedSoftware, :UnapprovedSoftware .
 

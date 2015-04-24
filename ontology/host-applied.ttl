@@ -9,22 +9,19 @@
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
 @prefix : <http://www.invincea.com/ontologies/icas/1.0/host-applied#> .
 @prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
-@base <http://www.invincea.com/ontologies/icas/1.0/host-applied> .
 
-<http://www.invincea.com/ontologies/icas/1.0/host-applied> 
-			rdf:type owl:Ontology ;
-			rdfs:label "Host Ontology "@en ;
-			owl:versionInfo "1.0"@en ;
-			rdfs:comment "This ontology contains additional predicates to the Host ontology, intended to only be applied manually by a security analyst in the course of their work."@en ;
-			owl:imports <http://www.invincea.com/ontologies/icas/1.0/host> .
+<http://www.invincea.com/ontologies/icas/1.0/host-applied>
+    a owl:Ontology ;
+    rdfs:comment "This ontology contains additional predicates to the Host ontology, intended to only be applied manually by a security analyst in the course of their work."@en ;
+    rdfs:label "Host Ontology "@en ;
+    owl:imports <http://www.invincea.com/ontologies/icas/1.0/host> ;
+    owl:versionInfo "1.0"@en .
 
-
-:CompromisedHost 
-			rdf:type owl:Class ;                 
-			rdfs:label "Compromised Host"@en ;
-			rdfs:subClassOf host:Host ;
-			rdfs:comment "This host is under the control of a hostile party"@en .
+:CompromisedHost
+    a owl:Class ;
+    rdfs:comment "This host is under the control of a hostile party"@en ;
+    rdfs:label "Compromised Host"@en ;
+    rdfs:subClassOf host:Host .
 
