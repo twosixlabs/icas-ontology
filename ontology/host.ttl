@@ -99,7 +99,8 @@
     rdfs:comment "this host is bonded to a network interface. Hosts may have many network interfaces, and many hosts may utilize a NIC in some abstracted way, but only a single host can have direct (driver-level control) of the device."@en ;
     rdfs:domain :Host ;
     rdfs:label "has network interface"@en ;
-    rdfs:range nic:NIC .
+    rdfs:range nic:NIC ;
+    owl:inverseOf nic:onHost .
 
 :hasProcessList
     a owl:FunctionalProperty, owl:ObjectProperty ;
