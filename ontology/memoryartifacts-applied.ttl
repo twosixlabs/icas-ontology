@@ -1,0 +1,15 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.invincea.com/ontologies/icas/1.0/memoryartifacts-applied#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.invincea.com/ontologies/icas/1.0/memoryartifacts-applied> .
+
+<http://www.invincea.com/ontologies/icas/1.0/memoryartifacts-applied> 
+			rdf:type owl:Ontology ;
+			rdfs:label "Memory Artifacts Ontology - User-Applied Axioms"@en ;
+			owl:versionInfo "1.0"@en ;
+			rdfs:comment "This ontology contains additional predicates to the MemoryArtifacts ontology, intended to only be applied manually by a security analyst in the course of their work."@en ;
+			owl:imports <http://www.invincea.com/ontologies/icas/1.0/memoryartifacts> .
+

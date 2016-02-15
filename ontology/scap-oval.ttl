@@ -1,0 +1,14 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://www.invincea.com/ontologies/icas/1.0/scap-oval#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.invincea.com/ontologies/icas/1.0/scap-oval> .
+
+<http://www.invincea.com/ontologies/icas/1.0/scap-oval> 
+			rdf:type owl:Ontology ;
+			rdfs:label "SCAP Open Vulnerability and Assessment Language Ontology"@en ;
+			owl:versionInfo "1.0" .
+

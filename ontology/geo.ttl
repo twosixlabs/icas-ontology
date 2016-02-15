@@ -1,0 +1,80 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix dc: <http://purl.org/dc/elements/1.1/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix owl2: <http://www.w3.org/2006/12/owl2#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix swrlx: <http://www.w3.org/2003/11/swrlx#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+@prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
+@prefix : <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@base <http://www.w3.org/2003/01/geo/wgs84_pos> .
+
+<http://www.w3.org/2003/01/geo/wgs84_pos>
+			rdf:type owl:Ontology ;
+			dc:date "$Date: 2009/04/20 15:00:30 $" ;
+			dc:description 
+"""A vocabulary for representing latitude, longitude and 
+altitude information in the WGS84 geodetic reference datum. 
+Version $Id: wgs84_pos.rdf,v 1.22 2009/04/20 15:00:30 timbl Exp $. See http://www.w3.org/2003/01/geo/ for more details."""@en ;
+			dc:title "WGS84 Geo Positioning: an RDF vocabulary" ;    		
+			rdfs:label "geo" .
+
+			
+:SpatialThing
+			rdf:type owl:Class ;       
+			rdfs:subClassOf owl:Thing ;
+			rdfs:comment """Anything with spatial extent, i.e. size, shape, or position. e.g. people, places, bowling balls, as well as abstract areas like cubes. """@en ;
+			rdfs:label "SpatialThing" .
+
+:Point
+			rdf:type owl:Class ;       
+			rdfs:comment """A point, typically described using a coordinate system relative to Earth, such as WGS84."""@en ;
+			rdfs:label "point"@en ;
+			rdfs:subClassOf :SpatialThing .
+
+:location
+			rdf:type owl:FunctionalProperty ,  owl:ObjectProperty ;
+			rdfs:comment """The relation between something and the point, 
+ or other geometrical thing in space, where it is.  For example, the realtionship between
+ a radio tower and a Point with a given lat and long.
+ Or a relationship between a park and its outline as a closed arc of points, or a road and
+ its location as a arc (a sequence of points).
+ Clearly in practice there will be limit to the accuracy of any such statement, but one would expect
+ an accuracy appropriate for the size of the object and uses such as mapping .
+ """ ;
+			rdfs:label "location"@en ;
+			rdfs:domain owl:Thing ;
+			rdfs:range :SpatialThing ;
+			rdfs:subPropertyOf <http://xmlns.com/foaf/0.1/based_near> .
+
+:alt
+			rdf:type owl:FunctionalProperty ,  owl:DatatypeProperty  ;
+			rdfs:comment """The WGS84 altitude of a SpatialThing (decimal meters above the local reference ellipsoid)."""@en ;
+			rdfs:domain :SpatialThing ;
+			rdfs:range xsd:decimal ;
+			rdfs:label "altitude"@en .
+
+:lat
+			rdf:type owl:FunctionalProperty ,  owl:DatatypeProperty ;
+			rdfs:comment "The WGS84 latitude of a SpatialThing (decimal degrees)."@en ;
+			rdfs:domain :SpatialThing ;
+			rdfs:range xsd:decimal ;
+			rdfs:label "latitude"@en .
+
+:long
+			rdf:type owl:FunctionalProperty ,  owl:DatatypeProperty ;
+			rdfs:comment "The WGS84 longitude of a SpatialThing (decimal degrees)." ;
+			rdfs:domain :SpatialThing ;
+			rdfs:range xsd:decimal ;
+			rdfs:label "longitude"@en .
+
+
+
+

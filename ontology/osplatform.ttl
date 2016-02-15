@@ -1,0 +1,214 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix dc: <http://purl.org/dc/elements/1.1/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix owl2: <http://www.w3.org/2006/12/owl2#> .
+@prefix swrlx: <http://www.w3.org/2003/11/swrlx#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+@prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
+@prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
+@prefix : <http://www.invincea.com/ontologies/icas/1.0/osplatform#> .
+@base <http://www.invincea.com/ontologies/icas/1.0/osplatform> .
+
+<http://www.invincea.com/ontologies/icas/1.0/osplatform> 
+			rdf:type owl:Ontology ;                                           
+			rdfs:label "Operating Systems and Platforms Ontology"@en ;
+			rdfs:comment "Elements relating to the combination of hardware and software that describe the software environment provided by a host." ;                                           
+			dc:description "Elements relating to the combination of hardware and software that describe the software environment provided by a host."@en ;
+			owl:versionInfo "1.0" ;
+			dc:creator: "Invincea Labs"@en ;
+			dc:date "2014" .
+
+			
+:installedOS 
+			rdf:type owl:ObjectProperty , owl:FunctionalProperty;             
+			rdfs:domain host:Host ;
+			rdfs:range :OS ;
+			rdfs:label "Installed Operating System"@en ;
+			tapio:signaturePriority 1 ; 
+			rdfs:comment ""@en .
+
+:OS 
+			rdf:type owl:Class ;
+			rdfs:label "Operating System"@en ;
+			rdfs:comment "A specific release of an Operating System"@en .
+
+:hasOSFamily 
+			rdf:type owl:ObjectProperty, owl:FunctionalProperty ;
+			rdfs:domain :OS ;
+			rdfs:range :OSFamily ;
+			tapio:signaturePriority 2 ;
+			rdfs:label "The family this operating system belongs to"@en.
+
+:OSFamily 
+			rdf:type owl:Class ;
+			rdfs:subClassOf owl:Thing ;
+			rdfs:label "Operating System Family"@en ;
+			rdfs:comment "A Family of Operating System versions"@en .
+
+:Platform 
+			rdf:type owl:Class ;
+			rdfs:subClassOf owl:Thing ;
+			rdfs:label "Platform"@en ;
+			rdfs:comment "A Platform is a combination of operating system family, release and underlying hardware, that determines the environment in which software executes"@en .
+
+:AIX	
+			rdf:type :OSFamily ,   owl:NamedIndividual ;
+			rdfs:label "AIX"@en ;
+			rdfs:comment ""@en .
+
+:AS400 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "AS/400"@en ;
+			rdfs:comment ""@en .
+
+:Android 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "Android"@en ;
+			rdfs:comment ""@en .
+
+:BSD 
+			rdf:type :OSFamily ,   owl:NamedIndividual ;
+			rdfs:label "BSD"@en ;
+			rdfs:comment ""@en .
+
+:CatOS 
+			rdf:type :OSFamily ,   owl:NamedIndividual ;
+			rdfs:label "CatOS"@en ;
+			rdfs:comment ""@en .
+
+:Contiki 
+			rdf:type :OSFamily ,   owl:NamedIndividual ;
+			rdfs:label "Contiki"@en ;
+			rdfs:comment ""@en .
+
+:Darwin 
+			rdf:type :OSFamily ,   owl:NamedIndividual ;
+			rdfs:label "Darwin"@en ;
+			rdfs:comment ""@en .
+
+:DEOS 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "DEOS"@en ;
+			rdfs:comment ""@en .
+
+:GCOS 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "GCOS"@en ;
+			rdfs:comment ""@en .
+
+:HPUX 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "HP/UX"@en ;
+			rdfs:comment ""@en .
+
+:HeartOS 	
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "HeartOS"@en ;
+			rdfs:comment ""@en .
+
+:IOS 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "IOS"@en ;
+			rdfs:comment ""@en .
+
+:IOS-XR 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "IOS-XR"@en ;
+			rdfs:comment ""@en .
+
+:IPhoneOS 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "IPhoneOS"@en ;
+			rdfs:comment ""@en .
+
+:IRIX 
+			rdf:type :OSFamily , owl:NamedIndividual ;
+			rdfs:label "IRIX"@en ;
+			rdfs:comment ""@en .
+
+:IronWare 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "IronWare"@en ;
+			rdfs:comment ""@en .
+
+:JunOS 
+			rdf:type :OSFamily , owl:NamedIndividual ;
+			rdfs:label "JunOS"@en ;
+			rdfs:comment ""@en .
+
+:Linux 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "Linux"@en ;
+			rdfs:comment ""@en .
+
+:MINIX 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "Minix"@en ;
+			rdfs:comment ""@en .
+
+:MSDOS 
+			rdf:type :OSFamily , owl:NamedIndividual ;
+			rdfs:label "MS-DOS"@en ;
+			rdfs:comment ""@en .
+
+:NetBSD 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "NetBSD"@en ;
+			rdfs:comment ""@en .
+
+:Nonstop 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "NonStop"@en ;
+			rdfs:comment ""@en .
+
+:OSX 
+			rdf:type :OSFamily ,   owl:NamedIndividual ;
+			rdfs:label "OSX"@en ;
+			rdfs:comment ""@en .
+
+:OpenVMS 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "OpenVMS"@en ;
+			rdfs:comment ""@en .
+
+:RISCOS 
+			rdf:type :OSFamily , owl:NamedIndividual ;
+			rdfs:label "RISCOS"@en ;
+			rdfs:comment ""@en .
+
+:RTOS 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "RTOS"@en ;
+			rdfs:comment ""@en .
+
+:ScreenOS 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "ScreenOS"@en ;
+			rdfs:comment ""@en .
+
+:Solaris
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "Solaris"@en ;
+			rdfs:comment ""@en .
+
+:Symbian 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "Symbian"@en ;
+			rdfs:comment ""@en .
+
+:Ultrix 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "Ultrix"@en ;
+			rdfs:comment ""@en .
+
+:Windows 
+			rdf:type :OSFamily ,  owl:NamedIndividual ;
+			rdfs:label "Windows"@en ;
+			rdfs:comment ""@en .
+

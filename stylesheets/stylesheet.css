@@ -423,3 +423,14 @@ Small Device Styles
   }
 
 }
+
+#tooltip {
+    opacity: 0;
+    z-index: 1005;
+    position: fixed;
+    display: none;
+
+    #tt-body {
+    max-width: 400px;
+    };
+}

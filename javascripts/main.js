@@ -48,14 +48,14 @@ function setLinkLabels(sel) {
   });
 }
 
-var docExploreCtrl = function($scope, SockJSService, $timeout, $q, $state, $stateParams) {
+var docExploreCtrl = function($scope, $timeout, $q) {
 
   $scope.datafile = null;
   $scope.startingNodeSelected = null;
   $scope.endingNodeSelected = null;
 
   $scope.svgConfig = { 
-    width: 960,
+    width: 600,
     height: 600,
     nodeRadius: 10,
     nodeSubclassRadius: 15,
@@ -145,21 +145,16 @@ var docExploreCtrl = function($scope, SockJSService, $timeout, $q, $state, $stat
   $scope.fetchRemoteData = function() {
     var deferred = $q.defer();
 
-    var req = {
-      domain: "ontology",
-      request: "graph_data",
-      payload: {}
-    };
+    d3.json("/ontology.json", function(err, data) {
+      if (err !== null) {
+            console.log("Error: " + err);
+            deferred.reject(err);
+      }
+      else {
+      deferred.resolve(data)
+      }
+    });
 
-    SockJSService.request(req).then(
-        function(graph_data) {
-            deferred.resolve(graph_data)
-        },
-        function(error) {
-            console.log("Error: " + error);
-            deferred.reject(error);
-         }
-    );
     return deferred.promise;
   };
 
@@ -667,11 +662,11 @@ var docExploreCtrl = function($scope, SockJSService, $timeout, $q, $state, $stat
       tt = d3.select('#tooltip')
       .style('left', function(d, i) { 
         var coord =  (d3.event.pageX - window.pageXOffset) + (Math.cos(i * (Math.PI/6)) *  30) ;
-        return coord;
+        return "" + coord + "px";
       })
       .style('top', function(d, i) {
         var coord = (d3.event.pageY -  window.pageYOffset) + (Math.sin(i * (Math.PI/6)) *  30);
-        return coord;
+        return "" + coord + "px";
       })
       .style('opacity', 0.95)
       .style('display', 'block');

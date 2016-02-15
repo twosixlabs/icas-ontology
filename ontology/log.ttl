@@ -1,0 +1,385 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix dc: <http://purl.org/dc/elements/1.1/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix owl2: <http://www.w3.org/2006/12/owl2#> .
+@prefix swrlx: <http://www.w3.org/2003/11/swrlx#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix mere: <http://www.bbn.com/ontologies/domain/foundation/mereology#> .
+@prefix tapio: <http://www.invincea.com/ontologies/icas/1.0/tapio#> .
+@prefix host: <http://www.invincea.com/ontologies/icas/1.0/host#> .
+@prefix ipnet: <http://www.invincea.com/ontologies/icas/1.0/ipnet#> .
+@prefix process: <http://www.invincea.com/ontologies/icas/1.0/process#> .
+@prefix software: <http://www.invincea.com/ontologies/icas/1.0/software#> .
+@prefix filesystem: <http://www.invincea.com/ontologies/icas/1.0/filesystem#> .
+@prefix controls: <http://www.invincea.com/ontologies/icas/1.0/controls#> .
+@prefix authentication: <http://www.invincea.com/ontologies/icas/1.0/authentication#> .
+@prefix user: <http://www.invincea.com/ontologies/icas/1.0/user#> .
+@prefix uri: <http://www.invincea.com/ontologies/icas/1.0/uri#> .
+
+
+@prefix : <http://www.invincea.com/ontologies/icas/1.0/log#> .
+@base <http://www.invincea.com/ontologies/icas/1.0/log> .
+
+<http://www.invincea.com/ontologies/icas/1.0/log> 
+			rdf:type owl:Ontology ;
+			rdfs:label "Log and Events Ontology"@en ;
+			rdfs:comment "describes point-in-time events from software"@en ;
+			dc:description "describes point-in-time events from software"@en ;
+    		owl:versionInfo "1.0" ;
+    		dc:creator: "Invincea Labs"@en ;
+    		dc:date "2014" .
+			
+:Log 
+			rdf:type owl:Class ;
+			rdfs:subClassOf mere:Composite;
+			rdfs:label "Log"@en ;
+			rdfs:comment "a collection of event records ordered by time"@en ;
+			rdfs:subClassOf owl:Thing .
+
+:EventLog 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Log ;
+			rdfs:label "Windows EventLog format log"@en ;
+			rdfs:comment "Microsoft's Windows EventLog format log, using semi-structured data"@en .
+
+:Syslog 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Log ;
+			rdfs:label "Syslog format Log"@en ;
+			rdfs:comment "the classic text-only log format, typically with a single line per log entry (although modern formats do support multiline formatting)"@en .
+
+:LogEntry
+			rdf:type owl:Class ;
+			rdfs:subClassOf event:Event ;
+			rdfs:label "Log Entry"@en ;
+			rdfs:comment "An event within a log source"@en .
+
+:ShutdownEvent            
+            rdf:type owl:Class ;
+            rdfs:subClassOf event:Event ;
+            rdfs:label "Shutdown Event"@en ;
+            rdfs:comment "The system was shut down at this time"@en .
+
+:RebootEvent            
+            rdf:type owl:Class ;
+            rdfs:subClassOf event:Event ;
+            rdfs:label "Reboot Event"@en ;
+            rdfs:comment "The system was rebooted or restarted at this time"@en .
+
+:logContent 
+			rdf:type rdfs:Datatype ;
+			rdfs:label "Log Entry Content"@en ;
+			rdfs:comment "The raw content of a log entry, taken directly from the log source itself."@en ;
+			rdfs:domain :Log ;
+			rdfs:range xsd:string .
+
+:fromLog
+			rdf:type owl:FunctionalProperty ,owl:ObjectProperty ;
+			rdfs:subPropertyOf mere:partOf ;
+			rdfs:label "is recorded in log"@en ;
+			rdfs:comment "The log this entry was extracted from"@en ;
+			rdfs:subPropertyOf event:factor ;
+			rdfs:domain :LogEntry ;
+			rdfs:range :Log ;
+			owl:inverseOf :hasEntry .
+
+:hasEntry
+			rdf:type owl:ObjectProperty ;
+			rdfs:subPropertyOf mere:hasPart ;
+			rdfs:label "has entry"@en ;
+			rdfs:comment "An individual, timestamped event recorded within this log"@en ;
+			rdfs:subPropertyOf event:factor_of ;
+			rdfs:domain :Log ;
+			rdfs:range :LogEntry ;
+			owl:inverseOf :fromLog .
+
+:fromPackage 
+			rdf:type owl:FunctionalProperty ,owl:ObjectProperty ;
+			rdfs:label "from software package"@en ;
+			rdfs:comment "the software package this log records events from"@en ;
+			rdfs:domain :Log ;
+			rdfs:range software:Package .
+
+:fromProcess 
+			rdf:type owl:ObjectProperty ;
+			rdfs:label "was generated from process"@en ;
+			rdfs:comment "the individual process this log records events from"@en ;
+			rdfs:domain :Log ;
+			rdfs:range process:Process .
+
+:logLocation
+			rdf:type owl:ObjectProperty ;
+			rdfs:label "the location of this Log"@en ;
+			rdfs:comment "The canonical location this log can be accessed from"@en ;
+			rdfs:domain :Log ;
+			rdfs:range filesystem:FileName , filesystem:Directory, uri:Uri , host:Host .
+
+:fromHost
+			rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+			rdfs:label "describes events on this host"@en ;
+			rdfs:comment "The source of this log or event - the viewpoint from which these events were generated from"@en ;
+			rdfs:domain :Log ;
+			tapio:signaturePriority 1 ; 
+			rdfs:range host:Host , ipnet:Address .
+
+:fromControl 
+			rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+			rdfs:label "contains alert from Control"@en ;
+			rdfs:comment "This log contains records from a Security Control"@en ;
+			rdfs:domain :Log ;
+			rdfs:range controls:Control .
+
+:referencesURI	
+			rdf:type owl:ObjectProperty ;
+			rdfs:label "contains a URI"@en ;
+			rdfs:comment "This log entry contains a discrete URI"@en ;
+			rdfs:subPropertyOf event:factor ;
+			rdfs:domain :LogEntry ;
+			rdfs:range uri:Uri .
+
+:isAlertfromControl
+			rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+			rdfs:subPropertyOf :FromControl ;
+			rdfs:label "is an alert from control"@en ;
+			rdfs:comment "This log entry is an alert from a security Control"@en ;
+			rdfs:subPropertyOf event:factor ;
+			rdfs:domain :LogEntry ;
+			rdfs:range controls:Alert .
+
+:isActionFromControl
+			rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+			rdfs:subPropertyOf :FromControl ;
+			rdfs:label "is an action from control"@en ;
+			rdfs:comment "This log entry is an action from a security control"@en ;
+			rdfs:subPropertyOf event:factor ;
+			rdfs:domain :LogEntry ;
+			rdfs:range host:Host .
+
+:hasContent 
+			rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+			rdfs:label "original log content"@en ;
+			rdfs:comment "The original, unprocessed content of this log entry."@en ;
+			rdfs:subPropertyOf event:factor ;
+			rdfs:domain :LogEntry ;
+			tapio:signaturePriority 2 ;
+			rdfs:range :logContent .
+
+:Operation 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :LogEntry ;
+			rdfs:label "Operation Event"@en ;
+			rdfs:comment "a software-specific operation event. These will vary greatly depending upon the purpose of the software the event is recorded from."@en .
+
+:OperationFailed
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Operation ;
+			rdfs:label "Operation Failed Event"@en ;
+			rdfs:comment "The software-specific operation described here failed to complete."@en .
+
+:OperationDenied
+			rdf:type owl:Class ;
+			rdfs:subClassOf :LogEntry ;
+			rdfs:label "Operation Denied Event"@en ;
+			rdfs:comment "The software-specific operation described here was specifically denied to be allowed to complete."@en .
+
+:OperationSuccess
+			rdf:type owl:Class ;
+			rdfs:subClassOf :LogEntry ;
+			rdfs:label "Operation Succeeded Event"@en ;
+			rdfs:comment "The software-specific operation described here completed successfully."@en .
+
+:Request
+			rdf:type owl:Class ;
+			rdfs:subClassOf :LogEntry ;
+			rdfs:label "Request Event"@en ;
+			rdfs:comment "This log entry describes a request for service"@en .
+
+:requester
+			rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+			rdfs:label "the source of the request"@en ;
+			rdfs:comment "The entity making the request described in this log entry"@en ;
+			rdfs:subPropertyOf event:agent ;
+			rdfs:domain :Request ;
+			rdfs:range host:Host , user:UserAccount , ipnet:Address, process:Process .
+
+
+:Response
+			rdf:type owl:Class ;
+			rdfs:subClassOf :LogEntry ;
+			rdfs:label "Response Event"@en ;
+			rdfs:comment "This log entry describes a response to a request for service"@en .
+
+:responder
+			rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+			rdfs:label "the target of the request"@en ;
+			rdfs:comment "The entity making the response to a request described in this log entry"@en ;
+			rdfs:subPropertyOf event:factor ;
+			rdfs:domain :Response ;
+			rdfs:range host:Host , ipnet:Address, process:Process .
+
+
+
+:AccessRequest 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Request ;
+			rdfs:label "Access Request Event"@en ;
+			rdfs:comment "This log entry describes a request for access to a resource."@en .
+
+:AuthenticationRequest 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Request ;
+			rdfs:label "Authentication Request Event"@en ;
+			rdfs:comment "This log entry describes a request to uniquely identify the source, usually via credentials"@en .
+
+:AuthorizationRequest 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Request ;
+			rdfs:label "Authorization Request Event"@en ;
+			rdfs:comment "This log entry describes a request to be granted access to particular (class of) services or resources"@en .
+
+
+:AuthenticationResponse 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Response ;
+			rdfs:label "Authentication Response Event"@en ;
+			rdfs:comment "This is a response to a request for Authentication - typically in response to credentials presented during that request"@en .
+
+:AuthenticationDenied
+			rdf:type owl:Class ;
+			rdfs:subClassOf :AuthenticationResponse ;
+			rdfs:label "Authentication Denied Event"@en ;
+			rdfs:comment "The authentication request was specifically denied - typically because of incorrect credentials in the request"@en .
+
+:AuthenticationFailed
+			rdf:type owl:Class ;
+			rdfs:subClassOf :AuthenticationResponse ;
+			rdfs:label "Authentication Failed Event"@en ;
+			rdfs:comment "The authentication request failed to process - typically because of an error in the authentication mechanism"@en .
+			
+:SuccessfulAuthentication
+			rdf:type owl:Class ;
+			rdfs:subClassOf :AuthenticationResponse ;
+			rdfs:label "Authentication Succeeded Event"@en ;
+			rdfs:comment "The authentication request succeeded and the requester is now successfully identified with the requested identity"@en .
+
+:AuthorizationResponse 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Response ;
+			rdfs:label "Authorization Response"@en ;
+			rdfs:comment "This is a response to a request for Authorization - to grant an authenticated identity permission to access to (a class of) resources"@en .
+
+:AuthorizationSuccessful 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :AuthorizationResponse ;
+			rdfs:label "Authorization Succeeded Event"@en ;
+			rdfs:comment "The authorization request Succeeded - the requesting identity is now authorized to access the requested (class of) resources"@en .
+
+:AuthorizationFailed
+			rdf:type owl:Class ;
+			rdfs:subClassOf :AuthorizationResponse ;
+			rdfs:label "Access Failed Event"@en ;
+			rdfs:comment "The authorization request Failed - the system could not determine if the requesting identity is authorized to access the requested (class of) resources"@en .
+
+:AuthorizationDenied
+			rdf:type owl:Class ;
+			rdfs:subClassOf :AuthorizationResponse ;
+			rdfs:label "Authorization Denied Event"@en ;
+			rdfs:comment "The authorization request was Denied - the requesting identity is not authorized to access the requested (class of) resources"@en .
+
+:AccessResponse 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Response ;
+			rdfs:label "Access Response Event"@en ;
+			rdfs:comment "This is a response to a request for access - usually in response to a request for particular content or service"@en .
+			
+:AccessSuccessful 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :AccessResponse ;
+			rdfs:label "Successful Access Event"@en ;
+			rdfs:comment "The access request was succesful - the requested resource or service has been delivered to the requester"@en .
+
+:AccessFailed 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :AccessResponse ;
+			rdfs:label "Access Failed Event"@en ;
+			rdfs:comment "The access request failed - the requested resource or service is not available"@en .
+
+:AccessDenied 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :AccessResponse ;
+			rdfs:label "Access Denied Event"@en ;
+			rdfs:comment "The access request was denied - the requesting identity is not authorized to use this service or resource"@en .
+
+:Session 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :LogEntry ;
+			rdfs:label "Activity Session"@en ;
+			rdfs:comment "This log event tracks a specific sequence of activity (usually of an interactive nature) from a particular agent (a user, host or other client)."@en .
+
+:SessionClose 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Session ;
+			rdfs:label "Session Closed Event"@en ;
+			rdfs:comment "The session has ended. Typically this indicates any further access will require re-authentication."@en .
+
+:SessionOpen 
+			rdf:type owl:Class ;
+			rdfs:label "Session Opened"@en ;
+			rdfs:subClassOf :Session ;
+			rdfs:comment "A session has been opened. Operations and access from this point on will typically require no further authentication, but authorization events may still occur."@en .
+
+:Configuration 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :LogEntry ;
+			rdfs:label "Configuration Event"@en ;
+			rdfs:comment "This event indicates that a change is being made in some aspect of a system's operational configuration"@en .
+
+:ConfigurationFailed
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Configuration ;
+			rdfs:label "Configuration Failed"@en ;
+			rdfs:comment "An attempt to change the configuration of this system was made, but did not complete successfully"@en .
+
+:ConfigurationSuccessful
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Configuration ;
+			rdfs:label "Configuration Succeeded"@en ;
+			rdfs:comment "The configuration of this system was successfully changed"@en .
+
+:ConfigurationDenied 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Configuration ;
+			rdfs:label "Configuration Denied"@en ;
+			rdfs:comment "An attempt to change the configuration of this system was made, but was rejected"@en .
+
+:Error 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :LogEntry ;
+			rdfs:label "Error Event"@en ;
+			rdfs:comment "This log entry describes an error in a system, encountered during runtime"@en .
+
+:Warning 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Error ;
+			rdfs:label "Recoverable Warning Error"@en ;
+			rdfs:comment "warning errors indicate a recoverable error. they will typically be followed by further attempts at the operation they reference."@en .
+
+:Critical 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Error ;
+			rdfs:label "Non-Recoverable Error"@en ;
+			rdfs:comment "Critical errors indicate a non-recoverable state of an operation - if other functions are dependent on this operation, they too will fail."@en .
+
+:Emergency 
+			rdf:type owl:Class ;
+			rdfs:subClassOf :Error ;
+			rdfs:label "Halting Error"@en ;
+			rdfs:comment "Emergency errors indicate the failure of the entire subsystem"@en .
+
+
+

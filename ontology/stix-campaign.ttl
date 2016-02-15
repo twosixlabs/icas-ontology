@@ -1,0 +1,30 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix dc: <http://purl.org/dc/elements/1.1/#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix owl2: <http://www.w3.org/2006/12/owl2#> .
+@prefix swrlx: <http://www.w3.org/2003/11/swrlx#> .
+@prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+@prefix : <http://www.invincea.com/ontologies/icas/1.0/stix-campaign#> .
+@base <http://www.invincea.com/ontologies/icas/1.0/stix-campaign> .
+
+<http://www.invincea.com/ontologies/icas/1.0/stix-campaign> 
+			rdf:type owl:Ontology ;
+			rdfs:label "STIX Campaign Ontology"@en ;
+			owl:versionInfo "1.0"@en ;
+			rdfs:comment "Ontology described the STIX exchange format for describing campaigns of attack by threat actors"@en ;
+			owl:imports <http://www.invincea.com/ontologies/icas/1.0/stix-core> .
+
+
+:associatedWithThreatActor 
+			rdf:type owl:ObjectProperty .
+
+
+:Campaign 
+			rdf:type owl:Class .
+

@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="description" content="ICAS Ontology : Semantic Description of Information Security Related Information">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/context.standalone.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
     <script src='https://code.jquery.com/jquery-1.12.0.min.js' type='text/javascript'></script>
 
@@ -17,7 +17,8 @@
 		<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js' type='text/javascript'></script>
     <script src="javascripts/svgpanzoom.js" type='text/javascript'></script>
-    <script src="javascripts/contextjs.js" type='text/javascript'></script>
+    <script src="javascripts/dijkstra.js" type='text/javascript'></script>
+    <script src="javascripts/context.js" type='text/javascript'></script>
     <script src="javascripts/main.js" type='text/javascript'></script>
     <title>ICAS Ontology</title>
   </head>
@@ -44,7 +45,12 @@
       <section id="main_content" class="inner">
         <p>This is the unified ICAS ontology designed to describe the
 abstraction of information-security related information as used
-by performers on the DARPA ICAS project.</p>
+by performers on the DARPA ICAS project. You can use the interface below
+        to explore the ontology, or go directly to Github for the Turtle files.</p>
+
+<h2>
+<a id='explore-the-ontology' class="anchor" href="#explore-the-ontology" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Explore the Ontology</h2>
+
 
 <div ng-app='tapioApp' >
   <div ng-controller='exploreCtrl' class='panel panel-default'>
@@ -62,7 +68,7 @@ by performers on the DARPA ICAS project.</p>
         <p class='lead'>Instructions</p>
         <p>
         Select a starting point. A node representing that object class will appear
-        in the graph. Visual indicators are explained to the right.
+        in the view. Visual indicators are explained to the right.
         </p>
         <p>
         Double clicking on data and object properties will expand the node and draw the connection between them.
