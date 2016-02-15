@@ -1,3 +1,5 @@
+---
+---
 (function () {
 
 function pointOnRay(x, y, rad_angle, distance) {
@@ -145,7 +147,7 @@ var docExploreCtrl = function($scope, $timeout, $q) {
   $scope.fetchRemoteData = function() {
     var deferred = $q.defer();
 
-    d3.json("/ontology.json", function(err, data) {
+    d3.json("{{site.github.url}}/ontology.json", function(err, data) {
       if (err !== null) {
             console.log("Error: " + err);
             deferred.reject(err);
