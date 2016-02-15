@@ -1,5 +1,6 @@
 ---
 ---
+
 (function () {
 
 function pointOnRay(x, y, rad_angle, distance) {
