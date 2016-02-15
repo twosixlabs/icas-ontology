@@ -7,7 +7,18 @@
     <meta name="description" content="ICAS Ontology : Semantic Description of Information Security Related Information">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/context.standalone.css">
 
+    <script src='https://code.jquery.com/jquery-1.12.0.min.js' type='text/javascript'></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"> </script>
+		<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js' type='text/javascript'></script>
+    <script src="javascripts/svgpanzoom.js" type='text/javascript'></script>
+    <script src="javascripts/contextjs.js" type='text/javascript'></script>
+    <script src="javascripts/main.js" type='text/javascript'></script>
     <title>ICAS Ontology</title>
   </head>
 
@@ -34,6 +45,140 @@
         <p>This is the unified ICAS ontology designed to describe the
 abstraction of information-security related information as used
 by performers on the DARPA ICAS project.</p>
+
+<div ng-app='tapioApp' >
+  <div ng-controller='exploreCtrl' class='panel panel-default'>
+    <div class='panel-body'>
+      <div>
+      <svg id='renderer' xmlns="http://www.w3.org/2000/svg" style='width:100%; height: 500px'><g class='viewport'></g></svg>
+      </div>
+      <script type='text/javascript'>
+        var x = svgPanZoom.init({'selector': '#renderer', "minZoom": 0.1 });
+      </script>
+    </div>
+    <div class='controls panel-footer' >
+      <div class='row'>
+      <div class='form-horizontal col-md-6'>
+        <p class='lead'>Instructions</p>
+        <p>
+        Select a starting point. A node representing that object class will appear
+        in the graph. Visual indicators are explained to the right.
+        </p>
+        <p>
+        Double clicking on data and object properties will expand the node and draw the connection between them.
+        </p>
+        <p>
+
+        </p>
+        <div class='form-group'>
+          <label class='col-sm-5 control-label'>Select new starting point:</label>
+          <div class='col-sm-7'>
+            <select class='form-control' 
+              ng-disabled='!raw_data'
+              ng-model='startingNodeSelected'
+              ng-options="opt.id for opt in startingPoints | orderBy:'id'"></select>
+          </div>
+        </div>
+        <div class='form-group has-feedback'>
+            <label class='col-sm-5 control-label'>Select (optional) ending point:</label>
+            <div class='col-sm-7'>
+                <select class='form-control'
+                    ng-disabled='!startingNodeSelected'
+                    ng-model='endingNodeSelected'
+                    ng-options="opt.id for opt in endingPoints | orderBy:'id'"></select>
+            </div>
+        </div>
+        <div class='form-group'>
+          <label class='control-label col-sm-5'>
+            Toggle display of interconnecting links
+          </label>
+          <div class='col-sm-7'>
+            <input class='radio-inline' ng-model='filter.auto_interconnect' type='radio' ng-value='trueVal' /> Yes
+            <input class='radio-inline' ng-model='filter.auto_interconnect' type='radio' ng-value='falseVal' />  No
+          </div>
+        </div>
+      </div>
+      <div class='col-md-6'>
+        <div class='panel panel-default'>
+          <table cellspacing='0' class='table legend'>
+            <tbody>
+              <tr>
+                <td>
+                  <svg style='height: 40px; width: 40px' preserveAspectRatio='xMidYMid meet'>
+                    <circle r="10" cx='20' cy='20' >
+                  </svg>
+                </td>
+                <td>
+                  <small>
+                    An objectclass within the ontology</small>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <svg style='height: 40px; width: 40px' preserveAspectRatio='xMidYMid meet'>
+                    <circle r="10" cx='20' cy='20' ></circle>
+                    <circle fill='none' r="15" cx='20' cy='20' stroke='green' stroke-width='2'></circle>
+                  </svg>
+                </td>
+                <td>
+                  <small>
+                    A node with subclasses in the ontology
+                  </small>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <svg style='height: 40px; width: 40px'>
+                    <circle r="5" cx='20' cy='20' fill='green'>
+                  </svg>
+                </td>
+                <td>
+                  <small>
+                    A dataproperty associated with this object class
+                  </small>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <svg style='height: 40px; width: 40px'>
+                    <circle r="5" cx='20' cy='20' fill='blue'>
+                  </svg>
+                </td>
+                <td>
+                  <small>        An objectproperty connecting this class to another class
+                  </small>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <svg style='height: 40px; width: 40px'>
+                    <circle r="5" cx='20' cy='20' fill='purple'>
+                  </svg>
+                </td>
+                <td>
+                  <small>
+                    An objectproperty of that connects this class to itself
+                  </small>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    </div>
+
+  </div>
+</div>
+<div id='tooltip'>
+  <div class='panel panel-default'>
+    <div class='panel-heading' id='tt-heading'>
+    </div>
+    <div id='tt-body'>
+    </div>
+  </div>
+</div>
+
 
 <h2>
 <a id="a-brief-explanation-of-owl-and-rdf" class="anchor" href="#a-brief-explanation-of-owl-and-rdf" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A Brief Explanation of OWL and RDF</h2>

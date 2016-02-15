@@ -1,0 +1,3 @@
+rdflib==4.2.1
+git+https://github.com/invincealabs/tapio_common_v2@1575306671cd0a9819307c1793682a7b384039c9#egg=tapio_common==0.1.7+1.g1575306
+networkx
