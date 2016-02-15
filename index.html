@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="ICAS Ontology : Semantic Description of Information Security Related Information">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>ICAS Ontology</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/invincealabs/icas-ontology">View on GitHub</a>
+
+          <h1 id="project_title">ICAS Ontology</h1>
+          <h2 id="project_tagline">Semantic Description of Information Security Related Information</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/invincealabs/icas-ontology/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/invincealabs/icas-ontology/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>This is the unified ICAS ontology designed to describe the
+abstraction of information-security related information as used
+by performers on the DARPA ICAS project.</p>
+
+<h2>
+<a id="a-brief-explanation-of-owl-and-rdf" class="anchor" href="#a-brief-explanation-of-owl-and-rdf" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A Brief Explanation of OWL and RDF</h2>
+
+<p>The unified ICAS ontology is a collection of
+<a href="http://www.w3.org/TR/owl2-overview/">OWL2</a> ontologies under the
+<code>http://www.invincea.com/ontologies/icas/1.0/</code> namespace. Each
+ontology covers a specific conceptual area; for instance all
+information related to users and user accounts is captured in the
+User ontology.</p>
+
+<p>OWL2 is an ontology description language built on top of the
+<a href="http://www.w3.org/TR/rdf-primer/">Resource Description Framework (RDF)</a>.
+RDF describes a way of storing data that is different from the
+traditional table-based conception. RDF data consists of triples,
+and only triples; each triple, called a <em>statement</em> consists of a
+<em>subject</em>, <em>predicate</em>, and an <em>object</em>.</p>
+
+<p>The <em>subject</em> represents a resource of some kind, the <em>predicate</em>
+a relation, and the <em>object</em> can either be a literal value or
+another resource.</p>
+
+<p>OWL2 and the <a href="http://www.w3.org/TR/rdf-schema/">RDF Schema (RDFS)</a>
+define a set of resources and properties that can be used to
+develop ontologies for RDF datasets.</p>
+
+<h3>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h3>
+
+<p>This section contains some annotated excerpts from the ontologies
+as examples of how to read RDF and OWL. These examples are
+encoded in the <a href="http://www.w3.org/TeamSubmission/turtle/">Terse RDF Triple Langauge (Turtle)</a>,
+just like the ICAS ontology. This is intended only as an
+overview and omits many details</p>
+
+<h5>
+<a id="turtle-primer" class="anchor" href="#turtle-primer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Turtle Primer</h5>
+
+<p>Recall that RDF consists only of <em>statements</em>, each of which is
+composed of a <em>subject</em>, a <em>predicate</em>, and an <em>object</em>. In
+the Turtle encoding, there is a shorthand creating multiple
+statements that uses the <code>;</code> to indicate continuation with the
+same <em>subject</em>. The following example shows how to interpret this
+syntax.</p>
+
+<div class="highlight highlight-source-turtle"><pre><span class="pl-en">&lt;subject&gt;</span> <span class="pl-en">&lt;predicate&gt;</span> <span class="pl-en">&lt;object&gt;</span> ;
+            <span class="pl-en">&lt;predicate&gt;</span> <span class="pl-en">&lt;object&gt;</span> .
+
+<span class="pl-en">&lt;subject-2&gt;</span> <span class="pl-en">&lt;predicate-2&gt;</span> <span class="pl-en">&lt;object-2&gt;</span> .</pre></div>
+
+<h5>
+<a id="useraccount-class" class="anchor" href="#useraccount-class" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UserAccount Class</h5>
+
+<p>This example depicts the UserAccount class from the User
+ontology. It contains five statements in the Turtle syntax,
+all of which share  <code>:UserAccount</code> as the subject.</p>
+
+<div class="highlight highlight-source-turtle"><pre>:UserAccount <span class="pl-k">a</span> owl:Class ;
+    rdfs:comment <span class="pl-s"><span class="pl-pds">"</span>an individual set of credentials.<span class="pl-pds">"</span><span class="pl-c1">@en</span></span> ;
+    rdfs:label <span class="pl-s"><span class="pl-pds">"</span>User<span class="pl-pds">"</span><span class="pl-c1">@en</span></span> ;
+    rdfs:subClassOf owl:Thing .</pre></div>
+
+<p>The first statement <code>:UserAccount a owl:Class</code> states that
+<code>:UserAccount</code> has the type <code>owl:Class</code>. <code>owl:Class</code> is used to
+define types of resources.</p>
+
+<p>The next two statements provide labels and comments - essentially
+annotations - a about <code>:UserAccount</code>. The third statement is
+standard and simply indicates that a <code>:UserAccount</code> is something
+that exists in the world</p>
+
+<h5>
+<a id="datatype-property" class="anchor" href="#datatype-property" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Datatype Property</h5>
+
+<p>Datatype Properties describe the types of literal information
+that can be represented and connected to resources. The following
+excerpt describes the <code>:hasFullName</code> property, which represents
+the concept of a user's display name.</p>
+
+<div class="highlight highlight-source-turtle"><pre>:hasFullName
+    <span class="pl-k">a</span> owl:DatatypeProperty ;
+    rdfs:comment <span class="pl-s"><span class="pl-pds">"</span>and extended name or description, used only for display purposes<span class="pl-pds">"</span><span class="pl-c1">@en</span></span> ;
+    rdfs:label <span class="pl-s"><span class="pl-pds">"</span>has full name<span class="pl-pds">"</span><span class="pl-c1">@en</span></span> ;
+    rdfs:domain :UserAccount ;
+    rdfs:range xsd:string .</pre></div>
+
+<p>The first statement is similar to what we saw before, but this
+time it indicates that <code>:hasFullName</code> is a DatatypeProperty.  The
+comment and label fulfill the same role as in the prior example.</p>
+
+<p>The last two statements <code>:hasFullName rdfs:domain :UserAccount</code>
+and <code>:hasFullName rdfs:range xsd:string</code> represent constraints on
+this property. The former states that only <code>:UserAccounts</code> may be
+the <em>subject</em> of this property. The latter says that the literal
+object value of this property must be of type string.</p>
+
+<h5>
+<a id="object-property" class="anchor" href="#object-property" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Object Property</h5>
+
+<p>Object Properties describe relationships between resources.
+The example below captures the notion of group membership for users
+in computing systems. Note the use of <code>rdfs:domain</code> and
+<code>rdfs:range</code> to constrain the valid <em>subject</em> and <em>objects</em> for
+this <em>predicate</em>.</p>
+
+<div class="highlight highlight-source-turtle"><pre>:memberOfGroup
+    <span class="pl-k">a</span> owl:ObjectProperty ;
+    rdfs:domain :UserAccount ;
+    rdfs:label <span class="pl-s"><span class="pl-pds">"</span>is member of Group<span class="pl-pds">"</span><span class="pl-c1">@en</span></span> ;
+    rdfs:range :Group ;</pre></div>
+
+<h2>
+<a id="file-structure" class="anchor" href="#file-structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>File Structure</h2>
+
+<p>Each of these sub-ontologies is written to a separate file that
+shares the same name as the ontology using the
+<a href="http://www.w3.org/TeamSubmission/turtle/">Terse RDF Triple Langauge (Turtle)</a>
+encoding.  Thus, the User ontology can
+be found in user.ttl and the Authentication ontology can be found
+in authentication.ttl.</p>
+
+<p>Although each file focuses on a specific set of concepts, they
+are not isolated. At the top of each file, a series of namespaces
+describe other ontologies from which that sub-ontology uses concepts.</p>
+
+<h2>
+<a id="tools-for-reading-owl2-ontology-files" class="anchor" href="#tools-for-reading-owl2-ontology-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tools for Reading OWL2 Ontology Files</h2>
+
+<p>While OWL2 ontology files are human readable, the Semantic Web
+community has also developed a wide variety of GUI based tools
+that can be used to read and edit ontology files. Links to a
+selection of these tools can be found on the <a href="http://semanticweb.org/wiki/Category:Ontology_editor">Semantic Web
+Wiki</a></p>
+
+<h2>
+<a id="distribution" class="anchor" href="#distribution" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Distribution</h2>
+
+<p>Distribution Statement “A” (Approved for Public Release, Distribution Unlimited)</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">ICAS Ontology maintained by <a href="https://github.com/invincealabs">invincealabs</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
