@@ -132,7 +132,7 @@
 :DeviceID
     a owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:comment "A Canonical Identity for this specific design of equipment - such as a manufacturers model number"@en ;
-    rdfs:domain :ComputingMachine, :Interface, :Motherboard, :Peripheral, :Processor, :Storage ;
+    rdfs:domain :ComputingMachine, :Interface, :Mainboard, :Peripheral, :Processor, :Storage ;
     rdfs:label "has Device ID"@en ;
     rdfs:range xsd:string .
 
@@ -140,7 +140,7 @@
     tapio:signaturePriority 1 ;
     a owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:comment "A Canonical Identity for this individual piece of equipment - such as a manufacturers serial number"@en ;
-    rdfs:domain :ComputingMachine, :Interface, :Motherboard, :Peripheral, :Processor, :Storage ;
+    rdfs:domain :ComputingMachine, :Interface, :Mainboard, :Peripheral, :Processor, :Storage ;
     rdfs:label "has Serial Numer"@en ;
     rdfs:range xsd:string .
 
