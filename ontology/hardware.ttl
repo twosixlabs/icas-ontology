@@ -240,7 +240,7 @@
 :Manufacturer
     a owl:DatatypeProperty, owl:FunctionalProperty ;
     rdfs:comment "an Identifier for the organization that manufactured this piece of hardware."@en ;
-    rdfs:domain :ComputingMachine, :Interface, :Peripheral ;
+    rdfs:domain :ComputingMachine, :Interface, :Mainboard, :Peripheral, :Processor, :Storage ;
     rdfs:label "has Manufacturer ID"@en ;
     rdfs:range xsd:string .
 
