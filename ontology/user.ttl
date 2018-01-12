@@ -190,7 +190,7 @@
 
 :passwordHash
     a rdfs:Datatype ;
-    rdfs:label "Pssword Hash String"@en .
+    rdfs:label "Password Hash String"@en .
 
 :realmCreated
     a owl:FunctionalProperty, owl:ObjectProperty ;
