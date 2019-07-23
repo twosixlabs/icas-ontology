@@ -62,7 +62,7 @@ develop ontologies for RDF datasets.
 
 This section contains some annotated excerpts from the ontologies
 as examples of how to read RDF and OWL. These examples are
-encoded in the [Terse RDF Triple Langauge (Turtle)] (http://www.w3.org/TeamSubmission/turtle/),
+encoded in the [Terse RDF Triple Langauge (Turtle)](http://www.w3.org/TeamSubmission/turtle/),
 just like the ICAS ontology. This is intended only as an
 overview and omits many details
 
@@ -151,7 +151,7 @@ this *predicate*.
 
 Each of these sub-ontologies is written to a separate file that
 shares the same name as the ontology using the
-[Terse RDF Triple Langauge (Turtle)] (http://www.w3.org/TeamSubmission/turtle/)
+[Terse RDF Triple Langauge (Turtle)](http://www.w3.org/TeamSubmission/turtle/)
 encoding.  Thus, the User ontology can
 be found in user.ttl and the Authentication ontology can be found
 in authentication.ttl.
