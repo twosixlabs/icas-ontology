@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<assembly>
+  <id>ontology</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>true</includeBaseDirectory>
+  <fileSets>
+    <fileSet>
+      <directory>ontology</directory>
+      <fileMode>0644</fileMode>
+      <directoryMode>0644</directoryMode>
+      <outputDirectory></outputDirectory>
+    </fileSet>
+  </fileSets>
+</assembly>
